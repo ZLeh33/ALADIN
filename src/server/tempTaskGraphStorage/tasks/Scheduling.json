@@ -165,10 +165,13 @@
 						"type": "PlanGraph",
 						"name": "Netzplan",
 						"isValid": false,
-						"methods": { "showSolution": {"description": "Zeige Lösung", "impact": 0} },
+						"methods": { "showSolution": { "description": "Zeige Lösung", "impact": 0 } },
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []
+						},
+						"nestedComponents": {
+							"DOTGraph": { "dependencies": { "dotDescription": "taskData__dotVertexGraph" } }
 						},
 						"dependencies": {
 							"DOTGraph": { "dotDescription": "taskData__dotVertexGraph" },
@@ -227,7 +230,7 @@
 						"type": "EditableGraph",
 						"name": "Kalkulation",
 						"isValid": false,
-						"methods": { "showSolution": {"description": "Zeige Lösung", "impact": 0} },
+						"methods": { "showSolution": { "description": "Zeige Lösung", "impact": 0 } },
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []
@@ -235,6 +238,9 @@
 						"component": {
 							"editableFields": ["tb", "fb", "est", "eet", "lst", "let"],
 							"userValues": null
+						},
+						"nestedComponents": {
+							"DOTGraph": { "component": {}, "dependencies": { "dotDescription": "taskData__dummyGraph" } }
 						},
 						"dependencies": {
 							"DOTGraph": { "dotDescription": "taskData__dummyGraph" },
@@ -285,7 +291,7 @@
 						"type": "GanttDiagram",
 						"name": "Gantt",
 						"isValid": false,
-						"methods": { "showSolution": {"description": "Zeige Lösung", "impact": 0} },
+						"methods": { "showSolution": { "description": "Zeige Lösung", "impact": 0 } },
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []

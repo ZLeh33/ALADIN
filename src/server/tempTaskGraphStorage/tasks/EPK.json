@@ -46,7 +46,7 @@
 						"name": "EPK",
 						"isValid": true,
 						"dependencies": {
-							"DOTGraph": { "dotDescription": "taskData__dotDescription" }
+							"dotDescription": "taskData__dotDescription"
 						}
 					},
 					"1": {
@@ -128,7 +128,20 @@
 				"layouts": {
 					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
 					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
-					"lg": [{ "x": 32, "y": 29, "w": 8, "h": 6, "i": 0, "static": false }]
+					"lg": [
+						{
+							"x": 34,
+							"y": 29,
+							"w": 4,
+							"h": 4,
+							"i": 0,
+							"minW": 3,
+							"minH": "4",
+							"preserveAspectRatio": false,
+							"static": false
+						},
+						{ "x": 38, "y": 29, "w": 3, "h": 2, "i": 2, "static": false }
+					]
 				},
 				"modals": [
 					{
@@ -152,14 +165,121 @@
 					"active": false,
 					"current": 0,
 					"descriptions": [
-						"Führe nun eine Zeitanalyse durch. <br>Legende:<br> <ul> <li>FAZ: frühester Anfangszeitpunkt</li> <li>FEZ: frühester Endzeitpunkt</li> <li>SAZ: spätester Anfangszeitpunkt</li> <li>SEZ: spätester Endzeitpunkt</li> <li>GP: Gesamtpuffer</li> <li>FP: freier Puffer</li> </ul>",
-						"Die Zeitanalyse ermöglicht die Ermittlung des kritischen Pfades. <br>Führe dazu zunächst eine Vorwärts- und dann eine Rückwärtskalkulation durch. <br>Ermittle anschließend die Pufferzeiten. <a href=\"https://www.modu-learn.de/verstehen/management/netzplantechnik/\" target='_blank'>Hier</a> findest du eine detaillierte Anleitung.",
-						"Klicke die Felder der Ereignisse, welche mit einem Platzhalter versehen sind, an, um diese editieren zu können."
+						"Modelliere anhand der gegebenen Prozessbeschreibung den Prozess mit Hilfe der EPK-Notation."
 					]
 				},
 				"components": {
 					"0": {
-						"type": "DnDContainer",
+						"type": "ItemPallet",
+						"name": "EPKPallette",
+						"isValid": false,
+						"isCorrect": false,
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"dragElements": {
+								"Event": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Event"
+									},
+									"elementSelector": "Event",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+									}
+								},
+								"Function": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Function"
+									},
+									"elementSelector": "Function",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"rect\" style=\"rounded\" fixedSize=\"false\"]"
+									}
+								},
+								"Gate": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Gate"
+									},
+									"elementSelector": "Gate",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+									}
+								}
+							},
+							"dropZones": {
+								"EPK": {
+									"componentType": "ManipulatableGraph",
+									"props": {},
+									"accept": ["Event", "Function", "Gate"],
+									"dropZoneBehaviour": "StoreDragElement",
+									"droppedElements": []
+								}
+							}
+						},
+						"dependencies": {},
+						"nestedComponents": {
+							"Event": {
+								"type": "DOTGraph",
+								"name": "Event",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Event shape=hexagon] }"
+								},
+								"dependencies": {}
+							},
+							"Function": {
+								"type": "DOTGraph",
+								"name": "Function",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Function shape=rect style=rounded] }"
+								},
+								"dependencies": {}
+							},
+							"Gate": {
+								"type": "DOTGraph",
+								"name": "Gate",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Gate shape=circle] }"
+								},
+								"dependencies": {}
+							},
+							"EPK": {
+								"type": "ManipulatableGraph",
+								"name": "EPK",
+								"isValid": false,
+								"component": {
+									"userGraph": "digraph\n{\n}",
+									"validationData": "",
+									"editableFields": ["label"]
+								},
+								"dependencies": {
+									"droppedElements": "nodes__1__components__0__component__dropZones__EPK__droppedElements",
+									"dragElements": "nodes__1__components__0__component__dragElements"
+								},
+								"nestedComponents": {
+									"DOTGraph": {
+										"type": "DOTGraph",
+										"name": "EPK",
+										"isValid": true,
+										"component": {},
+										"dependencies": {
+											"dotDescription": "taskData__dotDescription"
+										}
+									}
+								}
+							}
+						}
+					},
+					"1": {
+						"type": "ManipulatableGraph",
 						"name": "Modellierung",
 						"isValid": false,
 						"isCorrect": false,
@@ -168,11 +288,59 @@
 							"isOpen": false,
 							"usedMethods": []
 						},
-						"component": {},
+						"component": {
+							"editableFields": ["tb", "fb", "est", "eet", "lst", "let"],
+							"userValues": null
+						},
 						"dependencies": {
-							"DOTGraph": { "dotDescription": "taskData__dummyGraph" },
-							"EditableGraph": { "solution": "taskData__dotDescription", "validation": "taskData__graph__nodes" }
+							"dotDescription": "taskData__dotDescription",
+							"validationData": "taskData__dotDescription"
+						},
+						"nestedComponents": {
+							"DOTGraph": {
+								"type": "DOTGraph",
+								"name": "EPK",
+								"isValid": false,
+								"isCorrect": false,
+								"methods": {},
+								"contextMenu": {
+									"isOpen": false,
+									"usedMethods": []
+								},
+								"dependencies": {
+									"dotDescription": "nodes__1__components__0__component__nestedComponents__EPK__component__userGraph"
+								}
+							}
 						}
+					},
+					"2": {
+						"type": "Output",
+						"name": "Prozessbeschreibung",
+						"isValid": true,
+						"dependencies": {
+							"Output": {
+								"serverOutput": "nodes__1__components__2__component__description",
+								"validOutput": "nodes__1__components__2__component__description"
+							}
+						},
+						"component": {
+							"header": "Prozessbeschreibung",
+							"description": "Nach Eingang der Bestellung wird geprüft, ob das vom Kunden/Händler gewünschte Produkt auf Lager ist. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit. Endet die Prüfung des Bestands mit dem Ergebnis, dass die Produkte nicht bzw. nicht vollständig im Lager vorhanden sind, wird der Produktionsabteilung ein Auftrag zur Fertigung erteilt. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit."
+						}
+					},
+					"3": {
+						"type": "Interact",
+						"name": "DragTest",
+						"isValid": false,
+						"isCorrect": false,
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {},
+						"dependencies": {},
+						"nestedComponents": {}
 					}
 				}
 			}
