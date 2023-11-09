@@ -256,7 +256,7 @@
 								"name": "EPK",
 								"isValid": false,
 								"component": {
-									"userGraph": "digraph\n{\n}",
+									"userGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
 									"validationData": "",
 									"editableFields": ["label"]
 								},
@@ -271,7 +271,7 @@
 										"isValid": true,
 										"component": {},
 										"dependencies": {
-											"dotDescription": "taskData__dotDescription"
+											"dotDescription": "nodes__1__components__0__nestedComponents__EPK__component__userGraph"
 										}
 									}
 								}
