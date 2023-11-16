@@ -79,6 +79,8 @@ export class SQLParser {
 		const visitor = astVisitor((map) => ({
 			// implement here AST parts you want to hook
 			statement: (s) => {
+				// console.dir(s, {depth: null});
+
 				const constituents = ["groupBy", "orderBy", "where", "having"] as unknown as Array<keyof SelectFromStatement>;
 
 				const Is = s as SelectFromStatement;
@@ -380,3 +382,4 @@ const ast = parser.parseSQLToAST([query])[0];
 const constituents = parser.retrieveConstituentCounts(ast);
 
 // console.dir(ast, {depth: null})
+// console.dir(constituents, {depth: null})
