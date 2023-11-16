@@ -45,8 +45,9 @@
 						"name": "Shortest Path",
 						"isValid": true,
 						"dependencies": {
-							"DOTGraph": { "dotDescription": "taskData__dotDescription" }
-						}
+							"dotDescription": "taskData__dotDescription"
+						},
+						"component": {}
 					},
 					"1": {
 						"type": "TaskConfiguration",
@@ -146,7 +147,7 @@
 								"initialControls": "taskData__controlObject"
 							}
 						},
-						"methods": { "solveStep": {"description":  "Nächste Iteration", "impact":  1} },
+						"methods": { "solveStep": { "description": "Nächste Iteration", "impact": 1 } },
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []
@@ -196,6 +197,9 @@
 								"controlObject": "nodes__1__components__0__component__controlObject",
 								"nodes": "taskData__nodes"
 							}
+						},
+						"nestedComponents": {
+							"DOTGraph": { "component": {}, "dependencies": { "dotDescription": "taskData__dotDescription" } }
 						}
 					}
 				}

@@ -256,7 +256,8 @@
 								"name": "EPK",
 								"isValid": false,
 								"component": {
-									"userGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
+									"dotUserGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
+									"userGraph": {},
 									"validationData": "",
 									"editableFields": ["label"]
 								},
