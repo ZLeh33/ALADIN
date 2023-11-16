@@ -6,6 +6,8 @@ import { PgClient } from "../../../database/postgres/postgresDAO";
 import { RNG } from "../../../helpers/NumberGenerators";
 import { QueryGenerator } from "./SemanticSQLGenerator";
 import { performance } from "perf_hooks";
+import path from "path";
+import fs from "fs";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -54,12 +56,22 @@ export const semanticSqlQueryGenerator = async (taskDescription: SQLTaskDescript
 	const { baselineNlQuery, unMaskedNlQuery } = await nlgPipeline.translateQuery(query);
 	const done = performance.now();
 
+	let result = [];
+	try {
+		result = await sqlTaskClient.queryDB(parsedQuery.replace(";", " limit 10;"));
+	} catch (error) {
+		console.log("error");
+	}
+
 	return {
-		query,
-		parsedQuery,
+		structuredQuery: query,
+		query: parsedQuery,
 		nlQuery: unMaskedNlQuery,
 		baselineNlQuery,
 		executionTime: done - start,
+		description: unMaskedNlQuery,
+		result,
+		dotDescription: ""
 	};
 };
 

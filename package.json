@@ -25,6 +25,7 @@
 		"@babel/preset-env": "^7.20.2",
 		"@babel/preset-typescript": "^7.21.0",
 		"@hpcc-js/wasm": "^1.5.2",
+		"@huggingface/inference": "^2.6.4",
 		"@types/cors": "^2.8.8",
 		"@types/dotenv": "^8.2.0",
 		"@types/pg": "^7.14.7",

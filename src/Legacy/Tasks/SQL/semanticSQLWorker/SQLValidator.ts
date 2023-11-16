@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const SQL_TASK_DB = "imdb";
+const SQL_TASK_DB = "task_db";
 
 interface SQLTaskValidationDescription {
 	parameters: {
