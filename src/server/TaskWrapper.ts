@@ -6,6 +6,7 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
+import { clusterAnalysisMain } from "../Tasks/ClusterAnalysis/wrapperFunctionCallPython";
 
 import fs from "fs";
 import path from "path";
@@ -63,6 +64,7 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	clusterAnalysisMain: clusterAnalysisMain,
 };
 
 export interface IInstructionConfiguration {
@@ -127,8 +129,10 @@ export const executeTask = async (instructionConfiguration: IInstructionConfigur
 	// return await parsedFunctions[instruction](instructionConfiguration);
 	try {
 		const { type, instruction } = instructionConfiguration;
+		//console.log(type,instruction,taskWorkers[`${type}Task`]);
 		const func = await taskWorkers[`${type}Task`][instruction];
 		const result = await func(instructionConfiguration);
+		console.log(result);
 		return result;
 	} catch (error) {
 		console.log(error);

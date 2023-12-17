@@ -1,0 +1,43 @@
+import { exec } from 'child_process';
+const path = require("path");
+
+function runPythonScript(scriptPath: string, args: string[]): Promise<string> {
+    try{
+        return new Promise((resolve, reject) => {
+            const command = `python3 ${scriptPath} ${args.join(' ')}`; //${args.join(' ')}";  //auskommentiert
+            exec(command, (error, stdout, stderr) => {
+                if (error) {
+                    reject (error.message);
+                    return;
+                }
+                if (stderr) {
+                    reject (stderr);
+                    return;
+                }
+                resolve(stdout);
+            });
+        });
+    }
+    catch {
+        console.log("Error");
+    }
+}
+
+export async function clusterAnalysisMain(parameter: any) {
+    let result = {foo: "bar"};
+    console.log(parameter);
+    //console.log(result);
+    try {
+        let pythonScriptPath = 'clusterAnalysis.py';
+        pythonScriptPath = path.join(__dirname, pythonScriptPath);
+        //console.log(pythonScriptPath);
+        const argumentsToPythonScript = ['arg1', 'arg2'];
+
+        result = await runPythonScript (pythonScriptPath, argumentsToPythonScript) as any;
+        //console.log('Python script result:', result);
+        //insofern kryptsiche Zeichen in der JSON Ausgabe vorhanden sind .> Workaround mittels File
+    } catch (error) {
+        console.error('Error running Python script:', error);
+    }
+    return result
+}
