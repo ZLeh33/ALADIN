@@ -1,4 +1,5 @@
 import { exec } from 'child_process';
+import fs from 'fs';
 const path = require("path");
 
 function runPythonScript(scriptPath: string, args: string[]): Promise<string> {
@@ -33,8 +34,15 @@ export async function clusterAnalysisMain(parameter: any) {
         //console.log(pythonScriptPath);
         const argumentsToPythonScript = ['arg1', 'arg2'];
 
-        result = await runPythonScript (pythonScriptPath, argumentsToPythonScript) as any;
-        //console.log('Python script result:', result);
+        await runPythonScript (pythonScriptPath, argumentsToPythonScript) as any;
+
+
+        //let foo = fs.readFileSync(path.join(__dirname, 'data.json'), 'utf-8');
+        //console.log(foo);
+
+
+        result = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf-8'));
+
         //insofern kryptsiche Zeichen in der JSON Ausgabe vorhanden sind .> Workaround mittels File
     } catch (error) {
         console.error('Error running Python script:', error);

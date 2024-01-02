@@ -1,154 +1,288 @@
 {
-	"API": [
-		{
-			"task": "ClusterAnalysis",
-			"name": "clusterAnalysisMain",
-			"httpMethod": "post",
-			"params": { "parameters": "object" }
-		}
-	],
-	"Worker": {
-		"ClusterAnalysisTask": {
-			"minConsumers": 1,
-			"consumerInstructions": {
-				"clusterAnalysisMain": {
-					"dependencies": ["clusterAnalysisMain"],
-					"body": "async (taskDescription) => { let result = {}; try { result = clusterAnalysisMain(taskDescription.parameters); } catch (error) { console.error(error); result = error; } return result; }"
-				}
-			}
-		}
-	},
-	"UI": {
-        "currentTask": "ClusterAnalysis",
-		"taskData": {},
-		"rootNode": 0,
-		"topology": [[0, null, null]],
-		"edges": {
-			"0": []
-		},
-		"currentNode": 0,
-		"taskMode": "practice",
-        "hints": {
-            "active": false,
-            "current": 0,
-            "descriptions": [
-                ""
-            ]
+  "API": [
+    {
+      "task": "ClusterAnalysis",
+      "name": "clusterAnalysisMain",
+      "httpMethod": "post",
+      "params": { "parameters": "object" }
+    }
+  ],
+  "Worker": {
+    "ClusterAnalysisTask": {
+      "minConsumers": 1,
+      "consumerInstructions": {
+        "clusterAnalysisMain": {
+          "dependencies": ["clusterAnalysisMain"],
+          "body": "async (taskDescription) => { let result = {}; try { result = clusterAnalysisMain(taskDescription.parameters); } catch (error) { console.error(error); result = error; } return result; }"
+        }
+      }
+    }
+  },
+  "UI": {
+    "currentTask": "ClusterAnalysis",
+    "taskData": {},
+    "rootNode": 0,
+    "topology": [[0, null, null]],
+    "edges": {
+      "0": [1],
+      "1": []
+    },
+    "currentNode": 0,
+    "taskMode": "practice",
+    "hints": {
+      "active": false,
+      "current": 0,
+      "descriptions": [""]
+    },
+    "nodes": {
+      "0": {
+        "zoomScale": 1,
+        "layouts": {
+          "sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 0, "static": false }],
+          "md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 0, "static": false }],
+          "lg": [{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }]
         },
-		"nodes": {
-			"0": {
-				"zoomScale": 1,
-				"layouts": {
-					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 0, "static": false }],
-					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 0, "static": false }],
-					"lg": [
-						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
-					]
-				},
-				"isValid": false,
-				"components": {
-					"0": {
-						"type": "DOTGraph",
-						"name": "EPK",
-						"isValid": true,
-						"dependencies": {
-							"dotDescription": "taskData__dotDescription"
-						}
-					},
-					"1": {
-						"type": "TaskConfiguration",
-						"name": "Konfiguration",
-						"isValid": true,
-						"component": {
-							"title": "Parameter Konfiguration",
-							"actions": [
-								{
-									"instruction": "clusterAnalysisMain",
-									"type": "fetchData",
-									"label": "Generieren!",
-									"dependsOn": []
-								}
-							],
-							"form": {
-								"nodeAmount": {
-									"formType": "ValueFormField",
-									"label": "Anzahl Datenpunkte",
-									"type": "number",
-									"description": "Bestimmt die Anzahl an Datenpunkten",
-									"boundaries": { "min": 2, "max": 10 },
-									"validate": true,
-									"value": "3",
-									"presets": {
-										"easy": "6",
-										"medium": "10",
-										"hard": "15"
-									}
-								},
-                                "clusterAmount": {
-									"formType": "ValueFormField",
-									"label": "Anzahl Cluster",
-									"type": "number",
-									"description": "Bestimmt die Anzahl an Clustern",
-									"boundaries": { "min": 1, "max": 4 },
-									"validate": true,
-									"value": "2",
-									"presets": {
-										"easy": "6",
-										"medium": "10",
-										"hard": "15"
-									}
-								},
-								"nodeRange": {
-									"formType": "RangeFormField",
-									"label": "Wertebereich der Datenpunkte",
-									"type": "number",
-									"description": "Bestimmt den Wertebereich der Datenpunkte",
-									"initial": {
-										"lowerValue": 0,
-										"upperValue": 30
-									},
-									"boundaries": { "min": 0, "max": 100 },
-									"presets": {
-										"easy": 50,
-										"medium": 100,
-										"hard": 500
-									}
-								},
-                                "distance": 
-                                {
-                                    "formType": "DropdownFormField",
-                                    "label": "Methode Berechnung Distanz",
-                                    "type": "string",
-                                    "description": "Zur Verfügung stehende Datenbanken",
-                                    "action": { "instruction": "fetchERD", "type": "fetchData", "key": "schema" },
-                                    "initial": "single",
-                                    "options": ["single", "complete", "airport"],
-                                    "presets": {
-                                        "easy": "airport",
-                                        "medium": "northwind",
-                                        "hard": "sports"
-                                    }
-                                },
-                                "linkage": 
-                                {
-                                    "formType": "DropdownFormField",
-                                    "label": "Verknüpfungsmethode",
-                                    "type": "string",
-                                    "description": "Zur Verfügung stehende Datenbanken",
-                                    "action": { "instruction": "fetchERD", "type": "fetchData", "key": "schema" },
-                                    "initial": "single",
-                                    "options": ["single", "complete", "average","weighted","centroid","median","ward"],
-                                    "presets": {
-                                        "easy": "airport",
-                                        "medium": "northwind",
-                                        "hard": "sports"
-                                    }
-                                }
-							}
-						}
-					}
-				}
+        "isValid": false,
+        "components": {
+          "0": {
+            "type": "DOTGraph",
+            "name": "EPK",
+            "isValid": true,
+            "dependencies": {
+              "dotDescription": "taskData__dotDescription"
             }
-		}
-	}
+          },
+          "1": {
+            "type": "TaskConfiguration",
+            "name": "Konfiguration",
+            "isValid": true,
+            "component": {
+              "title": "Parameter Konfiguration",
+              "actions": [
+                {
+                  "instruction": "clusterAnalysisMain",
+                  "type": "fetchData",
+                  "label": "Generieren!",
+                  "dependsOn": []
+                }
+              ],
+              "form": {
+                "nodeAmount": {
+                  "formType": "ValueFormField",
+                  "label": "Anzahl Datenpunkte",
+                  "type": "number",
+                  "description": "Bestimmt die Anzahl an Datenpunkten",
+                  "boundaries": { "min": 2, "max": 10 },
+                  "validate": true,
+                  "value": "3",
+                  "presets": {
+                    "easy": "6",
+                    "medium": "10",
+                    "hard": "15"
+                  }
+                },
+                "clusterAmount": {
+                  "formType": "ValueFormField",
+                  "label": "Anzahl Cluster",
+                  "type": "number",
+                  "description": "Bestimmt die Anzahl an Clustern",
+                  "boundaries": { "min": 1, "max": 4 },
+                  "validate": true,
+                  "value": "2",
+                  "presets": {
+                    "easy": "6",
+                    "medium": "10",
+                    "hard": "15"
+                  }
+                },
+                "nodeRange": {
+                  "formType": "RangeFormField",
+                  "label": "Wertebereich der Datenpunkte",
+                  "type": "number",
+                  "description": "Bestimmt den Wertebereich der Datenpunkte",
+                  "initial": {
+                    "lowerValue": 0,
+                    "upperValue": 30
+                  },
+                  "boundaries": { "min": 0, "max": 100 },
+                  "presets": {
+                    "easy": 50,
+                    "medium": 100,
+                    "hard": 500
+                  }
+                },
+                "hasDiagram": {
+                    "formType": "CheckboxFormField",
+                    "label": "Hilfestellung: Streudiagramm",
+                    "type": "checkbox",
+                    "initial": false,
+                    "description": "Bestimmt ob ein Streudiagramm generiert wird oder nicht",
+                    "presets": {
+                        "easy": false,
+                        "medium": true,
+                        "hard": true
+                    }
+                },
+                "hasCalc": {
+                    "formType": "CheckboxFormField",
+                    "label": "Distanzmatrix",
+                    "type": "checkbox",
+                    "initial": false,
+                    "description": "Bestimmt ob Tabellen zur Berechnung der Distanzen generiert werden oder nicht",
+                    "presets": {
+                        "easy": false,
+                        "medium": true,
+                        "hard": true
+                    }
+                },
+                "hasDendogram": {
+                    "formType": "CheckboxFormField",
+                    "label": "Dendogram",
+                    "type": "checkbox",
+                    "initial": false,
+                    "description": "Bestimmt ob ein Dendogram generiert wird oder nicht",
+                    "presets": {
+                        "easy": false,
+                        "medium": true,
+                        "hard": true
+                    }
+                },
+                "distance": {
+                  "formType": "DropdownFormField",
+                  "label": "Methode Berechnung Distanz",
+                  "type": "string",
+                  "description": "Zur Verfügung stehende Datenbanken",
+                  "action": {
+                    "instruction": "fetchERD",
+                    "type": "fetchData",
+                    "key": "schema"
+                  },
+                  "initial": "euclidean",
+                  "options": ["manhattan", "euclidean", "maximum"],
+                  "presets": {
+                    "easy": "euclidean",
+                    "medium": "manhattan",
+                    "hard": "maximum"
+                  }
+                },
+                "linkage": {
+                  "formType": "DropdownFormField",
+                  "label": "Verknüpfungsmethode",
+                  "type": "string",
+                  "description": "Zur Verfügung stehende Datenbanken",
+                  "action": {
+                    "instruction": "fetchERD",
+                    "type": "fetchData",
+                    "key": "schema"
+                  },
+                  "initial": "single",
+                  "options": [
+                    "single"
+                  ],
+                  "presets": {
+                    "easy": "single"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "1": {
+        "zoomScale": 1,
+        "interjections": [
+            {
+                "method": "generateMatrix",
+                "dependencies": {
+                    "baseMatrix": "nodes__1__components__1",
+                    "n": "taskData__iterations"
+                },
+                "applied": false
+            }
+        ],
+        "layouts": {
+          "sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 0, "static": false }],
+          "md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 0, "static": false }],
+          "lg": [{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }]
+        },
+        "isValid": false,
+        "components": {
+          "0": {
+            "type": "DOTGraph",
+            "name": "EPK",
+            "isValid": true,
+            "dependencies": {
+              "dotDescription": "taskData__dotDescription"
+            }
+          },
+          "1": {
+            "name": "Distanzmatrix",
+            "type": "Matrix",
+            "isValid": false,
+            "isCorrect": false,
+            "dependencies": {
+                "Matrix": {
+                    "data": "taskData__DigraphIteration0"
+                }
+            },
+            "methods": {
+                "fillZeros": {
+                    "description": "Ergänze Nullen",
+                    "impact": 0.5
+                },
+                "showSolution": {
+                    "description": "Zeige Lösung",
+                    "impact": 0
+                },
+                "copyToClipboard": {
+                    "description": "Kopieren",
+                    "impact": 1
+                }
+            },
+            "contextMenu": {
+                "isOpen": false,
+                "usedMethods": []
+            },
+            "component": {
+                "initialize": {
+                    "solution": {
+                        "operations": [],
+                        "paths": ["taskData__DigraphIteration0"]
+                    },
+                    "validation": {
+                        "operations": [
+                            {
+                                "name": "getValueInitializedMatrix",
+                                "args": [
+                                    {
+                                        "isValid": false,
+                                        "isCorrect": false
+                                    }
+                                ]
+                            }
+                        ],
+                        "paths": ["taskData__DigraphIteration0"]
+                    },
+                    "user": {
+                        "operations": [
+                            {
+                                "name": "getValueInitializedMatrix",
+                                "args": [null]
+                            }
+                        ],
+                        "paths": ["taskData__DigraphIteration0"]
+                    }
+                },
+                "userData": null,
+                "validationData": null,
+                "solutionData": null,
+                "readOnly": false,
+                "rowLabel": "taskData__labelVector",
+                "columnLabel": "taskData__labelVector"
+            }
+        }
+        }
+      }
+    }
+  }
 }
