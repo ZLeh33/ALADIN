@@ -69,7 +69,7 @@
 							"form": {
 								"nodeAmount": {
 									"formType": "ValueFormField",
-									"label": "Anzahl Datenpunkte",
+									"label": "Anzahl Datenpunkte pro Cluster",
 									"type": "number",
 									"description": "Bestimmt die Anzahl an Datenpunkten",
 									"boundaries": { "min": 2, "max": 10 },
@@ -192,22 +192,26 @@
 					{
 						"method": "generateMatrix",
 						"dependencies": {
-							"baseMatrix": "nodes__1__components__1",
-							"n": "taskData__iterations"
+							"baseMatrix": "nodes__1__components__5",
+							"n": "taskData__iterations",
+                            "baseMatrixId": 5
 						},
 						"applied": false
 					}
 				],
 				"layouts": {
 					"sm": [
-						{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 0, "static": false },
-						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
+                        { "x": 32, "y": 29, "w": 4, "h": 4, "i": 5, "static": false },
+                        { "x": 36, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
 					],
 					"md": [
-						{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 0, "static": false },
-						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
+                        { "x": 32, "y": 29, "w": 4, "h": 4, "i": 5, "static": false },
+                        { "x": 36, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
 					],
-					"lg": [{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }]
+					"lg": [
+                        { "x": 32, "y": 29, "w": 4, "h": 4, "i": 5, "static": false },
+                        { "x": 36, "y": 29, "w": 4, "h": 4, "i": 1, "static": false }
+                    ]
 				},
 				"isValid": false,
 				"components": {
@@ -219,7 +223,21 @@
 							"dotDescription": "taskData__dotDescription"
 						}
 					},
-					"1": {
+                    "1": {
+						"type": "Output",
+						"name": "Prozessbeschreibung",
+						"isValid": true,
+						"dependencies": {
+							"Output": {
+								"serverOutput": "taskData__taskDescription",
+								"validOutput": "taskData__taskDescription"
+							}
+						},
+						"component": {
+							"header": "Prozessbeschreibung"
+                        }
+					},
+					"5": {
 						"name": "Distanzmatrix",
 						"type": "Matrix",
 						"isValid": false,

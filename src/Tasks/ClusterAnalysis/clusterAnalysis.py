@@ -240,12 +240,28 @@ def createDendogramDotLanguage(data, distanceMethod):
 
 
 def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
-    #data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
-    data = np.array([[2, 3],
-                         [5, 2],
-                         [5, 3],
-                         [1, 4],
-                         [4, 5]])
+    
+    numClusters = int(sys.argv[2])
+    pointsPerCluster = int(sys.argv[1])
+    nodeRangeStart = int(sys.argv[9])
+    nodeRangeEnd = int(sys.argv[10])
+    diagramHelpBoolean = sys.argv[4]
+    dendogramBoolean = sys.argv[5]
+    linkageMethod = sys.argv[8]
+    distanceMatrixBoolean = sys.argv[6]
+    data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
+    
+    #taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean)
+    #TODO: atrribute richtig machen aus Fronted -> destrukturieren
+    #aufgabenbeschreibung generieren
+
+    distanceMethod = sys.argv[7]
+
+    #data = np.array([[2, 3],
+    #                     [5, 2],
+    #                     [5, 3],
+    #                     [1, 4],
+    #                     [4, 5]])
     
     
     #createScatterDiagram(data)
