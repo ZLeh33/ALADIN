@@ -14,6 +14,7 @@ import math
 import json
 import sys
 import os
+import pathlib
 
 #functions
 def generate_clusters(n_clusters, m_points_per_cluster, rangeStart, rangeEnd):
@@ -238,25 +239,78 @@ def createDendogramDotLanguage(data, distanceMethod):
     
     return str(dot)
 
+def array_to_html_table(array):
+    html = '<table style="border: 1px solid black;">\n'
+    html += '<tr><th style="border: 1px solid black;>Position X-Achse</th><th style="border: 1px solid black;>Position Y-Achse</th></tr>'
+    for row in array:
+        html += '<tr>\n'
+        for item in row:
+            html += f'<td style="border: 1px solid black;  border-collapse: collapse;">{item}</td>\n'
+        html += '</tr>\n'
+    html += '</table>'
+    return html
 
-def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
+def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data):
+    finalDescription = ""
+
+    #add the main task descripton to the variable
+    finalDescription += "<p>In dieser Aufgabe sollen Sie zeigen, dass Sie die hierarchische Clusteranalyse verstanden haben und diese anwenden koennen.</p><br>"
+
+    #add example data to description
+    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Aufgabe durchführen sollen.</p>"
+    totalPoints = int(pointsPerCluster) * int(numClusters)
+    finalDescription += f"<p>Sie besteht aus {numClusters} zentrierten Clustern mit jeweils {pointsPerCluster} Datenpunkten. In Summe haben Sie somit {totalPoints} Datenpunkte gegeben.</p><br>"
+    finalDescription += array_to_html_table(data)
+    finalDescription += "<br><br>"
+
+    #add more task description
+    finalDescription += "<p>Zeichnen Sie im ersten Schritt die Datenpunkte in ein Koordinatensystem als visuelle Hilfe ein.</p>"
+
+    #if diagram help checkbox is checked
+    if str(diagramHelpBoolean) == "true":
+        finalDescription += "<br><p>Sie haben bei der Aufgabenerstellung ausgewaehlt, dass Ihnen das Streudiagramm angezeigt werden soll. Das folgende Diaramm zeigt die verteilten Punkte im Koordinatensystem.</p><br>"
+
+        #add base64 img
+        #TODO
+
+    #help description for calculating distance matrix
+    if str(distanceMatrixBoolean) == "true":
+        finalDescription += "<p>Hier steht TTEXT zur blz</p>"
+    #help description for draw the dendrogram
+    if str(dendogramBoolean) == "true":
+        finalDescription += "<p>Hier steht TTEXT zur blz</p>"
     
+
+    finalDescription += "Berechnen Sie nun im nächsten Schritt die einzelnen Distanzmatrizen bis zu einer 2x2 Matrix und gebe sie Ihre Loesung in den Editor ein."
+    finalDescription += f"Nutzen Sie für die Berechnung der Distanzen zwischen den einzelnen Datenpunkten die Berechnungmethode {distanceMethod}"
+
+    return finalDescription
+
+
+#def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
+def clusterAnalysisMain():
+    
+    #get data from CLI
     numClusters = int(sys.argv[2])
     pointsPerCluster = int(sys.argv[1])
     nodeRangeStart = int(sys.argv[9])
     nodeRangeEnd = int(sys.argv[10])
     diagramHelpBoolean = sys.argv[4]
     dendogramBoolean = sys.argv[5]
+    distanceMethod = sys.argv[7]
     linkageMethod = sys.argv[8]
     distanceMatrixBoolean = sys.argv[6]
+
+    #generate data for a task for the student
     data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
     
-    #taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean)
+    print(data)
+
+    taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
     #TODO: atrribute richtig machen aus Fronted -> destrukturieren
     #aufgabenbeschreibung generieren
 
-    distanceMethod = sys.argv[7]
-
+    #Testdata
     #data = np.array([[2, 3],
     #                     [5, 2],
     #                     [5, 3],
@@ -266,10 +320,10 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
     
     #createScatterDiagram(data)
     jsonDict = {}
+    #jsonDict["Dendogram"] = createDendogramDotLanguage(data, distanceMethod)
+    jsonDict["taskDescription"] = taskDescription
     
-    jsonDict["Dendogram"] = createDendogramDotLanguage(data, distanceMethod)
-        
-    
+
     for iteration in range(data.shape[0]):
         #erste iteration
         if(iteration == 0):
@@ -319,9 +373,8 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             
             #create Digraph
             #TODO -> oberste Zeile noch hinzufügen
-            print("DIGRAPH - Abstandsmatrix")
+            #print("DIGRAPH - Abstandsmatrix")
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, data, iteration)
-            
             
             #define cluster elements
             #clusters = np.array([[point_a, point_b]])
@@ -340,9 +393,9 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             if len(new_data) == 1:
                 continue
             
-            print("")
-            print("")
-            print("---Next Iteration---")
+            #print("")
+            #print("")
+            #print("---Next Iteration---")
             
             
             if distanceMethod == 'manhattan':
@@ -455,9 +508,10 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             #print("Neuer Hauptdatensatz")
             #print(jsonDict)
 
-    print(jsonDict)
+    #print(jsonDict)
+    #jsonDict["taskDescription"] = 
     jsonDict["iterations"] = iteration
-    with open("data.json", "w+",  encoding="utf8") as f:
+    with open(f"{pathlib.Path(__file__).parent.resolve()}/data.json", "w+",  encoding="utf8") as f:
         json.dump(jsonDict, f)
 
     return json.dumps(jsonDict)
@@ -470,14 +524,17 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
 #distanceMethod = int(sys.argv[5])
 #linkageMethod = int(sys.argv[6])
 
-numClusters = 2
-pointsPerCluster = 3
-nodeRangeStart = 0
-nodeRangeEnd = 25
-distanceMethod = 'euclidean'
-linkageMethod = 'single'
+#numClusters = 2
+#pointsPerCluster = 3
+#nodeRangeStart = 0
+#nodeRangeEnd = 25
+#distanceMethod = 'euclidean'
+#linkageMethod = 'single'
 #Hauptfunktion ausfuehren
-clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod)
+#clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod)
+
+#EXECUTE
+clusterAnalysisMain()
 
 
 #TODO

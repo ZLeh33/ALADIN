@@ -26,24 +26,23 @@ function runPythonScript(scriptPath: string, args: any): Promise<string> {
 
 export async function clusterAnalysisMain(parameter: any) {
 	let result = { foo: "bar" };
+    console.log("PARAMETER:");
 	console.log(parameter);
-	//console.log(result);
 	try {
 		let pythonScriptPath = "clusterAnalysis.py";
 		pythonScriptPath = path.join(__dirname, pythonScriptPath);
-		//console.log(pythonScriptPath);
-		console.log(parameter["distance"]);
+		//console.log(parameter["distance"]);
 
 		const argumentsToPythonScript = [...Object.values(parameter), ...parameter["nodeRange"]];
 		//delete argumentsToPythonScript[2];
-		console.log(argumentsToPythonScript);
+        //console.log("ARGUMENTS TO PYTHON SCRIPT");
+		//console.log(argumentsToPythonScript);
 		(await runPythonScript(pythonScriptPath, argumentsToPythonScript)) as any;
 
 		//let foo = fs.readFileSync(path.join(__dirname, 'data.json'), 'utf-8');
-		//console.log(foo);
 
 		result = JSON.parse(fs.readFileSync(path.join(__dirname, "data.json"), "utf-8"));
-
+        console.log(result);
 		//insofern kryptsiche Zeichen in der JSON Ausgabe vorhanden sind .> Workaround mittels File
 	} catch (error) {
 		console.error("Error running Python script:", error);

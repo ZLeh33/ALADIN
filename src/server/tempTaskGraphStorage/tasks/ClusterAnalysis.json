@@ -225,7 +225,7 @@
 					},
 					"1": {
 						"type": "Output",
-						"name": "Prozessbeschreibung",
+						"name": "Aufgabenbeschreibung",
 						"isValid": true,
 						"dependencies": {
 							"Output": {
@@ -234,7 +234,7 @@
 							}
 						},
 						"component": {
-							"header": "Prozessbeschreibung"
+							"header": "Aufgabenbeschreibung"
 						}
 					},
 					"2": {
