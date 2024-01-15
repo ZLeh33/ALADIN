@@ -15,6 +15,7 @@ import json
 import sys
 import os
 import pathlib
+import base64
 
 #functions
 def generate_clusters(n_clusters, m_points_per_cluster, rangeStart, rangeEnd):
@@ -272,6 +273,11 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
 
         #add base64 img
         #TODO
+        print_diagram(data)
+        with open("streudiagramm.png", "rb") as image_file:
+            encoded_string = str(base64.b64encode(image_file.read()))
+
+        finalDescription += f'<br><img src="data:image/png;base64, {encoded_string[2:-1]}" alt="Red dot" /><br><br>'
 
     #help description for calculating distance matrix
     if str(distanceMatrixBoolean) == "true":
@@ -286,6 +292,22 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
 
     return finalDescription
 
+def print_diagram(data):
+    # Streudiagramm zeichnen
+    # Extracting X and Y coordinates from the data
+    x = [point[0] for point in data]
+    y = [point[1] for point in data]
+
+    # Creating the plot
+    plt.figure(figsize=(8, 6))
+    plt.plot(x, y, 'o')  # 'o' creates a scatter plot
+    plt.title('XY Diagram')
+    plt.xlabel('X-axis')
+    plt.ylabel('Y-axis')
+
+    # Display the plot
+    #plt.show()
+    plt.savefig('streudiagramm.png')
 
 #def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
 def clusterAnalysisMain():
