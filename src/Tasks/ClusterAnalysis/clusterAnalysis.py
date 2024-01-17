@@ -301,6 +301,29 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
 
     return finalDescription
 
+def generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data):
+    finalDescription = ""
+
+    #add the main task descripton to the variable
+    finalDescription += "<p>Vorschau der Datentabelle:</p><br>"
+
+    finalDescription += array_to_html_table(data)
+    finalDescription += "<br><br>"
+
+    #if diagram help checkbox is checked
+    if str(diagramHelpBoolean) == "true":
+        finalDescription += "<br><p>Vorschau des Streudiagramms</p><br>"
+
+        #add base64 img
+        print_diagram(data)
+        with open("streudiagramm.png", "rb") as image_file:
+            encoded_string = str(base64.b64encode(image_file.read()))
+
+        finalDescription += f'<br><img src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
+
+    return finalDescription
+
+
 def print_diagram(data):
     # Streudiagramm zeichnen
     # Extracting X and Y coordinates from the data
@@ -338,6 +361,8 @@ def clusterAnalysisMain():
     print(data)
 
     taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
+
+    taskDescriptionPreview = generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
     #TODO: atrribute richtig machen aus Fronted -> destrukturieren
     #aufgabenbeschreibung generieren
 
@@ -353,6 +378,7 @@ def clusterAnalysisMain():
     jsonDict = {}
     #jsonDict["Dendogram"] = createDendogramDotLanguage(data, distanceMethod)
     jsonDict["taskDescription"] = taskDescription
+    jsonDict["taskDescriptionPreview"] = taskDescriptionPreview
     
 
     for iteration in range(data.shape[0]):
@@ -570,3 +596,7 @@ clusterAnalysisMain()
 
 #TODO
 #Eingabevalidierung!!!
+
+
+#algo überarbeiten zur generierung der einzelnen punkte für dei clusteranalyse
+#leute sollen verstehen was diese aufgabe soll -> "wir wollen hierarchsiche clusteranalyse üben oder in der prüfung abfragen"
