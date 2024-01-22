@@ -75,7 +75,7 @@
 							"form": {
 								"nodeAmount": {
 									"formType": "ValueFormField",
-									"label": "Anzahl Datenpunkte pro Cluster",
+									"label": "Gesamtanzahl Datenpunkte",
 									"type": "number",
 									"description": "Bestimmt die Anzahl an Datenpunkten",
 									"boundaries": { "min": 2, "max": 10 },
@@ -222,25 +222,129 @@
 				"layouts": {
 					"sm": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
+                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
 					],
 					"md": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
+                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
 					],
 					"lg": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
+                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
 					]
 				},
 				"isValid": false,
 				"components": {
 					"0": {
-						"type": "DOTGraph",
-						"name": "EPK",
-						"isValid": true,
-						"dependencies": {
-							"dotDescription": "taskData__dotDescription"
+						"type": "ItemPallet",
+						"name": "EPKPallette",
+						"isValid": false,
+						"isCorrect": false,
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"dragElements": {
+								"Event": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Event"
+									},
+									"elementSelector": "Event",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+									}
+								},
+								"Function": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Function"
+									},
+									"elementSelector": "Function",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"rect\" style=\"rounded\" fixedSize=\"false\"]"
+									}
+								},
+								"Gate": {
+									"componentType": "DOTGraph",
+									"props": {
+										"graphID": "Gate"
+									},
+									"elementSelector": "Gate",
+									"dropData": {
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+									}
+								}
+							},
+							"dropZones": {
+								"EPK": {
+									"componentType": "ManipulatableGraph",
+									"props": {},
+									"accept": ["Event", "Function", "Gate"],
+									"dropZoneBehaviour": "StoreDragElement",
+									"droppedElements": []
+								}
+							}
+						},
+						"dependencies": {},
+						"nestedComponents": {
+							"Event": {
+								"type": "DOTGraph",
+								"name": "Event",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Event shape=hexagon] }"
+								},
+								"dependencies": {}
+							},
+							"Function": {
+								"type": "DOTGraph",
+								"name": "Function",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Function shape=rect style=rounded] }"
+								},
+								"dependencies": {}
+							},
+							"Gate": {
+								"type": "DOTGraph",
+								"name": "Gate",
+								"isValid": true,
+								"component": {
+									"dotDescription": "graph { 0 [label=Gate shape=circle] }"
+								},
+								"dependencies": {}
+							},
+							"EPK": {
+								"type": "ManipulatableGraph",
+								"name": "EPK",
+								"isValid": false,
+								"component": {
+									"userGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
+									"validationData": "",
+									"editableFields": ["label"]
+								},
+								"dependencies": {
+									"droppedElements": "nodes__1__components__0__component__dropZones__EPK__droppedElements",
+									"dragElements": "nodes__1__components__0__component__dragElements"
+								},
+								"nestedComponents": {
+									"DOTGraph": {
+										"type": "DOTGraph",
+										"name": "EPK",
+										"isValid": true,
+										"component": {},
+										"dependencies": {
+											"dotDescription": "nodes__1__components__0__nestedComponents__EPK__component__userGraph"
+										}
+									}
+								}
+							}
 						}
 					},
 					"1": {
@@ -319,8 +423,8 @@
 							"validationData": null,
 							"solutionData": null,
 							"readOnly": false,
-							"rowLabel": "taskData__labelVector",
-							"columnLabel": "taskData__labelVector"
+							"rowLabel": "taskData__DigraphIterationHeader0",
+							"columnLabel": "taskData__DigraphIterationHeader0"
 						}
 					}
 				}

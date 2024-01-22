@@ -16,6 +16,7 @@ import sys
 import os
 import pathlib
 import base64
+import string
 
 #functions
 def generate_clusters(n_clusters, m_points_per_cluster, rangeStart, rangeEnd):
@@ -241,13 +242,18 @@ def createDendogramDotLanguage(data, distanceMethod):
     return str(dot)
 
 def array_to_html_table(array):
+    letter = list(string.ascii_uppercase)
+    letterPosition = 0
+
     html = '<table style="border: 1px solid black;">\n'
-    html += '<tr><th style="border: 1px solid black;>Position X-Achse</th><th style="border: 1px solid black;>Position Y-Achse</th></tr>'
+    html += '<tr><th style="border: 1px solid black;"> Name Datenpunkt </th><th style="border: 1px solid black;"> Position X-Achse </th><th style="border: 1px solid black;"> Position Y-Achse </th></tr>'
     for row in array:
         html += '<tr>\n'
+        html += f'<td style="border: 1px solid black; border-collapse: collapse;">{letter[letterPosition]}</td>'
         for item in row:
-            html += f'<td style="border: 1px solid black;  border-collapse: collapse;">{item}</td>\n'
+            html += f'<td style="border: 1px solid black; border-collapse: collapse;">{item}</td>\n'
         html += '</tr>\n'
+        letterPosition += 1
     html += '</table>'
     return html
 
@@ -258,18 +264,17 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
     finalDescription += "<p>In dieser Aufgabe sollen Sie zeigen, dass Sie die hierarchische Clusteranalyse verstanden haben und diese anwenden koennen.</p><br>"
 
     #add example data to description
-    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Aufgabe durchführen sollen.</p>"
-    totalPoints = int(pointsPerCluster) * int(numClusters)
-    finalDescription += f"<p>Sie besteht aus {numClusters} zentrierten Clustern mit jeweils {pointsPerCluster} Datenpunkten. In Summe haben Sie somit {totalPoints} Datenpunkte gegeben.</p><br>"
+    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Analyse durchführen sollen.</p>"
     finalDescription += array_to_html_table(data)
     finalDescription += "<br><br>"
 
     #add more task description
-    finalDescription += "<p>Zeichnen Sie im ersten Schritt die Datenpunkte in ein Koordinatensystem als visuelle Hilfe ein.</p>"
+    if str(diagramHelpBoolean) == "false":
+        finalDescription += "<p>Zeichnen Sie im ersten Schritt die Datenpunkte in ein Koordinatensystem als visuelle Hilfe ein, oder nutzen Sie alternativ das Streudiagramm, welches Ihnen ALADIN als Hilfestellung bietet.</p>"
 
     #if diagram help checkbox is checked
     if str(diagramHelpBoolean) == "true":
-        finalDescription += "<br><p>Sie haben bei der Aufgabenerstellung ausgewaehlt, dass Ihnen das Streudiagramm angezeigt werden soll. Das folgende Diaramm zeigt die verteilten Punkte im Koordinatensystem.</p><br>"
+        finalDescription += "<br><p>Sie haben bei der Aufgabenerstellung ausgewaehlt, dass Ihnen das Streudiagramm angezeigt werden soll. Das folgende Diagramm zeigt die verteilten Datenpunkte im Koordinatensystem.</p><br>"
 
         #add base64 img
         #TODO
@@ -312,7 +317,7 @@ def generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeSt
 
     #if diagram help checkbox is checked
     if str(diagramHelpBoolean) == "true":
-        finalDescription += "<br><p>Vorschau des Streudiagramms</p><br>"
+        finalDescription += "<br><p>Vorschau des Streudiagramms:</p><br>"
 
         #add base64 img
         print_diagram(data)
@@ -327,12 +332,23 @@ def generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeSt
 def print_diagram(data):
     # Streudiagramm zeichnen
     # Extracting X and Y coordinates from the data
+    
     x = [point[0] for point in data]
     y = [point[1] for point in data]
 
-    # Creating the plot
+    length = len(x)
+    matrixHeaders = list(string.ascii_uppercase)
+
+    n = matrixHeaders[0:length]
+
+    # Erstellen des Plots
     plt.figure(figsize=(6, 4))
-    plt.plot(x, y, 'o')  # 'o' creates a scatter plot
+    plt.scatter(x, y)  # Verwendung von scatter() anstelle von plot()
+
+    # Hinzufügen von Beschriftungen an jedem Punkt
+    for i, label in enumerate(n):
+        plt.text(x[i], y[i], n[i], fontsize=12)
+
     plt.title('Streudiagramm')
     plt.xlabel('X-Achse')
     plt.ylabel('Y-Achse')
@@ -340,6 +356,13 @@ def print_diagram(data):
     # Display the plot
     #plt.show()
     plt.savefig('streudiagramm.png')
+
+def generate_matrix_headers(numClusters, pointsPerCluster, iterationNumber):
+
+    length = int(numClusters) * int(pointsPerCluster)
+    matrixHeaders = list(string.ascii_uppercase)
+
+    return matrixHeaders[0:(length - int(iterationNumber))]
 
 #def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
 def clusterAnalysisMain():
@@ -358,7 +381,11 @@ def clusterAnalysisMain():
     #generate data for a task for the student
     data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
     
-    print(data)
+    #Testdata
+    #data = np.array([[2, 3],[5, 2],[5, 3],[1, 4],[4, 5]])
+        
+
+    #print(data)
 
     taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
 
@@ -366,12 +393,6 @@ def clusterAnalysisMain():
     #TODO: atrribute richtig machen aus Fronted -> destrukturieren
     #aufgabenbeschreibung generieren
 
-    #Testdata
-    #data = np.array([[2, 3],
-    #                     [5, 2],
-    #                     [5, 3],
-    #                     [1, 4],
-    #                     [4, 5]])
     
     
     #createScatterDiagram(data)
@@ -432,6 +453,9 @@ def clusterAnalysisMain():
             #TODO -> oberste Zeile noch hinzufügen
             #print("DIGRAPH - Abstandsmatrix")
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, data, iteration)
+
+            #matrix headers
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(numClusters, pointsPerCluster, iteration)
             
             #define cluster elements
             #clusters = np.array([[point_a, point_b]])
@@ -449,11 +473,6 @@ def clusterAnalysisMain():
             
             if len(new_data) == 1:
                 continue
-            
-            #print("")
-            #print("")
-            #print("---Next Iteration---")
-            
             
             if distanceMethod == 'manhattan':
                 matrix = calculate_inital_abstraction_matrix(new_data, manhattan_distance)
@@ -534,13 +553,11 @@ def clusterAnalysisMain():
                 clusters.append([point_a, point_b])
                 #print(clusters)
             
-            #print("Aktuelle Cluster:")
-            #print(clusters)
-            
-            print("DIGRAPH - Abstandsmatrix")
             #createDigraph(matrix, new_data, iteration)
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, new_data, iteration)
 
+            #matrix headers
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(numClusters, pointsPerCluster, iteration)
             
             if distanceMethod == 'manhattan':
                 nearest_point = get_nearest_point(data, point_a, point_b, manhattan_distance)
