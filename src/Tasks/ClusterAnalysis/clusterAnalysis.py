@@ -245,7 +245,7 @@ def array_to_html_table(array):
     letter = list(string.ascii_uppercase)
     letterPosition = 0
 
-    html = '<table style="border: 1px solid black;">\n'
+    html = '<table style="border: 1px solid black;margin-left: auto;margin-right: auto;">\n'
     html += '<tr><th style="border: 1px solid black;"> Name Datenpunkt </th><th style="border: 1px solid black;"> Position X-Achse </th><th style="border: 1px solid black;"> Position Y-Achse </th></tr>'
     for row in array:
         html += '<tr>\n'
@@ -264,7 +264,7 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
     finalDescription += "<p>In dieser Aufgabe sollen Sie zeigen, dass Sie die hierarchische Clusteranalyse verstanden haben und diese anwenden koennen.</p><br>"
 
     #add example data to description
-    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Analyse durchführen sollen.</p>"
+    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Analyse durchführen sollen.</p><br>"
     finalDescription += array_to_html_table(data)
     finalDescription += "<br><br>"
 
@@ -282,25 +282,25 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
         with open("streudiagramm.png", "rb") as image_file:
             encoded_string = str(base64.b64encode(image_file.read()))
 
-        finalDescription += f'<br><img src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
+        finalDescription += f'<br><img style="display: block;margin-left: auto;margin-right: auto;" src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
 
     #help description for calculating distance matrix
     if str(distanceMatrixBoolean) == "true":
         finalDescription += f"<p>Hilfe zur Distanzberechnung</p><p>So haben die {str(distanceMethod)} Methode zur Berechnung der Distanz gewaehlt. Diese wird wie folgt berechnet:</p>"
         if distanceMethod == 'manhattan':
-            finalDescription += '<br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
             finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
-            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><munderover><mo>&#x2211;</mo><mi>i</mi><mo>=</mo><mn>1</mn><mi>n</mi></munderover><mo    >|</mo><msub><mi>a</mi><mi>i</mi></msub><mo>-</mo><msub><mi>b</mi><mi>i</mi></msub><mo>|</mo></math></p><br><br>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><munderover><mo>&#x2211;</mo><mi>i</mi><mo>=</mo><mn>1</mn><mi>n</mi></munderover><mo    >|</mo><msub><mi>a</mi><mi>i</mi></msub><mo>-</mo><msub><mi>b</mi><mi>i</mi></msub><mo>|</mo></math></p><br><br></div>'
                 
         elif distanceMethod == 'euclidean':
-            finalDescription += '<br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
             finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
-            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mo>|</mo><mi>a</mi><mo>-</mo><mi>b</mi><mo>|</mo></math></p><br><br>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mo>|</mo><mi>a</mi><mo>-</mo><mi>b</mi><mo>|</mo></math></p><br><br></div>'
 
         elif distanceMethod == 'maximum':
-            finalDescription += '<br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
             finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
-            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mrow><mo>max</mo><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow></math></p><br><br>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mrow><mo>max</mo><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow></math></p><br><br></div>'
 
     #help description for draw the dendrogram
     if str(dendogramBoolean) == "true":
@@ -322,15 +322,14 @@ def generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeSt
     finalDescription += "<br><br>"
 
     #if diagram help checkbox is checked
-    if str(diagramHelpBoolean) == "true":
-        finalDescription += "<br><p>Vorschau des Streudiagramms:</p><br>"
+    finalDescription += "<br><p>Vorschau des Streudiagramms:</p><br>"
 
-        #add base64 img
-        print_diagram(data)
-        with open("streudiagramm.png", "rb") as image_file:
-            encoded_string = str(base64.b64encode(image_file.read()))
+    #add base64 img
+    print_diagram(data)
+    with open("streudiagramm.png", "rb") as image_file:
+        encoded_string = str(base64.b64encode(image_file.read()))
 
-        finalDescription += f'<br><img src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
+    finalDescription += f'<br><img style="display: block;margin-left: auto;margin-right: auto;" src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
 
     return finalDescription
 
