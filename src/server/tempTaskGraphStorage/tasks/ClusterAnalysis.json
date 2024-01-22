@@ -257,7 +257,7 @@
 									},
 									"elementSelector": "Event",
 									"dropData": {
-										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"rect\" style=\"rounded\" fixedSize=\"false\"]"
 									}
 								},
 								"Function": {
@@ -277,7 +277,7 @@
 									},
 									"elementSelector": "Gate",
 									"dropData": {
-										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+										"dotTemplate": "${nodeID} [label=\"\" shape=\"rect\" style=\"rounded\" fixedSize=\"false\"]"
 									}
 								}
 							},
@@ -298,7 +298,7 @@
 								"name": "Event",
 								"isValid": true,
 								"component": {
-									"dotDescription": "graph { 0 [label=Event shape=hexagon] }"
+									"dotDescription": "graph { 0 [label=Event shape=rect style=rounded] }"
 								},
 								"dependencies": {}
 							},
@@ -316,7 +316,7 @@
 								"name": "Gate",
 								"isValid": true,
 								"component": {
-									"dotDescription": "graph { 0 [label=Gate shape=circle] }"
+									"dotDescription": "graph { 0 [label=Gate shape=rect style=rounded] }"
 								},
 								"dependencies": {}
 							},

@@ -301,8 +301,8 @@ def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nod
         finalDescription += "<p>Um ein Dendrogramm aus einer Distanzmatrix zu erstellen, verwendet man zuerst einen hierarchischen Clustering-Algorithmus (wie z.B. Single-Linkage, Complete-Linkage oder Average-Linkage), um die Cluster-Hierarchie aus der Distanzmatrix zu erzeugen. Anschließend stellt man diese Hierarchie graphisch als Dendrogramm dar, wobei die Länge der Verbindungslinien die Distanzen oder Ähnlichkeiten zwischen den Clustern repräsentiert.</p>"
     
 
-    finalDescription += "Berechnen Sie nun im nächsten Schritt die einzelnen Distanzmatrizen bis zu einer 2x2 Matrix und gebe sie Ihre Loesung in den Editor ein."
-    finalDescription += f"Nutzen Sie für die Berechnung der Distanzen zwischen den einzelnen Datenpunkten die Berechnungmethode {distanceMethod}"
+    finalDescription += "<p>Berechnen Sie nun im nächsten Schritt die einzelnen Distanzmatrizen bis zu einer 2x2 Matrix und gebe sie Ihre Lösung in den Editor ein.</p>"
+    finalDescription += f"<p>Nutzen Sie für die Berechnung der Distanzen zwischen den einzelnen Datenpunkten die Berechnungsmethode {distanceMethod}</p>"
 
     return finalDescription
 
