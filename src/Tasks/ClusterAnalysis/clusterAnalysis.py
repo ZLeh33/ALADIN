@@ -362,12 +362,12 @@ def print_diagram(data):
     #plt.show()
     plt.savefig('streudiagramm.png')
 
-def generate_matrix_headers(numClusters, pointsPerCluster, iterationNumber):
-
-    length = int(numClusters) * int(pointsPerCluster)
+def generate_matrix_headers(data, iterationNumber):
+    x = [point[0] for point in data]
+    length = len(x)
     matrixHeaders = list(string.ascii_uppercase)
-
-    return matrixHeaders[0:(length - int(iterationNumber))]
+    
+    return matrixHeaders[0:(length)] #- int(iterationNumber))]
 
 #def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
 def clusterAnalysisMain():
@@ -387,7 +387,7 @@ def clusterAnalysisMain():
     data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
     
     #Testdata
-    #data = np.array([[2, 3],[5, 2],[5, 3],[1, 4],[4, 5]])
+    data = np.array([[2, 3],[5, 2],[5, 3],[1, 4],[4, 5]])
         
 
     #print(data)
@@ -460,7 +460,7 @@ def clusterAnalysisMain():
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, data, iteration)
 
             #matrix headers
-            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(numClusters, pointsPerCluster, iteration)
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(data, iteration)
             
             #define cluster elements
             #clusters = np.array([[point_a, point_b]])
@@ -499,6 +499,9 @@ def clusterAnalysisMain():
             point_a = new_data[single_linkage_indices[0]]
             point_b = new_data[single_linkage_indices[1]]
             
+            #matrix headers
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(new_data, iteration)
+
             #nearest_point = get_nearest_point(data, point_a, point_b, euclidean_distance)
             #delete the point from the dataset, that is not nearest
             #point_to_remove = nearest_point[1]
@@ -561,8 +564,6 @@ def clusterAnalysisMain():
             #createDigraph(matrix, new_data, iteration)
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, new_data, iteration)
 
-            #matrix headers
-            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(numClusters, pointsPerCluster, iteration)
             
             if distanceMethod == 'manhattan':
                 nearest_point = get_nearest_point(data, point_a, point_b, manhattan_distance)
