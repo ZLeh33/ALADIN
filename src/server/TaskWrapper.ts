@@ -6,6 +6,8 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
+import { generatechemie } from "../Tasks/Chemistry/chemie";
+
 
 import fs from "fs";
 import path from "path";
@@ -63,6 +65,7 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	generatechemie: generatechemie
 };
 
 export interface IInstructionConfiguration {
@@ -128,6 +131,7 @@ export const executeTask = async (instructionConfiguration: IInstructionConfigur
 	try {
 		const { type, instruction } = instructionConfiguration;
 		const func = await taskWorkers[`${type}Task`][instruction];
+		console.log(taskWorkers[`${type}Task`][instruction], taskWorkers[`${type}Task`], instruction);
 		const result = await func(instructionConfiguration);
 		return result;
 	} catch (error) {

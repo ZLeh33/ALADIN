@@ -1,0 +1,97 @@
+[
+  {
+    "ErstSubsti": "[O]",
+    "Effekte": "+M",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "N",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[OH]",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "O=C([R])N",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "O=C([R])O",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "c1ccccc1",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[A]",
+    "Effekte": "+M, -I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[Cl]",
+    "Effekte": "+I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[Br]",
+    "Effekte": "+I",
+    "Position": "para",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[NH3+]",
+    "Effekte": "-I",
+    "Position": "meta",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "O=C([R])",
+    "Effekte": "-M, -I",
+    "Position": "meta",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "[CN]",
+    "Effekte": "-M, -I",
+    "Position": "meta",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "O=S(=O)(O)",
+    "Effekte": "-M, -I",
+    "Position": "meta",
+    "Ueberreaktion": "nein"
+  },
+  {
+    "ErstSubsti": "O=[N+](O)",
+    "Effekte": "-M, -I",
+    "Position": "meta",
+    "Ueberreaktion": "nein"
+  }
+]
+
+
+
+
+
+
+
+
+
+
+

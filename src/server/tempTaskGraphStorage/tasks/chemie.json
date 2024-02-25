@@ -1,0 +1,239 @@
+{
+	"API": [
+		{
+			"task": "chemie",
+			"name": "generatechemie",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
+		}
+	],
+
+	"Worker": {
+		"chemieTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+				"generatechemie": {
+					"dependencies": ["generatechemie"],
+					"body": "async (taskDescription) => {let result = {};try {  result =  generatechemie(taskDescription.parameters) } catch (error) { console.error(error); result = error;} return result; }"
+				}
+			}
+		}
+	},
+	"UI": {
+		"currentTask": "chemie",
+		"taskData": {},
+		"rootNode": 0,
+		"taskMode":"practice",
+		"topology": [[0, null, null]],
+		"edges": {
+			"0": [1],
+			"1": [2],
+			"2": [0]
+		},
+		"currentNode": 0,
+		"nodes": {
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": 	[{ "x": 32, "y": 29, "w": 2, "h": 4, "i": 0, "static": false }],
+					"md": 	[{ "x": 32, "y": 29, "w": 2, "h": 4, "i": 0, "static": false }],
+					"lg":	[{ "x": 34, "y": 29, "w": 2, "h": 4, "i": 0, "static": false }]
+					
+				},
+			
+				"components": {
+					"0":{
+						"type": "TaskConfiguration",
+						"name": "Aufgabenstellung",
+						"isValid": true,
+						"component": {
+						"title": "Chemie Aufgabenstellung",
+						"actions": [
+								{
+									"instruction": "generatechemie",
+									"type": "fetchData",
+									"label": "Generieren!",
+									"dependsOn": ["seed"]
+									
+								}
+						
+							],
+						"form": {
+								"seed": {
+									"isValid": true,
+									"formType": "ValueFormField",
+									"label": "Seed",
+									"type": "number",
+									"description": "Setze einen beliebigen Wert um die Generierung deterministisch und reproduzierbar zu machen",
+									"value": "",
+									"validate": false
+									
+								}
+							}
+						}
+					}
+				}
+			},
+			"1":  {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [	{ "x": 32, "y": 29, "w": 2, "h": 4, "i": 0, "static": false },
+							{ "x": 29, "y": 29, "w": 3, "h": 2, "i": 1, "static": false },
+							{ "x": 29, "y": 31, "w": 3, "h": 2, "i": 2, "static": false }],
+					"md": [	{ "x": 32, "y": 29, "w": 2, "h": 4, "i": 0, "static": false },
+							{ "x": 29, "y": 29, "w": 3, "h": 2, "i": 1, "static": false },
+							{ "x": 29, "y": 31, "w": 3, "h": 2, "i": 2, "static": false }],
+					"lg":[	{ "x": 35, "y": 29, "w": 2, "h": 4, "i": 0, "static": false },
+							{ "x": 32, "y": 29, "w": 3, "h": 2, "i": 1, "static": false },
+							{ "x": 32, "y": 31, "w": 3, "h": 2, "i": 2, "static": false }]
+					
+				},
+			
+
+
+				"components": {
+					
+					"0":{
+						"type": "InputForm",
+						"name": "Aufgabenstellung",
+						"isValid":true,
+						"component": {
+							"title": "Antwort",
+							"form": {
+								
+							
+								"position": {
+                                    "formType": "DropdownFormField",
+                                    "label": "Position",
+									"title":"Aufgabe",
+                                    "type": "string",
+                                    "description": "Position des Reaktionspartners",
+                                
+                                    "initial": "para",
+									"action": 
+										{
+											"instruction": "generatechemie",
+											"type": "fetchData",
+											"label": "Generieren!"
+								
+										}
+									,
+                                    "options": ["para", "meta", "ortho"],
+                                    "presets": {
+                                       
+                                    },
+									"validation":"taskData__Position",	
+									"isValid": true
+
+								},
+							
+								"reaktiontype": {
+                                    "formType": "DropdownFormField",
+                                    "label": "Reaktiontype",
+                                    "type": "string",
+                                    "description": "Findet eine Überreaktion statt?",
+                                    "initial": "Ja",
+									"action": 
+										{
+											"instruction": "generatechemie",
+											"type": "fetchData",
+											"label": "Generieren!"
+										}
+									,
+                                    "options": ["Ja", "nein"],
+                                    "presets": {
+                                       
+                                    },
+									"validation":"taskData__Ueberreaktion",	
+									"isValid": true
+                            	}
+							}
+						}
+					},
+					
+							
+					
+					"1": {
+							"type": "Output",
+							"name": "Aufgabenstellung",
+							"isValid": true,
+							"dependencies": {
+								"Output": {
+									"serverOutput": "nodes__1__components__1__component__description",
+									"validOutput": "nodes__1__components__1__component__description"
+								}
+								
+							},
+							"component": {
+								"header": "Aufgabenstellung",
+								"description": "Gegeben ist ein einfach substituiertes Benzolderivat. (siehe unten) a) Geben Sie im nebenstehenden Drobdownfeld den Ort der Zweitsubstitution in einer elektrophilen aromatischen Substitution an! b) Geben Sie bei Reaktiontyp im nebenstehenden Feld an ob Sie eine Überreaktion des Erstprodukts unter den gegebenen Reaktionsbedingungen erwarten? c) (nächste Seite) Zeichnen Sie das zu erwartende Hauptprodukt!"
+							}
+						},
+						
+				
+					"2":{
+						"type": "JSME",
+						"name": "JSMEreaktion",
+						"double":"false",
+						"isValid": true,
+						"Reaktionsmiles":"taskData__SmilesReaction",
+						"readonly": true,		
+						"dependencies": {
+						},
+						"component": {		
+							"title": "Chemie Reaktion"
+								}
+					}
+
+					}
+				},	
+				"2"	:{
+						"isValid":false,
+						"zoomScale": 1,
+						"layouts": {
+							"sm": 	[{ "x": 32, "y": 29, "w": 3, "h": 2, "i": 0, "static": false }],
+							"md": 	[{ "x": 32, "y": 29, "w": 3, "h": 2, "i": 0, "static": false }],
+							"lg":	[{ "x": 32, "y": 29, "w": 3, "h": 2, "i": 0, "static": false },
+									 { "x": 35, "y": 29, "w": 3, "h": 2, "i": 1, "static": false }]
+							
+						},
+					
+						"components": {
+							"0":{
+								"type": "JSME",
+								"name": "JSMEstudt",
+								"isValid": true,
+								"readonly": false,
+								 "Smiles": "taskData__Smiles",
+								"dependencies": {
+								},
+								"component": {		
+									"title": "Chemie Student"
+										}
+							},
+						
+						"1":{
+							"type": "JSME",
+							"name": "JSMEreaktion",
+							"isValid": true,
+							"Reaktionsmiles":"taskData__SmilesReaction",
+							"readonly": true,		
+							"dependencies": {
+							},
+							"component": {		
+								"title": "Chemie Reaktion"
+									}
+						}
+				}		
+		}
+	}
+}
+}
+			
+			
+		
+	
+
+			
