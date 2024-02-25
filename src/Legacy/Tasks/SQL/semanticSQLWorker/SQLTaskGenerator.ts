@@ -1,4 +1,3 @@
-import fs from "fs";
 import { SQLDBReflection } from "./SQLDBReflection";
 import { SQLParser, SQLMetaDataParser } from "./SQLParser";
 import { NLGPipeline } from "./NLGPipeline";
@@ -7,9 +6,14 @@ import { PgClient } from "../../../database/postgres/postgresDAO";
 import { RNG } from "../../../helpers/NumberGenerators";
 import { QueryGenerator } from "./SemanticSQLGenerator";
 import { performance } from "perf_hooks";
+import path from "path";
+import fs from "fs";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 // const minioClient = new MinioClientWrapper();
-const SQL_TASK_DB = "imdb";
+const SQL_TASK_DB = "task_db";
 
 interface SQLTaskDescription {
 	language: string;
@@ -21,7 +25,10 @@ export const semanticSqlQueryGenerator = async (taskDescription: SQLTaskDescript
 	const { language, parameters } = taskDescription;
 	const { schema, seed } = parameters;
 
-	const sqlTaskClient = new PgClient(SQL_TASK_DB, "postgresql://admin:admin@localhost:5432/");
+	const sqlTaskClient = new PgClient(
+		SQL_TASK_DB,
+		`postgresql://${process.env.POSTGRES_USER}:${process.env.POSTGRES_PW}@${process.env.POSTGRES_HOST}:${process.env.POSTGRES_PORT}/`
+	);
 	const reflector = new SQLDBReflection([schema], sqlTaskClient);
 	const reflection = await reflector.reflectDB();
 	const parser = new SQLMetaDataParser(reflection);
@@ -49,12 +56,22 @@ export const semanticSqlQueryGenerator = async (taskDescription: SQLTaskDescript
 	const { baselineNlQuery, unMaskedNlQuery } = await nlgPipeline.translateQuery(query);
 	const done = performance.now();
 
+	let result = [];
+	try {
+		result = await sqlTaskClient.queryDB(parsedQuery.replace(";", " limit 10;"));
+	} catch (error) {
+		console.log("error");
+	}
+
 	return {
-		query,
-		parsedQuery,
+		structuredQuery: query,
+		query: parsedQuery,
 		nlQuery: unMaskedNlQuery,
 		baselineNlQuery,
 		executionTime: done - start,
+		description: unMaskedNlQuery,
+		result,
+		dotDescription: ""
 	};
 };
 

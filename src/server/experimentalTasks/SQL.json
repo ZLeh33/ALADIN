@@ -113,7 +113,7 @@
                         "type": "DOTGraph",
                         "name": "DB",
                         "isValid": true,
-                        "dependencies": { "DOTGraph": { "dotDescription": "taskData__dotDescription" } },
+                        "dependencies": { "dotDescription": "taskData__dotDescription" },
                         "component": {}
                     },
                     "1": {
@@ -252,9 +252,13 @@
                         "name": "SQL-Query",
                         "isValid": true,
                         "methods": {
-                            "showSolution": "Zeig mir die Lösung",
-                            "copyToClipboard": "Kopieren!"
+                            "showSolution":  {"description": "Zeig mir die Lösung", "impact": 0}, "copyToClipboard": {"description":  "Kopieren!", "impact":"0"}
+                            
                         },
+                        "contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
                         "actions": [
                             {
                                 "type": "execute",

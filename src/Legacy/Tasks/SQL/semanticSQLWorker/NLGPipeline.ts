@@ -1,4 +1,5 @@
 import HuggingFace, { FillMaskReturn } from 'huggingface';
+import { HfInference } from "@huggingface/inference";
 import { templateString } from "../../../helpers/helperFunctions";
 import { knowledgeGraph, structuredKnowledgeGraph, IStructuredKnowledgeGraph } from "./knowledgeGraphReader";
 import { attachRuntimes, getFunctionRuntimes } from "./benchmark";
@@ -16,7 +17,7 @@ import {
     AggregateType
 } from "./types";
 
-dotenv.config({ path: path.join(__dirname, "../../../.env") });
+// dotenv.config({ path: path.join(__dirname, "../../../.env") });
 
 export class NLGPipeline {
     private baselineNlParser: BaselineNLParser;
@@ -788,7 +789,7 @@ class NLParser {
  * Fills in [MASK]-tokens with suggested tokens by the BERT model.
  */
 class MaskFiller {
-    private hf: HuggingFace;
+    private hf: HfInference;
     private stopTokens: Array<string> = [
         ".",
         ",",
@@ -800,7 +801,7 @@ class MaskFiller {
     ]
 
     constructor() {
-        this.hf = new HuggingFace(process.env.HUGGINGFACE_TOKEN || "")
+        this.hf = new HfInference(process.env.HUGGINGFACE_TOKEN || "")
     }
 
     // @attachRuntimes("fillMask")

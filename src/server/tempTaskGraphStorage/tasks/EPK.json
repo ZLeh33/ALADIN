@@ -188,7 +188,12 @@
 									},
 									"elementSelector": "Event",
 									"dropData": {
-										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+										"template": {
+											"label": "",
+											"shape": "hexagon",
+											"fixedSize": "false",
+											"type": "event"
+										}
 									}
 								},
 								"Function": {
@@ -198,7 +203,13 @@
 									},
 									"elementSelector": "Function",
 									"dropData": {
-										"dotTemplate": "${nodeID} [label=\"\" shape=\"rect\" style=\"rounded\" fixedSize=\"false\"]"
+										"template": {
+											"label": "",
+											"shape": "rect",
+											"style": "rounded",
+											"fixedSize": "false",
+											"type": "function"
+										}
 									}
 								},
 								"Gate": {
@@ -208,7 +219,12 @@
 									},
 									"elementSelector": "Gate",
 									"dropData": {
-										"dotTemplate": "${nodeID} [label=\"\" shape=\"hexagon\" fixedSize=\"false\"]"
+										"template": {
+											"label": "",
+											"shape": "circle",
+											"fixedSize": "false",
+											"type": "gate"
+										}
 									}
 								}
 							},
@@ -256,9 +272,10 @@
 								"name": "EPK",
 								"isValid": false,
 								"component": {
-									"userGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
+									"dotUserGraph": "digraph\n{\ngraph [bgcolor=transparent bgcolor=transparent]\n}",
+									"userGraph": {},
 									"validationData": "",
-									"editableFields": ["label"]
+									"editable": ["event", "function", "gate"]
 								},
 								"dependencies": {
 									"droppedElements": "nodes__1__components__0__component__dropZones__EPK__droppedElements",
@@ -271,7 +288,7 @@
 										"isValid": true,
 										"component": {},
 										"dependencies": {
-											"dotDescription": "nodes__1__components__0__nestedComponents__EPK__component__userGraph"
+											"dotDescription": "nodes__1__components__0__nestedComponents__EPK__component__dotUserGraph"
 										}
 									}
 								}

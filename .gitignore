@@ -2,6 +2,7 @@ GRGen.Net
 node_modules
 *dll
 *dot
+!src/Legacy/Tasks/SQL/ERDs/*.dot
 /dist
 coverage
 coverage/*
