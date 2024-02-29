@@ -7,6 +7,10 @@ import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltW
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
 
+import { DataSamplingGenerator } from "../Tasks/DecisionTrees/WrapperDataSampler";
+import { DecisionTreeTaskGenerator } from "../Tasks/DecisionTrees/Task";
+import { DecisionTreeValidator } from "../Tasks/DecisionTrees/WrapperValidateDecisionTree";
+
 import fs from "fs";
 import path from "path";
 
@@ -63,6 +67,10 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+
+	DataSamplingGenerator: DataSamplingGenerator,
+	DecisionTreeTaskGenerator: DecisionTreeTaskGenerator,
+	DecisionTreeValidator: DecisionTreeValidator,
 };
 
 export interface IInstructionConfiguration {
