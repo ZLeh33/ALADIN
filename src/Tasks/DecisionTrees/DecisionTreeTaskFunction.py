@@ -8,6 +8,7 @@ import numpy as np
 nodes_list = []
 edges_list = []
 
+### ID3-Algorithmus ###
 # Berechnung der Entropie
 def entropy(labels):
     unique_labels, label_counts = np.unique(labels, return_counts=True)
@@ -103,6 +104,7 @@ def build_decision_tree(data, features, target, level, solutions):
         sub_features = features.drop(best_feature)
         tree[best_feature][value] = build_decision_tree(subset, sub_features, target, level+2, solutions)
     return tree
+### ID3-Algorithmus ###
 
 # Struktur des Entscheidungsbaums abstrahieren
 def decisiontree_structure(tree):
