@@ -5,7 +5,7 @@ const path = require("path");
 function runPythonScript(scriptPath: string, args: any): Promise<string> {
 	try {
 		return new Promise((resolve, reject) => {
-			const command = `python3 ${scriptPath} ${args.join(" ")}`;
+			const command = `python ${scriptPath} ${args.join(" ")}`;
 			console.log(command);
 			exec(command, (error, stdout, stderr) => {
 				if (error) {
@@ -24,16 +24,16 @@ function runPythonScript(scriptPath: string, args: any): Promise<string> {
 	}
 }
 
-export async function clusterAnalysisMain(parameter: any) {
+export async function generateFermentationDataMain(parameter: any) {
 	let result = { foo: "bar" };
     console.log("PARAMETER:");
 	console.log(parameter);
 	try {
-		let pythonScriptPath = "clusterAnalysis.py";
+		let pythonScriptPath = "generateFermentationData.py";
 		pythonScriptPath = path.join(__dirname, pythonScriptPath);
 		//console.log(parameter["distance"]);
 
-		const argumentsToPythonScript = [...Object.values(parameter), ...parameter["nodeRange"]];
+		const argumentsToPythonScript = [...Object.values(parameter.parameters)];
 		//delete argumentsToPythonScript[2];
         //console.log("ARGUMENTS TO PYTHON SCRIPT");
 		//console.log(argumentsToPythonScript);

@@ -1,8 +1,8 @@
 {
 	"API": [
 		{
-			"task": "test",
-			"name": "generateGraph",
+			"task": "Ferment",
+			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
 				"parameters": "object"
@@ -10,12 +10,12 @@
 		}
 	],
 	"Worker": {
-		"testTask": {
+		"FermentTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
-				"generateGraph": {
-					"dependencies": ["GozintographTaskGenerator"],
-					"body": "async (taskDescription) => {let result = {};try { const g = new GozintographTaskGenerator();  result = g.generateTask(taskDescription.parameters); } catch (error) { console.error(error); result = error;} return result; }"
+				"generateFermentationDataMain": {
+					"dependencies": ["generateFermentationDataMain"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
 				}
 			}
 		}
@@ -107,16 +107,16 @@
 						{
 							"x": 31,
 							"y": 28.5,
-							"w": 2,
-							"h": 0.5,
+							"w": 3,
+							"h": 1.5,
 							"i": 0,
 							"static": false
 						},
 						{
 							"x": 36,
 							"y": 28.5,
-							"w": 2,
-							"h": 0.5,
+							"w": 5,
+							"h": 2,
 							"i": 1,
 							"static": false
 						},
@@ -181,21 +181,63 @@
 				"isValid": false,
 				"components": {
 					"0": {
-						"type": "EchtButton",
-						"name": "Button",
-						
-						"component":{
-							"name": "Fermentationsmodell"
+						"type": "TaskConfiguration",
+						"name": "Konfiguration",
+						"isValid": false,
+						"component": {
+							"title": "Diagramm generieren",
+							"actions": [
+								{
+									"instruction": "generateFermentationDataMain",
+									"type": "fetchData",
+									"label": "Generieren!",
+									"dependsOn": []
+								}
+							],
+							"form": {
+									"stagesAmount": {
+									"isValid": false,
+									"formType": "ValueFormField",
+									"label": "Phasenanzahl",
+									"type": "number",
+									"step": 1,
+									"boundaries": {
+										"min": 2,
+										"max": 10
+									},
+									"description": "Bestimmt die Phasen Anzahl",
+									"value": 4,
+									"validate": true,
+									"presets": {}
+								},
+								"Organismus": {
+									"isValid": false,
+									"formType": "DropdownFormField",
+                                    "label": "Organismus",
+                                    "type": "string",
+                                    "description": "Zur Verfügung stehende Organismus",
+                                    "action": { "instruction": "fetchERD", "type": "fetchData", "key": "schema" },
+                                    "initial": "S.cerevisiae",
+                                    "options": ["S.cerevisiae", "E.coli", "Testorganismus"],
+                                    "presets": {
+                                        "1": "S.cerevisiae",
+                                        "2": "E.coli",
+                                        "3": "Testorganismus"
+                                    }
+								}
+								}
 						}
-					},
+						},
 					"1":{
-						"type": "EchtButton",
-						"name": "Button",
-						
+						"type": "diagramm",
+						"name": "Graph",
 						"component":{
-							"name": "Diagramm"
+							"title":"Fermentatiosgraph",
+							"labels": "taskData__labels",
+							"datasets": "taskData__datasets"
+							
 						}
-					},
+						},
 					"2": {
 						"type": "TaskConfiguration",
 						"name": "Konfiguration",
@@ -445,7 +487,7 @@
 						},
 					"6":{
 						"name":"Ergebnis",
-						"type": "diagramm",
+						"type": "",
 						"component":{
 							"title":"Fermentatiosverlauf",
 							"type": "line",
