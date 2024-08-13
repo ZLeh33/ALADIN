@@ -1,8 +1,8 @@
 {
 	"API": [
 		{
-			"task": "test",
-			"name": "generateGraph",
+			"task": "Ferment",
+			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
 				"parameters": "object"
@@ -10,12 +10,12 @@
 		}
 	],
 	"Worker": {
-		"testTask": {
+		"FermentTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
-				"generateGraph": {
-					"dependencies": ["GozintographTaskGenerator"],
-					"body": "async (taskDescription) => {let result = {};try { const g = new GozintographTaskGenerator();  result = g.generateTask(taskDescription.parameters); } catch (error) { console.error(error); result = error;} return result; }"
+				"generateFermentationDataMain": {
+					"dependencies": ["generateFermentationDataMain"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
 				}
 			}
 		}
@@ -365,7 +365,7 @@
 						},
 					"3":{
 						"name":"Ergebnis",
-						"type": "diagramm",
+						"type": "",
 						"component":{
 							"title":"Fermentatiosverlauf",
 							"type": "line",
