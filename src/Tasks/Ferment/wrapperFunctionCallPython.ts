@@ -42,6 +42,8 @@ export async function generateFermentationDataMain(parameter: any) {
 		//let foo = fs.readFileSync(path.join(__dirname, 'data.json'), 'utf-8');
 
 		result = JSON.parse(fs.readFileSync(path.join(__dirname, "data.json"), "utf-8"));
+		const filePath = path.join(__dirname, "data.json");
+		fs.writeFileSync(filePath, JSON.stringify(result, null, 2), "utf-8");
         console.log(result);
 		//insofern kryptsiche Zeichen in der JSON Ausgabe vorhanden sind .> Workaround mittels File
 	} catch (error) {

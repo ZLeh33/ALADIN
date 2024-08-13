@@ -71,7 +71,7 @@ def generateFermentationDataMain():
     
     
     data = {
-        "labels":  ["0","5","10","15","20","25","30","35","40","45","50"],#t_combined.tolist(),
+        "labels":  t_combined.tolist(), #["0","5","10","15","20","25","30","35","40","45","50"]
         "datasets": [
             {
                 "label": "c_{x}",
