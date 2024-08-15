@@ -1,6 +1,7 @@
 import json
 import numpy as np
 
+from excel_export import export_to_excel
 from nebenrechnungen import Berechnung_der_Sauerstoffloeslichkeit
 from nebenrechnungen import Berechnung_des_kla_Wertes
 from nebenrechnungen import parameter
@@ -64,6 +65,10 @@ param_array=berechnung_der_Tabelle3(const_array,eingabe[10],eingabe[6],eingabe[8
 #Berechnung_ausführen
 ergebnis = berechnung(t_ranges_array, param_array, const_array,eingabe[1])
 c_ox_sat, y_combined, t_combined, cum_feeding = ergebnis
+y_combined=y_combined.T
+
+#Export Resultat in Excel-Datei
+#export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 
 def generateFermentationDataMain():
     
@@ -76,36 +81,36 @@ def generateFermentationDataMain():
             {
                 "label": "c_{x}",
                 "data": y_combined[0, :].tolist(),
-                "borderColor": "#008080",
-                "backgroundColor": "#008080",
+                "borderColor": "#66c2a5",
+                "backgroundColor": "#66c2a5",
                 "tension": 0.1
             },
             {
                 "label": "c_{S1}",
                 "data": y_combined[1, :].tolist(),
-                "borderColor": "#FF6347",
-                "backgroundColor": "#FF6347",
+                "borderColor": "#fc8d62",
+                "backgroundColor": "#fc8d62",
+                "tension": 0.1
+            },
+              {
+                "label": "c_{S2}",
+                "data": y_combined[2, :].tolist(),
+                "borderColor": "#8da0cb",
+                "backgroundColor": "#8da0cb",
                 "tension": 0.1
             },
             {
                 "label": "c_{P}",
                 "data": y_combined[3, :].tolist(),
-                "borderColor": "#FF69B4",
-                "backgroundColor": "#FF69B4",
+                "borderColor": "#e78ac3",
+                "backgroundColor": "#e78ac3",
                 "tension": 0.1
             },
             {
                 "label": "c_{O2}",
                 "data": (y_combined[4, :] / c_ox_sat * 100).tolist(),
-                "borderColor": "#FF69B4",
-                "backgroundColor": "#FF69B4",
-                "tension": 0.1
-            },
-            {
-                "label": "c_{S2}",
-                "data": y_combined[2, :].tolist(),
-                "borderColor": "#4169E1",
-                "backgroundColor": "#4169E1",
+                "borderColor": "#a6d854",
+                "backgroundColor": "#a6d854",
                 "tension": 0.1
             },
             {
@@ -121,6 +126,8 @@ def generateFermentationDataMain():
 
 with open('./src/Tasks/Ferment/data.json', 'w') as output:
     json.dump(generateFermentationDataMain(), output)
+
+
 
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()
