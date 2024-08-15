@@ -123,5 +123,5 @@ with open('./src/Tasks/Ferment/data.json', 'w') as output:
     json.dump(generateFermentationDataMain(), output)
 
 # Beispiel für die Verwendung der Funktion
-fermentationData = generateFermentationDataMain()
-print(fermentationData)
+#fermentationData = generateFermentationDataMain()
+#print(fermentationData)

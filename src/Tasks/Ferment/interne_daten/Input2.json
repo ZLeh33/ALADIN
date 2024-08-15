@@ -1,0 +1,42 @@
+{
+    "Modell": "S.cerevisiae",
+    "PhasenAnzahl": 3,
+    "Dauer": [
+        10,
+        10,
+        10
+    ],
+    "Druck": [
+        0,
+        0,
+        0
+    ],
+    "Drehzahl": [
+        100,
+        100,
+        100
+    ],
+    "Zuluft": [
+        1,
+        1,
+        0
+    ],
+    "BolusC": [
+        0,
+        0,
+        0
+    ],
+    "Feed": [
+        0,
+        0,
+        0
+    ],
+    "BolusN": [
+        0,
+        0,
+        0
+    ],
+    "temperatur": null,
+    "startbiomasse": null,
+    "do": null
+}
