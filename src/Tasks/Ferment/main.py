@@ -62,9 +62,9 @@ if __name__ == "__main__":
     
 
     #Export Resultat in Excel-Datei
-    #export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+    export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 
 
     #Darstellung ausgeben
-    #plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
+    plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
     
