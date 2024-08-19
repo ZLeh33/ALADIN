@@ -114,7 +114,7 @@
 							"static": false
 						},
 						{
-							"x": 30,
+							"x": 27,
 							"y": 32.5,
 							"w": 8,
 							"h": 2,
@@ -122,7 +122,7 @@
 							"static": false
 						},
 						{
-							"x": 40,
+							"x": 35,
 							"y": 32,
 							"w": 6,
 							"h": 3,
@@ -296,14 +296,14 @@
 									}
 								},
 								"standardZeile":[
-									[0, 0, 0, 0, 100, 0,10]
+									[0, 0, 0, 0, 100, 0,0]
 								],
 								"userData": [],
 								"columnLabelData":[
 									"Zuluft in NL/min",
-									"Bolus in g/L",
+									"BolusC in g/L",
 									"Feed in g/(L*h)",
-									"Bolus in g/L" ,
+									"BolusN in g/L" ,
 									"Drehzahl in rpm",
 									"Druck in barg",
 									"Dauer in h"
@@ -331,7 +331,7 @@
 										"max": 2
 									},
 									{
-										"name": "Bolus in g/L",
+										"name": "BolusC in g/L",
 										"min": 0,
 										"max": 50
 									},
@@ -341,7 +341,7 @@
 										"max": 10
 									},
 									{
-										"name": "Bolus in g/L",
+										"name": "BolusN in g/L",
 										"min": 0,
 										"max": 10
 									},

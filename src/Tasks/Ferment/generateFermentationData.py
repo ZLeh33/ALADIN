@@ -38,14 +38,14 @@ print(m)
 #modelle = data_importieren_von_json('Modelle.json')
     
 #Input aus input.json laden
-eingabeOb   =  JsonInput('input.json')
+eingabeOb   =  JsonInput('FrontendEingaben.json')
 eingabeOb.ladeJson()
 eingabe = eingabeOb.get_Value()
-print(eingabe)
+
 
 
 Sauerstoffoeslichkeit_array=Berechnung_der_Sauerstoffloeslichkeit(eingabe[1],eingabe[9],eingabe[3])
-    
+   
     
 kla_werte=Berechnung_des_kla_Wertes(Sauerstoffoeslichkeit_array,modelle,eingabe[4],eingabe[0],eingabe[5],eingabe[1])
     
@@ -76,7 +76,7 @@ def generateFermentationDataMain():
     
     
     data = {
-        "labels":  t_combined.tolist(), #["0","5","10","15","20","25","30","35","40","45","50"]
+        "labels":  t_combined.tolist(),
         "datasets": [
             {
                 "label": "c_{x}",
@@ -132,3 +132,4 @@ with open('./src/Tasks/Ferment/data.json', 'w') as output:
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()
 #print(fermentationData)
+print('hier',eingabe) 
