@@ -120,7 +120,7 @@ def berechnung_der_Tabelle2(dauer,phasen_anzahl):
 
 def berechnung_der_Tabelle3(const_array,startbiomasse,bolus_c,bolus_n,do,phasen_anzahl):
     param_array= [array('d', [0] * 7) for _ in range(phasen_anzahl)]
-    print('hallo')
+    
     for i in range(phasen_anzahl):
         if i == 0: #Phase 1
             param_array[i][0]=startbiomasse
