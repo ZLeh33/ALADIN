@@ -65,10 +65,13 @@ param_array=berechnung_der_Tabelle3(const_array,eingabe[10],eingabe[6],eingabe[8
 #Berechnung_ausführen
 ergebnis = berechnung(t_ranges_array, param_array, const_array,eingabe[1])
 c_ox_sat, y_combined, t_combined, cum_feeding = ergebnis
-y_combined=y_combined.T
+
 
 #Export Resultat in Excel-Datei
-#export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+y_combined=y_combined.T
+
+
 
 def generateFermentationDataMain():
     

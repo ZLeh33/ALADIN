@@ -23,7 +23,7 @@ function runPythonScript(scriptPath: string): Promise<string> {
 		console.log("Error");
 	}
 }
-
+/************************************************************ Zakaria  *************************************/
 function parameterBearbeitenUndSpeichern(parameter: any){
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
     let frontendEingaben: any;
@@ -134,6 +134,7 @@ function parameterBearbeitenUndSpeichern(parameter: any){
 	frontendEingaben.startbiomasse	=	isNaN(startbiomasse) ? 0 : startbiomasse;
 	frontendEingaben.do				=	isNaN(dO) ? 0 : dO;
 
+	delete frontendEingaben.checkUserDataValidity;
 	
     // Pfad zur JSON-Datei definieren
     const filePfade = path.join(__dirname, "/interne_daten/FrontendEingaben.json");
@@ -149,7 +150,7 @@ function parameterBearbeitenUndSpeichern(parameter: any){
 		return false;
     }
 }
-
+/**************************************************************End  ************************************/
 
 
 

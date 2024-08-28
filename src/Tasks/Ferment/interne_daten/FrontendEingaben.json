@@ -36,7 +36,7 @@
         1,
         1
     ],
-    "temperatur": 30,
-    "startbiomasse": 30,
-    "do": 30
+    "temperatur": 0,
+    "startbiomasse": 0,
+    "do": 0
 }
