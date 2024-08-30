@@ -1,7 +1,7 @@
 {
 	"API": [
 		{
-			"task": "gozintograph",
+			"task": "test",
 			"name": "generateGraph",
 			"httpMethod": "post",
 			"params": {
@@ -10,7 +10,7 @@
 		}
 	],
 	"Worker": {
-		"gozintographTask": {
+		"testTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
 				"generateGraph": {
@@ -21,8 +21,8 @@
 		}
 	},
 	"UI": {
-		"currentTask": "gozintograph",
-		"taskMode": "practice",
+		"currentTask": "test",
+		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,
 		"previousNode": 0,
@@ -119,6 +119,22 @@
 							"h": 2,
 							"i": 1,
 							"static": false
+						},
+						{
+							"x": 36,
+							"y": 30,
+							"w": 2,
+							"h": 2,
+							"i": 2,
+							"static": false
+						},
+						{
+							"x": 38,
+							"y": 30,
+							"w": 2,
+							"h": 2,
+							"i": 3,
+							"static": false
 						}
 					]
 				},
@@ -141,6 +157,87 @@
 							"dotDescription": "taskData__dotDescription"
 						},
 						"component": {}
+					},
+					"3": {
+						"type": "MoleculeEditor",
+						"name": "Gozintograph",
+						"isValid": true,
+						"isCorrect": true,
+						"dependencies": {},
+						"component": {}
+					},
+					"2": {
+						"name": "Direktbedarfsmatrix",
+						"type": "Matrix",
+						"isValid": false,
+						"isCorrect": false,
+						"dependencies": {
+							"Matrix": {
+								"data": "taskData__adjacencyMatrix"
+							}
+						},
+						"methods": {
+							"fillZeros": {
+								"description": "Ergänze Nullen",
+								"impact": 0.5
+							},
+							"showSolution": {
+								"description": "Zeige Lösung",
+								"impact": 0
+							},
+							"copyToClipboard": {
+								"description": "Kopieren",
+								"impact": 1
+							}
+						},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"initialize": {
+								"solution": {
+									"operations": [],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"validation": {
+									"operations": [
+										{
+											"name": "getValueInitializedMatrix",
+											"args": [
+												{
+													"isValid": false,
+													"isCorrect": false
+												}
+											]
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"user": {
+									"operations": [
+										{
+											"name": "getMatrix",
+											"args": []
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								}
+							},
+							"userData": [
+								["a", 1, 0, 0, 0, 0, "0"],
+								[0, 0, 1, 0, 0, 1, 1],
+								[0, 0, 0, 1, 0, 0, 0],
+								[0, 0, 0, 0, 1, 0, 0],
+								[0, 0, 0, 0, 0, 1, 0]
+							],
+							"validationData": null,
+							"solutionData": null,
+							"readOnly": false,
+							"rowLabel": "taskData__labelVector",
+							"columnLabel": "taskData__labelVector",
+							"inputType": ""
+						}
 					},
 					"1": {
 						"type": "TaskConfiguration",

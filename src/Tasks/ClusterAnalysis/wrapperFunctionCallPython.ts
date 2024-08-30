@@ -5,7 +5,7 @@ const path = require("path");
 function runPythonScript(scriptPath: string, args: any): Promise<string> {
 	try {
 		return new Promise((resolve, reject) => {
-			const command = `python3 ${scriptPath} ${args.join(" ")}`;
+			const command = `python ${scriptPath} ${args.join(" ")}`;
 			console.log(command);
 			exec(command, (error, stdout, stderr) => {
 				if (error) {
