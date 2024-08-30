@@ -14,6 +14,9 @@ import math
 import json
 import sys
 import os
+import pathlib
+import base64
+import string
 
 #functions
 def generate_clusters(n_clusters, m_points_per_cluster, rangeStart, rangeEnd):
@@ -238,38 +241,172 @@ def createDendogramDotLanguage(data, distanceMethod):
     
     return str(dot)
 
+def array_to_html_table(array):
+    letter = list(string.ascii_uppercase)
+    letterPosition = 0
 
-def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
+    html = '<table style="border: 1px solid black;margin-left: auto;margin-right: auto;">\n'
+    html += '<tr><th style="border: 1px solid black;"> Name Datenpunkt </th><th style="border: 1px solid black;"> Position X-Achse </th><th style="border: 1px solid black;"> Position Y-Achse </th></tr>'
+    for row in array:
+        html += '<tr>\n'
+        html += f'<td style="border: 1px solid black; border-collapse: collapse;">{letter[letterPosition]}</td>'
+        for item in row:
+            html += f'<td style="border: 1px solid black; border-collapse: collapse;">{item}</td>\n'
+        html += '</tr>\n'
+        letterPosition += 1
+    html += '</table>'
+    return html
+
+def generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data):
+    finalDescription = ""
+
+    #add the main task descripton to the variable
+    finalDescription += "<p>In dieser Aufgabe sollen Sie zeigen, dass Sie die hierarchische Clusteranalyse verstanden haben und diese anwenden koennen.</p><br>"
+
+    #add example data to description
+    finalDescription += "<p>Sie erhalten eine Sammlung von Datenpunkten, für die Sie die Analyse durchführen sollen.</p><br>"
+    finalDescription += array_to_html_table(data)
+    finalDescription += "<br><br>"
+
+    #add more task description
+    if str(diagramHelpBoolean) == "false":
+        finalDescription += "<p>Zeichnen Sie im ersten Schritt die Datenpunkte in ein Koordinatensystem als visuelle Hilfe ein, oder nutzen Sie alternativ das Streudiagramm, welches Ihnen ALADIN als Hilfestellung bietet.</p>"
+
+    #if diagram help checkbox is checked
+    if str(diagramHelpBoolean) == "true":
+        finalDescription += "<br><p>Sie haben bei der Aufgabenerstellung ausgewaehlt, dass Ihnen das Streudiagramm angezeigt werden soll. Das folgende Diagramm zeigt die verteilten Datenpunkte im Koordinatensystem.</p><br>"
+
+        #add base64 img
+        #TODO
+        print_diagram(data)
+        with open("streudiagramm.png", "rb") as image_file:
+            encoded_string = str(base64.b64encode(image_file.read()))
+
+        finalDescription += f'<br><img style="display: block;margin-left: auto;margin-right: auto;" src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
+
+    #help description for calculating distance matrix
+    if str(distanceMatrixBoolean) == "true":
+        finalDescription += f"<p>Hilfe zur Distanzberechnung</p><p>So haben die {str(distanceMethod)} Methode zur Berechnung der Distanz gewaehlt. Diese wird wie folgt berechnet:</p>"
+        if distanceMethod == 'manhattan':
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><munderover><mo>&#x2211;</mo><mi>i</mi><mo>=</mo><mn>1</mn><mi>n</mi></munderover><mo    >|</mo><msub><mi>a</mi><mi>i</mi></msub><mo>-</mo><msub><mi>b</mi><mi>i</mi></msub><mo>|</mo></math></p><br><br></div>'
+                
+        elif distanceMethod == 'euclidean':
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mo>|</mo><mi>a</mi><mo>-</mo><mi>b</mi><mo>|</mo></math></p><br><br></div>'
+
+        elif distanceMethod == 'maximum':
+            finalDescription += '<div style="text-align:center;"><br><br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>a</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>1</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>b</mi><mo>=</mo><mover><mo>=</mo><mo>^</mo></mover><mtext>&nbsp;Datenpunkt&nbsp;</mtext><mn>2</mn></math></p>'
+            finalDescription += '<br><p><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>d</mi><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo><mo>=</mo><mrow><mo>max</mo><mo>(</mo><mi>a</mi><mo>,</mo><mi>b</mi><mo>)</mo></mrow></math></p><br><br></div>'
+
+    #help description for draw the dendrogram
+    if str(dendogramBoolean) == "true":
+        finalDescription += "<p>Um ein Dendrogramm aus einer Distanzmatrix zu erstellen, verwendet man zuerst einen hierarchischen Clustering-Algorithmus (wie z.B. Single-Linkage, Complete-Linkage oder Average-Linkage), um die Cluster-Hierarchie aus der Distanzmatrix zu erzeugen. Anschließend stellt man diese Hierarchie graphisch als Dendrogramm dar, wobei die Länge der Verbindungslinien die Distanzen oder Ähnlichkeiten zwischen den Clustern repräsentiert.</p>"
     
+
+    finalDescription += "<p>Berechnen Sie nun im nächsten Schritt die einzelnen Distanzmatrizen bis zu einer 2x2 Matrix und gebe sie Ihre Lösung in den Editor ein.</p>"
+    finalDescription += f"<p>Nutzen Sie für die Berechnung der Distanzen zwischen den einzelnen Datenpunkten die Berechnungsmethode {distanceMethod}</p>"
+
+    return finalDescription
+
+def generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data):
+    finalDescription = ""
+
+    #add the main task descripton to the variable
+    finalDescription += "<p>Vorschau der Datentabelle:</p><br>"
+
+    finalDescription += array_to_html_table(data)
+    finalDescription += "<br><br>"
+
+    #if diagram help checkbox is checked
+    finalDescription += "<br><p>Vorschau des Streudiagramms:</p><br>"
+
+    #add base64 img
+    print_diagram(data)
+    with open("streudiagramm.png", "rb") as image_file:
+        encoded_string = str(base64.b64encode(image_file.read()))
+
+    finalDescription += f'<br><img style="display: block;margin-left: auto;margin-right: auto;" src="data:image/png;base64, {encoded_string[2:-1]}" alt="Streudiagramm" /><br><br>'
+
+    return finalDescription
+
+
+def print_diagram(data):
+    # Streudiagramm zeichnen
+    # Extracting X and Y coordinates from the data
+    
+    x = [point[0] for point in data]
+    y = [point[1] for point in data]
+
+    length = len(x)
+    matrixHeaders = list(string.ascii_uppercase)
+
+    n = matrixHeaders[0:length]
+
+    # Erstellen des Plots
+    plt.figure(figsize=(6, 4))
+    plt.scatter(x, y)  # Verwendung von scatter() anstelle von plot()
+
+    # Hinzufügen von Beschriftungen an jedem Punkt
+    for i, label in enumerate(n):
+        plt.text(x[i], y[i], n[i], fontsize=12)
+
+    plt.title('Streudiagramm')
+    plt.xlabel('X-Achse')
+    plt.ylabel('Y-Achse')
+
+    # Display the plot
+    #plt.show()
+    plt.savefig('streudiagramm.png')
+
+def generate_matrix_headers(data, iterationNumber):
+    x = [point[0] for point in data]
+    length = len(x)
+    matrixHeaders = list(string.ascii_uppercase)
+    
+    return matrixHeaders[0:(length)] #- int(iterationNumber))]
+
+#def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod):
+def clusterAnalysisMain():
+    
+    #get data from CLI
     numClusters = int(sys.argv[2])
     pointsPerCluster = int(sys.argv[1])
     nodeRangeStart = int(sys.argv[9])
     nodeRangeEnd = int(sys.argv[10])
     diagramHelpBoolean = sys.argv[4]
     dendogramBoolean = sys.argv[5]
+    distanceMethod = sys.argv[7]
     linkageMethod = sys.argv[8]
     distanceMatrixBoolean = sys.argv[6]
+
+    #generate data for a task for the student
     data = generate_clusters(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd)
     
-    #taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean)
+    #Testdata
+    data = np.array([[2, 3],[5, 2],[5, 3],[1, 4],[4, 5]])
+        
+
+    #print(data)
+
+    taskDescription = generate_task_description(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
+
+    taskDescriptionPreview = generate_task_description_preview(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod, diagramHelpBoolean, dendogramBoolean, distanceMatrixBoolean, data)
     #TODO: atrribute richtig machen aus Fronted -> destrukturieren
     #aufgabenbeschreibung generieren
 
-    distanceMethod = sys.argv[7]
-
-    #data = np.array([[2, 3],
-    #                     [5, 2],
-    #                     [5, 3],
-    #                     [1, 4],
-    #                     [4, 5]])
     
     
     #createScatterDiagram(data)
     jsonDict = {}
+    #jsonDict["Dendogram"] = createDendogramDotLanguage(data, distanceMethod)
+    jsonDict["taskDescription"] = taskDescription
+    jsonDict["taskDescriptionPreview"] = taskDescriptionPreview
     
-    jsonDict["Dendogram"] = createDendogramDotLanguage(data, distanceMethod)
-        
-    
+
     for iteration in range(data.shape[0]):
         #erste iteration
         if(iteration == 0):
@@ -319,9 +456,11 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             
             #create Digraph
             #TODO -> oberste Zeile noch hinzufügen
-            print("DIGRAPH - Abstandsmatrix")
+            #print("DIGRAPH - Abstandsmatrix")
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, data, iteration)
-            
+
+            #matrix headers
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(data, iteration)
             
             #define cluster elements
             #clusters = np.array([[point_a, point_b]])
@@ -339,11 +478,6 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             
             if len(new_data) == 1:
                 continue
-            
-            print("")
-            print("")
-            print("---Next Iteration---")
-            
             
             if distanceMethod == 'manhattan':
                 matrix = calculate_inital_abstraction_matrix(new_data, manhattan_distance)
@@ -365,6 +499,9 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             point_a = new_data[single_linkage_indices[0]]
             point_b = new_data[single_linkage_indices[1]]
             
+            #matrix headers
+            jsonDict["DigraphIterationHeader{}".format(iteration)] = generate_matrix_headers(new_data, iteration)
+
             #nearest_point = get_nearest_point(data, point_a, point_b, euclidean_distance)
             #delete the point from the dataset, that is not nearest
             #point_to_remove = nearest_point[1]
@@ -424,10 +561,6 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
                 clusters.append([point_a, point_b])
                 #print(clusters)
             
-            #print("Aktuelle Cluster:")
-            #print(clusters)
-            
-            print("DIGRAPH - Abstandsmatrix")
             #createDigraph(matrix, new_data, iteration)
             jsonDict["DigraphIteration{}".format(iteration)] = matrix.tolist() #createDigraph(matrix, new_data, iteration)
 
@@ -455,9 +588,10 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
             #print("Neuer Hauptdatensatz")
             #print(jsonDict)
 
-    print(jsonDict)
+    #print(jsonDict)
+    #jsonDict["taskDescription"] = 
     jsonDict["iterations"] = iteration
-    with open("data.json", "w+",  encoding="utf8") as f:
+    with open(f"{pathlib.Path(__file__).parent.resolve()}/data.json", "w+",  encoding="utf8") as f:
         json.dump(jsonDict, f)
 
     return json.dumps(jsonDict)
@@ -470,15 +604,22 @@ def clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRange
 #distanceMethod = int(sys.argv[5])
 #linkageMethod = int(sys.argv[6])
 
-numClusters = 2
-pointsPerCluster = 3
-nodeRangeStart = 0
-nodeRangeEnd = 25
-distanceMethod = 'euclidean'
-linkageMethod = 'single'
+#numClusters = 2
+#pointsPerCluster = 3
+#nodeRangeStart = 0
+#nodeRangeEnd = 25
+#distanceMethod = 'euclidean'
+#linkageMethod = 'single'
 #Hauptfunktion ausfuehren
-clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod)
+#clusterAnalysisMain(numClusters, pointsPerCluster, nodeRangeStart, nodeRangeEnd, distanceMethod, linkageMethod)
+
+#EXECUTE
+clusterAnalysisMain()
 
 
 #TODO
 #Eingabevalidierung!!!
+
+
+#algo überarbeiten zur generierung der einzelnen punkte für dei clusteranalyse
+#leute sollen verstehen was diese aufgabe soll -> "wir wollen hierarchsiche clusteranalyse üben oder in der prüfung abfragen"
