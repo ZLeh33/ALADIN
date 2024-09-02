@@ -38,15 +38,18 @@
 			"0": {
 				"zoomScale": 1,
 				"layouts": {
-					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false },
-                            { "x": 14, "y": 5, "w": 2, "h": 7, "i": 2, "static": false }
-                ],
-					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false },
-                            { "x": 4, "y": 10, "w": 2, "h": 7, "i": 2, "static": false }
-                ],
-					"lg": [{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false },
-                            { "x": 36, "y": 29, "w": 4, "h": 5, "i": 2, "static": false }    
-                ]
+					"sm": [
+						{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false },
+						{ "x": 14, "y": 5, "w": 2, "h": 7, "i": 2, "static": false }
+					],
+					"md": [
+						{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false },
+						{ "x": 4, "y": 10, "w": 2, "h": 7, "i": 2, "static": false }
+					],
+					"lg": [
+						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 1, "static": false },
+						{ "x": 36, "y": 29, "w": 4, "h": 5, "i": 2, "static": false }
+					]
 				},
 				"isValid": false,
 				"components": {
@@ -190,7 +193,7 @@
 							}
 						}
 					},
-                    "2": {
+					"2": {
 						"type": "Output",
 						"name": "Vorschau",
 						"isValid": true,
@@ -222,18 +225,15 @@
 				"layouts": {
 					"sm": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
-                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
 					],
 					"md": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
-                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
 					],
 					"lg": [
 						{ "x": 32, "y": 29, "w": 4, "h": 4, "i": 2, "static": false },
-						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false },
-                        { "x": 41, "y": 29, "w": 5, "h": 9, "i": 0, "static": false }
+						{ "x": 36, "y": 29, "w": 5, "h": 9, "i": 1, "static": false }
 					]
 				},
 				"isValid": false,
