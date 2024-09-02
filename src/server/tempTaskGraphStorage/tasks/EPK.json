@@ -342,7 +342,7 @@
 						},
 						"component": {
 							"header": "Prozessbeschreibung",
-							"description": "Nach Eingang der Bestellung wird geprüft, ob das vom Kunden/Händler gewünschte Produkt auf Lager ist. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit. Endet die Prüfung des Bestands mit dem Ergebnis, dass die Produkte nicht bzw. nicht vollständig im Lager vorhanden sind, wird der Produktionsabteilung ein Auftrag zur Fertigung erteilt. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit."
+							"description": "<p>Nach Eingang der Bestellung wird geprüft, ob das vom Kunden/Händler gewünschte Produkt auf Lager ist. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit. Endet die Prüfung des Bestands mit dem Ergebnis, dass die Produkte nicht bzw. nicht vollständig im Lager vorhanden sind, wird der Produktionsabteilung ein Auftrag zur Fertigung erteilt. Ist das Produkt vorrätig, erfolgen die Verpackung und Etikettierung des Produkts bzw. der Produkte. Damit sind die Produkte versandbereit.</p>"
 						}
 					},
 					"3": {
