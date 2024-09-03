@@ -9,6 +9,10 @@ import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
 import { selectSubstitution } from "../Tasks/Chemistry/SubstitutionSelector";
 import { clusterAnalysisMain } from "../Tasks/ClusterAnalysis/wrapperFunctionCallPython";
 
+import { DataSamplingGenerator } from "../Tasks/DecisionTrees/WrapperDataSampler";
+import { DecisionTreeTaskGenerator } from "../Tasks/DecisionTrees/Task";
+import { DecisionTreeValidator } from "../Tasks/DecisionTrees/WrapperValidateDecisionTree";
+
 import fs from "fs";
 import path from "path";
 
@@ -65,6 +69,9 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	DataSamplingGenerator: DataSamplingGenerator,
+	DecisionTreeTaskGenerator: DecisionTreeTaskGenerator,
+	DecisionTreeValidator: DecisionTreeValidator,
 	selectSubstitution: selectSubstitution,
 	clusterAnalysisMain: clusterAnalysisMain,
 };
