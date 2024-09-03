@@ -45,9 +45,23 @@
 						"type": "BackgroundGraph",
 						"name": "perlin",
 						"isValid": true,
+						"nestedComponents": {
+							"DOTGraph": {
+								"type": "DOTGraph",
+								"name": "EPK",
+								"isValid": true,
+								"component": {},
+								"dependencies": {
+									"dotDescription": "taskData__dotDescription"
+								}
+							}
+						},
 						"dependencies": {
 							"ContourPlot": { "grid": "taskData__grid", "thresholds": "taskData__thresholds" },
 							"DOTGraph": { "dotDescription": "taskData__dotDescription" }
+						},
+						"nestedComponents": {
+							"DOTGraph": { "component": {}, "dependencies": { "dotDescription": "taskData__dotDescription" } }
 						}
 					},
 					"1": {
@@ -201,7 +215,10 @@
 						"dependencies": {
 							"Equation": { "aladinAST": "nodes__1__components__0__component__aladinAST" }
 						},
-						"methods": { "fillConstants": {"description": "Ergänze Konstanten", "impact": 0.5}, "showSolution": {"description": "Zeige Lösung", "impact": 0} },
+						"methods": {
+							"fillConstants": { "description": "Ergänze Konstanten", "impact": 0.5 },
+							"showSolution": { "description": "Zeige Lösung", "impact": 0 }
+						},
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []

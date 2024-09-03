@@ -92,7 +92,7 @@ const setup = async () => {
 		url: "https://bildungsportal.sachsen.de/opal",
 		name: "OPAL",
 		clientId: "OPALADIN_Live",
-		authenticationEndpoint: "https://bildungsportal.sachsen.de/opal/ltiauth",
+		authenticationEndpoint: "https://bildungsportal.sachsen.de/opal/ltiauth/",
 		accesstokenEndpoint: "https://bildungsportal.sachsen.de/opal/restapi/lti/token",
 		authConfig: { method: "JWK_SET", key: "https://bildungsportal.sachsen.de/opal/restapi/lti/keys" },
 	});

@@ -22,7 +22,7 @@
 	},
 	"UI": {
 		"currentTask": "gozintograph",
-		"taskMode": "strictPractice",
+		"taskMode": "practice",
 		"taskData": {},
 		"rootNode": 0,
 		"previousNode": 0,
@@ -138,9 +138,7 @@
 						"isValid": true,
 						"isCorrect": true,
 						"dependencies": {
-							"DOTGraph": {
-								"dotDescription": "taskData__dotDescription"
-							}
+							"dotDescription": "taskData__dotDescription"
 						},
 						"component": {}
 					},
@@ -402,9 +400,7 @@
 						"name": "Gozintograph",
 						"isValid": true,
 						"dependencies": {
-							"DOTGraph": {
-								"dotDescription": "taskData__dotDescription"
-							}
+							"dotDescription": "taskData__dotDescription"
 						},
 						"component": {}
 					}
@@ -1250,9 +1246,7 @@
 						"name": "Gozintograph",
 						"isValid": true,
 						"dependencies": {
-							"DOTGraph": {
-								"dotDescription": "taskData__dotDescription"
-							}
+							"dotDescription": "taskData__dotDescription"
 						},
 						"component": {}
 					}
@@ -1767,9 +1761,7 @@
 						"type": "VisualGraphTraversal",
 						"isValid": true,
 						"dependencies": {
-							"DOTGraph": {
-								"dotDescription": "taskData__dotDescription"
-							},
+							"dotDescription": "taskData__dotDescription",
 							"VisualGraphTraversal": {
 								"nodes": "taskData__nodes",
 								"paths": "taskData__paths",
