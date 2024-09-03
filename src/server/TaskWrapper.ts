@@ -6,6 +6,7 @@ import { InterpolationTaskGenerator } from "../Legacy/Tasks/geoInterpolation/Geo
 import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltWorker";
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
+import { selectSubstitution } from "../Tasks/Chemistry/SubstitutionSelector";
 import { clusterAnalysisMain } from "../Tasks/ClusterAnalysis/wrapperFunctionCallPython";
 
 import fs from "fs";
@@ -64,6 +65,7 @@ const generators: { [key: string]: any } = {
 	ShortestPathTaskGenerator: ShortestPathTaskGenerator,
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
+	selectSubstitution: selectSubstitution,
 	clusterAnalysisMain: clusterAnalysisMain,
 };
 

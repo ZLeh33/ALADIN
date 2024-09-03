@@ -336,8 +336,8 @@
 						"isValid": true,
 						"dependencies": {
 							"Output": {
-								"serverOutput": "nodes__1__components__2__component__description",
-								"validOutput": "nodes__1__components__2__component__description"
+								"serverOutput": "nodes__0__components__2__component__description"
+								
 							}
 						},
 						"component": {
