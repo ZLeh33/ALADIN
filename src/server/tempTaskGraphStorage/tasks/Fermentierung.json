@@ -1,7 +1,7 @@
 {
 	"API": [
 		{
-			"task": "Ferment",
+			"task": "Fermentierung",
 			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
@@ -10,7 +10,7 @@
 		}
 	],
 	"Worker": {
-		"FermentTask": {
+		"FermentierungTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
 				"generateFermentationDataMain": {
@@ -21,7 +21,7 @@
 		}
 	},
 	"UI": {
-		"currentTask": "ferment",
+		"currentTask": "Fermentierung",
 		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,
@@ -36,8 +36,7 @@
 			[10, null, null]
 		],
 		"edges": {
-			"0": [1],
-			"1": [0]
+			"0": []
 		},
 		"currentNode": 0,
 		"nodes": {
@@ -98,35 +97,43 @@
 					],
 					"lg": [
 						{
-							"x": 33,
-							"y": 28.5,
-							"w": 3,
+							"x": 31,
+							"y": 29,
+							"w": 2,
 							"h": 2,
 							"i": 0,
 							"static": false
 						},
 						{
-							"x": 31.5,
-							"y": 30.5,
-							"w": 3,
-							"h": 2.7,
+							"x": 31,
+							"y": 31,
+							"w": 2,
+							"h": 2,
 							"i": 1,
 							"static": false
 						},
 						{
-							"x": 31,
-							"y": 32.5,
-							"w": 8,
-							"h": 3,
+							"x": 33,
+							"y": 31,
+							"w": 6,
+							"h": 2,
 							"i": 2,
 							"static": false
 						},
 						{
-							"x": 34.5,
-							"y": 30.5,
-							"w": 4.5,
-							"h": 2.7,
+							"x": 33,
+							"y": 29,
+							"w": 3,
+							"h": 2,
 							"i": 3,
+							"static": false
+						},
+						{
+							"x": 36,
+							"y": 29,
+							"w": 3,
+							"h": 2,
+							"i": 4,
 							"static": false
 						}
 					]
@@ -143,19 +150,17 @@
 				"components": {
 					"0": {
 						"type": "BackendFormular",
-						"name": "Konfiguration",
+						"name": "Diagramm generieren",
 						"isValid": false,
 						"component": {
-							"title": "Diagramm generieren",
 							"actions": [
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
 									"label": "Berechnen!",
 									"dependsOn": [
-										"Organismus",
-										"Phasenanzahl",
-										"nodes__0__components__2__component__checkUserDataValidity"
+										"nodes__0__components__0__component__form__nodeAmount__isValid",
+										"nodes__0__components__0__component__form__seed__isValid"
 									]
 								}
 							],
@@ -298,7 +303,7 @@
 									"paths": ["taskData__adjacencyMatrix"]
 								}
 							},
-							"standardZeile": [[1, 1, 1, 1, 100, 1, 10]],
+							"standardZeile": [1, 1, 1, 1, 100, 1, 10],
 							"userData": [],
 							"checkUserDataValidity": "valid",
 							"columnLabelData": [
@@ -474,15 +479,66 @@
 								"max": "200"
 							}
 						]
-					}
-				},
-				"3": {
-					"name": "Graph",
-					"type": "diagramm",
-					"component": {
-						"title": "Fermentatiosgraph",
-						"labels": "taskData__labels",
-						"datasets": "taskData__datasets"
+					},
+					"3": {
+						"name": "Fermentationsverlauf",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_1__labels",
+							"datasets": "taskData__data_1__datasets",
+							"options": {
+								"responsive": true,
+								"maintainAspectRatio": false,
+								"elements": {
+									"point": {
+										"radius": 0
+									}
+								},
+								"scales": {
+									"x": {
+										"type": "linear",
+										"ticks": {
+											"stepSize": 5
+										},
+										"title": {
+											"display": true,
+											"text": "Zeit in h"
+										}
+									},
+									"y": {}
+								}
+							}
+						}
+					},
+					"4": {
+						"name": "Fermentatiosverlauf c_{S2}",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_2__labels",
+							"datasets": "taskData__data_2__datasets",
+							"options": {
+								"responsive": true,
+								"maintainAspectRatio": false,
+								"elements": {
+									"point": {
+										"radius": 0
+									}
+								},
+								"scales": {
+									"x": {
+										"type": "linear",
+										"ticks": {
+											"stepSize": 5
+										},
+										"title": {
+											"display": true,
+											"text": "Zeit in h"
+										}
+									},
+									"y": {}
+								}
+							}
+						}
 					}
 				}
 			}

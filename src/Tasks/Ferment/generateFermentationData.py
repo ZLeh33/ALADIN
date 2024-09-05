@@ -11,6 +11,8 @@ from berechnungen import berechnung_der_Tabelle2
 from berechnungen import berechnung_der_Tabelle3
 from berechnungen import berechnung
 
+from view import plot_visualisieren
+
 from interne_daten.data_importieren import data_importieren_von_json
 
 from Input.json_Input import JsonInput
@@ -69,61 +71,63 @@ c_ox_sat, y_combined, t_combined, cum_feeding = ergebnis
 
 #Export Resultat in Excel-Datei
 export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+# plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
 y_combined=y_combined.T
 
 
-
 def generateFermentationDataMain():
-    
-    
-    
-    
     data = {
-        "labels":  t_combined.tolist(),
-        "datasets": [
-            {
-                "label": "c_{x}",
-                "data": y_combined[0, :].tolist(),
-                "borderColor": "#66c2a5",
-                "backgroundColor": "#66c2a5",
-                "tension": 0.1
-            },
-            {
-                "label": "c_{S1}",
-                "data": y_combined[1, :].tolist(),
-                "borderColor": "#fc8d62",
-                "backgroundColor": "#fc8d62",
-                "tension": 0.1
-            },
-              {
-                "label": "c_{S2}",
-                "data": y_combined[2, :].tolist(),
-                "borderColor": "#8da0cb",
-                "backgroundColor": "#8da0cb",
-                "tension": 0.1
-            },
-            {
-                "label": "c_{P}",
-                "data": y_combined[3, :].tolist(),
-                "borderColor": "#e78ac3",
-                "backgroundColor": "#e78ac3",
-                "tension": 0.1
-            },
-            {
-                "label": "c_{O2}",
-                "data": (y_combined[4, :] / c_ox_sat * 100).tolist(),
-                "borderColor": "#a6d854",
-                "backgroundColor": "#a6d854",
-                "tension": 0.1
-            },
-            {
-                "label": "cum Feed",
-                "data": cum_feeding.tolist(),
-                "borderColor": "#FFD700",
-                "backgroundColor": "#FFD700",
-                "tension": 0.1
-            }
-        ]
+        "data_1":{
+            "labels":  t_combined.tolist(),
+            "datasets": [
+                {
+                    "label": "c_{x}",
+                    "data": y_combined[0, :].tolist(),
+                    "borderColor": "#66c2a5",
+                    "backgroundColor": "#66c2a5",
+                    "tension": 0.1
+                },
+                {
+                    "label": "c_{S1}",
+                    "data": y_combined[1, :].tolist(),
+                    "borderColor": "#fc8d62",
+                    "backgroundColor": "#fc8d62",
+                    "tension": 0.1
+                },
+                {
+                    "label": "c_{P}",
+                    "data": y_combined[3, :].tolist(),
+                    "borderColor": "#e78ac3",
+                    "backgroundColor": "#e78ac3",
+                    "tension": 0.1
+                },
+                {
+                    "label": "c_{O2}",
+                    "data": (y_combined[4, :] / c_ox_sat * 100).tolist(),
+                    "borderColor": "#a6d854",
+                    "backgroundColor": "#a6d854",
+                    "tension": 0.1
+                },
+                {
+                    "label": "cum Feed",
+                    "data": cum_feeding.tolist(),
+                    "borderColor": "#FFD700",
+                    "backgroundColor": "#FFD700",
+                    "tension": 0.1
+                }
+            ]
+        },
+        "data_2": {
+            "labels":  t_combined.tolist(),
+            "datasets": [
+                {
+                    "label": "c_{S2}",
+                    "data": y_combined[2, :].tolist(),
+                    "borderColor": "#8da0cb",
+                    "backgroundColor": "#8da0cb",
+                    "tension": 0.1
+                }]
+        }
     }
     return data
 
