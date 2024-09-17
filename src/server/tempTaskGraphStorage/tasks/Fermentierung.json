@@ -202,6 +202,7 @@
 					},
 					"1": {
 						"type": "Bild",
+						"name": "Fermentationsapparat",
 						"component": {
 							"pfad": "/img/tasks/Ferment/FermentALADIN_bild.png",
 							"inputFelder": [
@@ -255,20 +256,7 @@
 								"data": "nodes__0__components__2__component__userData"
 							}
 						},
-						"methods": {
-							"fillZeros": {
-								"description": "Ergänze Nullen",
-								"impact": 0.5
-							},
-							"showSolution": {
-								"description": "Zeige Lösung",
-								"impact": 0
-							},
-							"copyToClipboard": {
-								"description": "Kopieren",
-								"impact": 1
-							}
-						},
+						"methods": {},
 						"contextMenu": {
 							"isOpen": false,
 							"usedMethods": []
