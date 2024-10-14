@@ -7,6 +7,12 @@ import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltW
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
 import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCallPython";
+import { selectSubstitution } from "../Tasks/Chemistry/SubstitutionSelector";
+import { clusterAnalysisMain } from "../Tasks/ClusterAnalysis/wrapperFunctionCallPython";
+
+import { DataSamplingGenerator } from "../Tasks/DecisionTrees/WrapperDataSampler";
+import { DecisionTreeTaskGenerator } from "../Tasks/DecisionTrees/Task";
+import { DecisionTreeValidator } from "../Tasks/DecisionTrees/WrapperValidateDecisionTree";
 
 import fs from "fs";
 import path from "path";
@@ -65,6 +71,11 @@ const generators: { [key: string]: any } = {
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
 	generateFermentationDataMain: generateFermentationDataMain,
+	DataSamplingGenerator: DataSamplingGenerator,
+	DecisionTreeTaskGenerator: DecisionTreeTaskGenerator,
+	DecisionTreeValidator: DecisionTreeValidator,
+	selectSubstitution: selectSubstitution,
+	clusterAnalysisMain: clusterAnalysisMain,
 };
 
 export interface IInstructionConfiguration {
@@ -129,6 +140,7 @@ export const executeTask = async (instructionConfiguration: IInstructionConfigur
 	// return await parsedFunctions[instruction](instructionConfiguration);
 	try {
 		const { type, instruction } = instructionConfiguration;
+		//console.log(type,instruction,taskWorkers[`${type}Task`]);
 		const func = await taskWorkers[`${type}Task`][instruction];
 		const result = await func(instructionConfiguration);
 		return result;

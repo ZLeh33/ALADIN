@@ -145,7 +145,7 @@
 					{
 						"type": "BackendFormular",
 						"name": "Konfiguration",
-						"isValid": false,
+						"isValid": true,
 						"component":{
 							"title": "Diagramm generieren",
 							"actions": [
@@ -153,8 +153,7 @@
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
 									"label": "Berechnen!",
-									"dependsOn": ["Organismus","Phasenanzahl","nodes__0__components__2__component__checkUserDataValidity"]
-									
+									"dependsOn": ["nodeAmount","seed","nodes__0__components__2__isValid"]
 								}
 							],
 							"form": {
@@ -184,7 +183,8 @@
 										"easy": "",
 										"medium": "",
 										"hard": ""
-									}
+									},
+									"min": 1
 								}
 							},
 							"data" : {
@@ -248,20 +248,7 @@
 									"data": "nodes__0__components__2__component__userData"
 								}
 							},
-							"methods": {
-								"fillZeros": {
-									"description": "Ergänze Nullen",
-									"impact": 0.5
-								},
-								"showSolution": {
-									"description": "Zeige Lösung",
-									"impact": 0
-								},
-								"copyToClipboard": {
-									"description": "Kopieren",
-									"impact": 1
-								}
-							},
+							"methods": {},
 							"contextMenu": {
 								"isOpen": false,
 								"usedMethods": []
@@ -372,7 +359,17 @@
 							"title":"Fermentatiosgraph",
 							"labels": "taskData__labels",
 							"datasets": "taskData__datasets"
-						}
+						},
+						"methods": {
+								"downloadDiagram": {
+									"description": "Diagramm Herunterladen",
+									"impact": 0.5
+								},
+								"downloadData": {
+									"description": "Daten Herunterladen",
+									"impact": 0
+								}
+							}
 					}
 				}
 			}
