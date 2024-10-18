@@ -153,7 +153,7 @@
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
 									"label": "Berechnen!",
-									"dependsOn": ["nodeAmount","seed","nodes__0__components__2__isValid"]
+									"dependsOn": ["nodes__0__components__0__component__form__nodeAmount__isValid","nodes__0__components__2__isValid"]
 								}
 							],
 							"form": {
@@ -287,7 +287,6 @@
 									[1, 1, 1, 1, 100, 1,10]
 								],
 								"userData": [],
-								"checkUserDataValidity": "valid",
 								"columnLabelData":[
 									"Zuluft in NL/min",
 									"BolusC in g/L",
