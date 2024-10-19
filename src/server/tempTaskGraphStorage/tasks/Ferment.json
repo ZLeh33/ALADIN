@@ -208,13 +208,13 @@
 							"inputFelder": [
 								{
 									"type": "text",
-									"placeholder": "V ges.",
+									"placeholder": "V Gesamt",
 									"align": "left",
 									"width": "50px"
 								},
 								{
 									"type": "text",
-									"placeholder": "V start",
+									"placeholder": "V Start",
 									"align": "left",
 									"width": "50px"
 								},
