@@ -28,7 +28,7 @@ Vcheck = (math.pi/4) * Durchmesser_Tank**2 * Hoehe_des_Tanks 			                
 
 
 def parameter(Sauerstoffoeslichkeit_array,kla_werte,data,phasen_anzahl,modell):
-    parameter_array = [array('d', [0] * 3) for _ in range(4)]
+    parameter_array = [array('d', [0] * 3) for _ in range(phasen_anzahl)]
     
     for j in range(phasen_anzahl):
         parameter_array[j][0]=Sauerstoffoeslichkeit_array[j][5]

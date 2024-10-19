@@ -40,7 +40,6 @@ def plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding):
     params = {'mathtext.default': 'regular' }          
     plt.rcParams.update(params)
 
-    
     # Subplot 1
     plt.subplot(1, 2, 1)
     plt.plot(t_combined, y_combined[0, :], label="c_{x}", color=col1)
