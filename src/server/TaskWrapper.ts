@@ -129,7 +129,6 @@ export const executeTask = async (instructionConfiguration: IInstructionConfigur
 	// return await parsedFunctions[instruction](instructionConfiguration);
 	try {
 		const { type, instruction } = instructionConfiguration;
-		//console.log(type,instruction,taskWorkers[`${type}Task`]);
 		const func = await taskWorkers[`${type}Task`][instruction];
 		const result = await func(instructionConfiguration);
 		return result;

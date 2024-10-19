@@ -22,7 +22,7 @@
 	},
 	"UI": {
 		"currentTask": "gozintograph",
-		"taskMode": "practice",
+		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,
 		"previousNode": 0,
