@@ -160,7 +160,8 @@
 									"label": "Berechnen!",
 									"dependsOn": [
 										"nodes__0__components__0__component__form__nodeAmount__isValid",
-										"nodes__0__components__0__component__form__seed__isValid"
+										"nodes__0__components__0__component__form__seed__isValid",
+										"nodes__0__components__2__isValid"
 									]
 								}
 							],
