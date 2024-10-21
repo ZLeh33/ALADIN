@@ -100,7 +100,7 @@
 							"x": 31,
 							"y": 29,
 							"w": 2,
-							"h": 2,
+							"h": 2.5,
 							"i": 0,
 							"static": false
 						},
@@ -123,16 +123,16 @@
 						{
 							"x": 33,
 							"y": 29,
-							"w": 3,
-							"h": 2,
+							"w": 4,
+							"h": 2.5,
 							"i": 3,
 							"static": false
 						},
 						{
-							"x": 36,
+							"x": 37,
 							"y": 29,
-							"w": 3,
-							"h": 2,
+							"w": 4,
+							"h": 2.5,
 							"i": 4,
 							"static": false
 						}
@@ -473,59 +473,16 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
-							"datasets": "taskData__data_1__datasets",
-							"options": {
-								"responsive": true,
-								"maintainAspectRatio": false,
-								"elements": {
-									"point": {
-										"radius": 0
-									}
-								},
-								"scales": {
-									"x": {
-										"type": "linear",
-										"ticks": {
-											"stepSize": 5
-										},
-										"title": {
-											"display": true,
-											"text": "Zeit in h"
-										}
-									},
-									"y": {}
-								}
-							}
+							"datasets": "taskData__data_1__datasets"
 						}
 					},
 					"4": {
-						"name": "Fermentatiosverlauf c_{S2}",
+						"name": "Fermentatiosverlauf Cs2",
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_2__labels",
-							"datasets": "taskData__data_2__datasets",
-							"options": {
-								"responsive": true,
-								"maintainAspectRatio": false,
-								"elements": {
-									"point": {
-										"radius": 0
-									}
-								},
-								"scales": {
-									"x": {
-										"type": "linear",
-										"ticks": {
-											"stepSize": 5
-										},
-										"title": {
-											"display": true,
-											"text": "Zeit in h"
-										}
-									},
-									"y": {}
-								}
-							}
+							"datasets": "taskData__data_2__datasets"
+							
 						}
 					}
 				}

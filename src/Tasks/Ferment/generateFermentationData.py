@@ -2,6 +2,7 @@ import json
 import numpy as np
 
 from excel_export import export_to_excel
+from json_to_excel import json_to_excel
 from nebenrechnungen import Berechnung_der_Sauerstoffloeslichkeit
 from nebenrechnungen import Berechnung_des_kla_Wertes
 from nebenrechnungen import parameter
@@ -81,28 +82,28 @@ def generateFermentationDataMain():
             "labels":  t_combined.tolist(),
             "datasets": [
                 {
-                    "label": "c_{x}",
+                    "label": "cₓ",
                     "data": y_combined[0, :].tolist(),
                     "borderColor": "#66c2a5",
                     "backgroundColor": "#66c2a5",
                     "tension": 0.1
                 },
                 {
-                    "label": "c_{S1}",
+                    "label": "cₛ₁",
                     "data": y_combined[1, :].tolist(),
                     "borderColor": "#fc8d62",
                     "backgroundColor": "#fc8d62",
                     "tension": 0.1
                 },
                 {
-                    "label": "c_{P}",
+                    "label": "cₚ",
                     "data": y_combined[3, :].tolist(),
                     "borderColor": "#e78ac3",
                     "backgroundColor": "#e78ac3",
                     "tension": 0.1
                 },
                 {
-                    "label": "c_{O2}",
+                    "label": "cₒ₂",
                     "data": (y_combined[4, :] / c_ox_sat * 100).tolist(),
                     "borderColor": "#a6d854",
                     "backgroundColor": "#a6d854",
@@ -121,7 +122,7 @@ def generateFermentationDataMain():
             "labels":  t_combined.tolist(),
             "datasets": [
                 {
-                    "label": "c_{S2}",
+                    "label": "cₛ₂",
                     "data": y_combined[2, :].tolist(),
                     "borderColor": "#8da0cb",
                     "backgroundColor": "#8da0cb",
@@ -135,6 +136,16 @@ with open('./src/Tasks/Ferment/data.json', 'w') as output:
     json.dump(generateFermentationDataMain(), output)
 
 
+#export_FrontendEingabe
+json_file_path = 'src\Tasks\Ferment\interne_daten\FrontendEingaben.json'  # Path to the JSON file
+json_to_excel(json_file_path, 'FrontendEingaben.xlsx')
+
+#export_Chart_Data
+json_file_path = 'src\Tasks\Ferment\data.json'  # Path to the JSON file
+json_to_excel(json_file_path, 'ChartData.xlsx')
+
+y_combined=y_combined.T
+export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()
