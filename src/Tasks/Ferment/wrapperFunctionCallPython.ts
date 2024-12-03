@@ -49,6 +49,7 @@ function parameterBearbeitenUndSpeichern(parameter: any) {
 		delete frontendEingaben.parameters;
 		delete frontendEingaben.type;
 		delete frontendEingaben.task;
+		delete frontendEingaben.Paramter;
 		delete frontendEingaben.instruction;
 		delete frontendEingaben.language;
 	}

@@ -36,7 +36,7 @@ modelle  = modelleOb.get_data()
     
  #Zum Test im Meeting
 m = modelleOb.get_Value()
-print(m)
+#print(m)
 #modelle = data_importieren_von_json('Modelle.json')
     
 #Input aus input.json laden
@@ -139,4 +139,4 @@ with open('./src/Tasks/Ferment/data.json', 'w') as output:
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()
 #print(fermentationData)
-print('hier',eingabe) 
+#print('hier',eingabe) 
