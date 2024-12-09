@@ -37,7 +37,7 @@ modelle  = modelleOb.get_data()
     
  #Zum Test im Meeting
 m = modelleOb.get_Value()
-print(m)
+#print(m)
 #modelle = data_importieren_von_json('Modelle.json')
     
 #Input aus input.json laden
@@ -150,4 +150,4 @@ export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()
 #print(fermentationData)
-print('hier',eingabe) 
+#print('hier',eingabe) 

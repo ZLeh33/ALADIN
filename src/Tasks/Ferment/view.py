@@ -62,8 +62,9 @@ def plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding):
     plt.title("Fermentationsverlauf c_{S2}")
     plt.xlabel("t in h")
     plt.ylabel("c_{s} in g/L")
+    plt.ylim(bottom=0)  # Setze die untere Grenze der y-Achse auf 0
     plt.grid(True)
     plt.legend(loc="lower center", bbox_to_anchor=(0.5, -0.25), ncol=4, frameon=False)
     plt.tight_layout()
 	
-    plt.show()
+    #plt.show()
