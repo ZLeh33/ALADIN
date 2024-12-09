@@ -27,7 +27,7 @@
 		"rootNode": 0,
 		"previousNode": 0,
 		"topology": [
-			[0, null, null]],
+			[0, 1, null]],
 		"edges": {
 			"0": 	[1],
 			"1":	[]
