@@ -1,7 +1,7 @@
 {
 	"API": [
 		{
-			"task": "FermentExercises",
+			"task": "Ferment",
 			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
@@ -34,7 +34,62 @@
 		},
 		"currentNode": 0,
 		"nodes": {
-			"0": {
+			"0":{
+			"zoomScale": 1,
+			"layouts": {
+				"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
+				"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
+				"lg": [
+					{
+						"x": 34,
+						"y": 29,
+						"w": 4,
+						"h": 4,
+						"i": 0,
+						"minW": 3,
+						"minH": "4",
+						"preserveAspectRatio": false,
+						"static": false
+					}
+				]
+			},
+			"modals": [
+				{
+					"trigger": {
+						"type": "success"
+					},
+					"content": {
+						"header": "Herzlichen Glückwunsch!",
+						"body": "Sie haben die Aufgabe erfolgreich gelöst!",
+						"footer": {
+							"buttons": [
+								{ "type": "close", "label": "Zurück", "parameters": {} },
+								{ "type": "route", "label": "Zur Übersicht", "parameters": { "route": "TaskOverview" } }
+							]
+						}
+					},
+					"active": false
+				}
+			],
+			"hints": {
+				"active": false,
+				"current": 0,
+				"descriptions": [
+					"Modelliere anhand der gegebenen Prozessbeschreibung den Prozess mit Hilfe der EPK-Notation."
+				]
+			},
+			"components": {
+				"0": {
+						"type": "DOTGraph",
+						"name": "EPK",
+						"isValid": true,
+						"dependencies": {
+							"dotDescription": "taskData__dotDescription"
+						}
+					}
+			}
+		},
+			"1": {
 				"zoomScale": 1,
 				"layouts": {
 					"sm": [
@@ -159,11 +214,11 @@
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
-									"label": "Berechnen!",
+									"label": "Prüfen!",
 									"dependsOn": [
-										"nodes__0__components__0__component__form__nodeAmount__isValid",
-										"nodes__0__components__0__component__form__seed__isValid",
-										"nodes__0__components__2__isValid"
+										"nodes__1__components__1__component__form__nodeAmount__isValid",
+										"nodes__1__components__1__component__form__seed__isValid",
+										"nodes__1__components__2__isValid"
 									]
 								}
 							],
@@ -196,8 +251,8 @@
 								}
 							},
 							"data": {
-								"userDataMatrix": "nodes__0__components__2__component__userData",
-								"userDataInputFelder": "nodes__0__components__1__component__inputFelderValues"
+								"userDataMatrix": "nodes__1__components__2__component__userData",
+								"userDataInputFelder": "nodes__1__components__1__component__inputFelderValues"
 							}
 							
 						}
@@ -225,7 +280,6 @@
 									"type": "text",
 									"placeholder": "T",
 									"ValueFromJson_Key":"Temperatur",
-									"readOnly": "true",
 									"align": "right",
 									"width": "50px"
 								},
@@ -239,7 +293,6 @@
 									"type": "text",
 									"placeholder": "BTM",
 									"ValueFromJson_Key":"Startbiomasse",
-									"readOnly": "true",
 									"align": "right",
 									"width": "50px"
 								},
@@ -247,7 +300,6 @@
 									"type": "text",
 									"placeholder": "DO",
 									"ValueFromJson_Key":"Do",
-									"readOnly": "true",
 									"align": "left",
 									"width": "50px"
 								}
@@ -262,7 +314,7 @@
 						"isCorrect": false,
 						"dependencies": {
 							"Matrix": {
-								"data": "nodes__0__components__2__component__userData"
+								"data": "nodes__1__components__2__component__userData"
 							}
 						},
 						"methods": {},
@@ -303,7 +355,6 @@
 							"userData": [],
 							"userDataFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
 							"userDataFromJson_Key":"Startparameter",
-							"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
 							"checkUserDataValidity": "valid",
 							"columnLabelData": [
 								"Zuluft in NL/min",
@@ -318,8 +369,8 @@
 							"validationData": null,
 							"solutionData": null,
 							"readOnly": false,
-							"rowLabel": "nodes__0__components__2__component__rowLabelData",
-							"columnLabel": "nodes__0__components__2__component__columnLabelData",
+							"rowLabel": "nodes__1__components__2__component__rowLabelData",
+							"columnLabel": "nodes__1__components__2__component__columnLabelData",
 							"inputType": "number",
 							"spaltenMaxSumme": [
 								{
@@ -436,61 +487,7 @@
 					}
 				}
 			}
-		},
-		"1":{
-			"zoomScale": 1,
-			"layouts": {
-				"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
-				"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
-				"lg": [
-					{
-						"x": 34,
-						"y": 29,
-						"w": 4,
-						"h": 4,
-						"i": 0,
-						"minW": 3,
-						"minH": "4",
-						"preserveAspectRatio": false,
-						"static": false
-					}
-				]
-			},
-			"modals": [
-				{
-					"trigger": {
-						"type": "success"
-					},
-					"content": {
-						"header": "Herzlichen Glückwunsch!",
-						"body": "Sie haben die Aufgabe erfolgreich gelöst!",
-						"footer": {
-							"buttons": [
-								{ "type": "close", "label": "Zurück", "parameters": {} },
-								{ "type": "route", "label": "Zur Übersicht", "parameters": { "route": "TaskOverview" } }
-							]
-						}
-					},
-					"active": false
-				}
-			],
-			"hints": {
-				"active": false,
-				"current": 0,
-				"descriptions": [
-					"Modelliere anhand der gegebenen Prozessbeschreibung den Prozess mit Hilfe der EPK-Notation."
-				]
-			},
-			"components": {
-				"0": {
-						"type": "DOTGraph",
-						"name": "EPK",
-						"isValid": true,
-						"dependencies": {
-							"dotDescription": "taskData__dotDescription"
-						}
-					}
-			}
 		}
+		
 	}
 }
