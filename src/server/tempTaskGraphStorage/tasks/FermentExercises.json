@@ -1,7 +1,7 @@
 {
 	"API": [
 		{
-			"task": "FermentExercises",
+			"task": "Ferment",
 			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
@@ -27,20 +27,69 @@
 		"rootNode": 0,
 		"previousNode": 0,
 		"topology": [
-			[0, null, null],
-			[1, 2, null],
-			[3, 4, null],
-			[5, 6, null],
-			[7, 8, null],
-			[9, null, null],
-			[10, null, null]
-		],
+			[0, 1, null]],
 		"edges": {
-			"0": []
+			"0": 	[1],
+			"1":	[]
 		},
 		"currentNode": 0,
 		"nodes": {
-			"0": {
+			"0":{
+			"zoomScale": 1,
+			"layouts": {
+				"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
+				"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
+				"lg": [
+					{
+						"x": 34,
+						"y": 29,
+						"w": 4,
+						"h": 4,
+						"i": 0,
+						"minW": 3,
+						"minH": "4",
+						"preserveAspectRatio": false,
+						"static": false
+					}
+				]
+			},
+			"modals": [
+				{
+					"trigger": {
+						"type": "success"
+					},
+					"content": {
+						"header": "Herzlichen Glückwunsch!",
+						"body": "Sie haben die Aufgabe erfolgreich gelöst!",
+						"footer": {
+							"buttons": [
+								{ "type": "close", "label": "Zurück", "parameters": {} },
+								{ "type": "route", "label": "Zur Übersicht", "parameters": { "route": "TaskOverview" } }
+							]
+						}
+					},
+					"active": false
+				}
+			],
+			"hints": {
+				"active": false,
+				"current": 0,
+				"descriptions": [
+					"Modelliere anhand der gegebenen Prozessbeschreibung den Prozess mit Hilfe der EPK-Notation."
+				]
+			},
+			"components": {
+				"0": {
+						"type": "DOTGraph",
+						"name": "EPK",
+						"isValid": true,
+						"dependencies": {
+							"dotDescription": "taskData__dotDescription"
+						}
+					}
+			}
+		},
+			"1": {
 				"zoomScale": 1,
 				"layouts": {
 					"sm": [
@@ -165,11 +214,11 @@
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
-									"label": "Berechnen!",
+									"label": "Prüfen!",
 									"dependsOn": [
-										"nodes__0__components__0__component__form__nodeAmount__isValid",
-										"nodes__0__components__0__component__form__seed__isValid",
-										"nodes__0__components__2__isValid"
+										"nodes__1__components__1__component__form__nodeAmount__isValid",
+										"nodes__1__components__1__component__form__seed__isValid",
+										"nodes__1__components__2__isValid"
 									]
 								}
 							],
@@ -182,15 +231,16 @@
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "S.cerevisiae",
-									"options": ["S.cerevisiae"]
+									"OptionsFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
+									"OptionsFromJson_Key":"Modell"
 								},
 								"seed": {
 									"formType": "ValueFormField",
 									"label": "Phasenanzahl",
 									"type": "text",
 									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
-									"value": "1",
+									"ValueFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
+									"ValueFromJson_Key":"PhasenAnzahl",
 									"readOnly": true,
 									"validate": false,
 									"presets": {
@@ -201,8 +251,8 @@
 								}
 							},
 							"data": {
-								"userDataMatrix": "nodes__0__components__2__component__userData",
-								"userDataInputFelder": "nodes__0__components__1__component__inputFelderValues"
+								"userDataMatrix": "nodes__1__components__2__component__userData",
+								"userDataInputFelder": "nodes__1__components__1__component__inputFelderValues"
 							}
 							
 						}
@@ -212,6 +262,7 @@
 						"name": "Fermentationsapparat",
 						"component": {
 							"pfad": "/img/tasks/Ferment/FermentALADIN_bild.png",
+							"ValueFromJson_Path":"/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
 							"inputFelder": [
 								{
 									"type": "text",
@@ -228,6 +279,7 @@
 								{
 									"type": "text",
 									"placeholder": "T",
+									"ValueFromJson_Key":"Temperatur",
 									"align": "right",
 									"width": "50px"
 								},
@@ -240,12 +292,14 @@
 								{
 									"type": "text",
 									"placeholder": "BTM",
+									"ValueFromJson_Key":"Startbiomasse",
 									"align": "right",
 									"width": "50px"
 								},
 								{
 									"type": "text",
 									"placeholder": "DO",
+									"ValueFromJson_Key":"Do",
 									"align": "left",
 									"width": "50px"
 								}
@@ -260,7 +314,7 @@
 						"isCorrect": false,
 						"dependencies": {
 							"Matrix": {
-								"data": "nodes__0__components__2__component__userData"
+								"data": "nodes__1__components__2__component__userData"
 							}
 						},
 						"methods": {},
@@ -299,7 +353,8 @@
 								}
 							},
 							"userData": [],
-							"userDataFromJsonPath": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
+							"userDataFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
+							"userDataFromJson_Key":"Startparameter",
 							"checkUserDataValidity": "valid",
 							"columnLabelData": [
 								"Zuluft in NL/min",
@@ -314,8 +369,8 @@
 							"validationData": null,
 							"solutionData": null,
 							"readOnly": false,
-							"rowLabel": "nodes__0__components__2__component__rowLabelData",
-							"columnLabel": "nodes__0__components__2__component__columnLabelData",
+							"rowLabel": "nodes__1__components__2__component__rowLabelData",
+							"columnLabel": "nodes__1__components__2__component__columnLabelData",
 							"inputType": "number",
 							"spaltenMaxSumme": [
 								{
@@ -361,118 +416,6 @@
 								}
 							]
 						}
-					},
-					"methods": {
-						"fillZeros": {
-							"description": "Ergänze Nullen",
-							"impact": 0.5
-						},
-						"showSolution": {
-							"description": "Zeige Lösung",
-							"impact": 0
-						},
-						"copyToClipboard": {
-							"description": "Kopieren",
-							"impact": 1
-						}
-					},
-					"contextMenu": {
-						"isOpen": false,
-						"usedMethods": []
-					},
-					"component": {
-						"initialize": {
-							"solution": {
-								"operations": [],
-								"paths": ["taskData__adjacencyMatrix"]
-							},
-							"validation": {
-								"operations": [
-									{
-										"name": "getValueInitializedMatrix",
-										"args": [
-											{
-												"isValid": false,
-												"isCorrect": false
-											}
-										]
-									}
-								],
-								"paths": ["taskData__adjacencyMatrix"]
-							},
-							"user": {
-								"operations": [
-									{
-										"name": "getMatrix",
-										"args": []
-									}
-								],
-								"paths": ["taskData__adjacencyMatrix"]
-							}
-						},
-						"standardZeile": [[1, 1, 1, 1, 100, 1, 10]],
-						"userData": [],
-						"checkDiasabledValidity": false,
-						"columnLabelData": [
-							"Zuluft in NL/min",
-							"BolusC in g/L",
-							"Feed in g/(L*h)",
-							"BolusN in g/L",
-							"Drehzahl in rpm",
-							"Druck in barg",
-							"Dauer in h"
-						],
-						"rowLabelData": ["Phase"],
-						"validationData": null,
-						"solutionData": null,
-						"readOnly": false,
-						"rowLabel": "nodes__0__components__2__component__rowLabelData",
-						"columnLabel": "nodes__0__components__2__component__columnLabelData",
-						"inputType": "number",
-						"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
-						"spaltenMaxSumme": [
-							{
-								"spaltenName": "Dauer in h",
-								"maxSumme": 200
-							}
-						],
-						"columnRange": [
-							{
-								"name": "Zuluft in NL/min",
-								"min": 0,
-								"max": 2
-							},
-							{
-								"name": "BolusC in g/L",
-								"min": 0,
-								"max": 50
-							},
-							{
-								"name": "Feed in g/(L*h)",
-								"min": 0,
-								"max": 10
-							},
-							{
-								"name": "BolusN in g/L",
-								"min": 0,
-								"max": 10
-							},
-							{
-								"name": "Drehzahl in rpm",
-								"min": 100,
-								"max": 2000
-							},
-							{
-								"name": "Druck in barg",
-								"min": 0,
-								"max": 3
-							},
-							{
-								"name": "Dauer in h",
-								"min": 0,
-								"max": "200"
-							}
-						]
 					},
 					"3": {
 						"name": "Fermentationsverlauf",
@@ -545,5 +488,6 @@
 				}
 			}
 		}
+		
 	}
 }

@@ -187,6 +187,7 @@
 									"type": "text",
 									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
 									"value": "3",
+									"readOnly": false,
 									"validate": false,
 									"presets": {
 										"easy": "",
