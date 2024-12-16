@@ -41,14 +41,30 @@
 				"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
 				"lg": [
 					{
-						"x": 34,
+						"x": 32,
 						"y": 29,
-						"w": 4,
-						"h": 4,
+						"w": 3,
+						"h": 2.5,
 						"i": 0,
-						"minW": 3,
-						"minH": "4",
+						"static": false
+					},
+					{
+						"x": 31,
+						"y": 31.5,
+						"w": 8,
+						"h": 2,
+						"i": 1,
+						"minW": 8,
+						"minH": "2",
 						"preserveAspectRatio": false,
+						"static": false
+					},
+					{
+						"x": 35,
+						"y": 29,
+						"w": 3,
+						"h": 2.5,
+						"i": 2,
 						"static": false
 					}
 				]
@@ -80,15 +96,250 @@
 			},
 			"components": {
 				"0": {
-						"type": "DOTGraph",
-						"name": "EPK",
+						"type": "BackendFormular",
+						"name": "Diagramm generieren",
 						"isValid": true,
-						"dependencies": {
-							"dotDescription": "taskData__dotDescription"
+						"component": {
+							"actions": [
+								{
+									"instruction": "generateFermentationDataMain",
+									"type": "fetchData",
+									"label": "Generieren!",
+									"dependsOn": [
+										"nodes__0__components__0__component__form__nodeAmount__isValid",
+										"nodes__0__components__0__component__form__seed__isValid",
+										"nodes__0__components__1__isValid"
+									]
+								}
+							],
+							"form": {
+								"nodeAmount": {
+									"isValid": true,
+									"formType": "DropdownFormField",
+									"label": "Organismus",
+									"type": "string",
+									"description": "Zur Verfügung stehende Organismus",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "S.cerevisiae",
+									"options": ["S.cerevisiae", "E.coli", "Testorganismus"],
+									"presets": {
+										"easy": "S.cerevisiae",
+										"medium": "E.coli",
+										"hard": "Testorganismus"
+									}
+								},
+								"seed": {
+									"formType": "ValueFormField",
+									"label": "Phasenanzahl",
+									"type": "text",
+									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
+									"value": "3",
+									"boundaries": { "min": 0, "max": 20 },
+									"readOnly": false,
+									"validate": true,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								},
+								"Temperatur": {
+									"formType": "ValueFormField",
+									"label": "Temperatur",
+									"type": "text",
+									"value": "0",
+									"boundaries": {},
+									"validate": false,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								},
+								"Ph": {
+									"formType": "ValueFormField",
+									"label": "Pondus Hydrogenii",
+									"type": "text",
+									"value": "0",
+									"boundaries": {},
+									"validate": false,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								},
+								"Do": {
+									"formType": "ValueFormField",
+									"label": "Do",
+									"type": "text",
+									"value": "0",
+									"boundaries": {},
+									"validate": false,
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								},
+								"maxParameter": {
+									"isValid": true,
+									"formType": "DropdownFormField",
+									"label": "Zu maximierende Parameter",
+									"type": "string",
+									"description": "Zur Verfügung stehende Parameter",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "Zuluft",
+									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								},
+								"minParameter": {
+									"isValid": true,
+									"formType": "DropdownFormField",
+									"label": "Zu minimierende Parameter",
+									"type": "string",
+									"description": "Zur Verfügung stehende Parameter",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "Zuluft",
+									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
+									"presets": {
+										"easy": "",
+										"medium": "",
+										"hard": ""
+									}
+								}
+							},
+							"data": {
+								"userDataMatrix": "nodes__0__components__1__component__userData",
+								"varierendeParameter": "nodes__0__components__2__component__jsonData"
+							}
+						}
+					},
+				"1": {
+					"name": "Direktbedarfsmatrix",
+					"type": "Matrix",
+					"isValid": true,
+					"isCorrect": true,
+					"dependencies": {
+							"Matrix": {
+								"data": "nodes__0__components__1__component__userData"
+							}
+						},
+					"methods": {},
+					"contextMenu": {
+						"isOpen": false,
+						"usedMethods": []
+					},
+					"component": {
+						"initialize": {
+								"solution": {
+									"operations": [],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"validation": {
+									"operations": [
+										{
+											"name": "getValueInitializedMatrix",
+											"args": [
+												{
+													"isValid": true,
+													"isCorrect": true
+												}
+											]
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"user": {
+									"operations": [
+										{
+											"name": "getMatrix",
+											"args": []
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								}
+							},
+							"standardZeile": [1, 1, 1, 1, 100, 1, 10],
+							"userData": [],
+							"checkUserDataValidity": "valid",
+							"columnLabelData": [
+								"Zuluft in NL/min",
+								"BolusC in g/L",
+								"Feed in g/(L*h)",
+								"BolusN in g/L",
+								"Drehzahl in rpm",
+								"Druck in barg",
+								"Dauer in h"
+							],
+							"rowLabelData": ["Phase"],
+							"validationData": null,
+							"solutionData": null,
+							"readOnly": false,
+							"rowLabel": "nodes__0__components__1__component__rowLabelData",
+							"columnLabel": "nodes__0__components__1__component__columnLabelData",
+							"inputType": "number",
+							"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
+							"spaltenMaxSumme": [
+								{
+									"spaltenName": "Dauer in h",
+									"maxSumme": 200
+								}
+							],
+							"columnRange": [
+								{
+									"name": "Zuluft in NL/min",
+									"min": 0,
+									"max": 2
+								},
+								{
+									"name": "BolusC in g/L",
+									"min": 0,
+									"max": 50
+								},
+								{
+									"name": "Feed in g/(L*h)",
+									"min": 0,
+									"max": 10
+								},
+								{
+									"name": "BolusN in g/L",
+									"min": 0,
+									"max": 10
+								},
+								{
+									"name": "Drehzahl in rpm",
+									"min": 100,
+									"max": 2000
+								},
+								{
+									"name": "Druck in barg",
+									"min": 0,
+									"max": 3
+								},
+								{
+									"name": "Dauer in h",
+									"min": 0,
+									"max": "200"
+								}
+							]
+					}
+				},
+				"2":{
+						"type": "CheckboxGroup",
+						"name": "Zu variierende Parameter",
+						"isValid": true,
+						"component":{
+							"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
+							"jsonData" : {}
 						}
 					}
 			}
-		},
+			},
 			"1": {
 				"zoomScale": 1,
 				"layouts": {
