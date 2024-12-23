@@ -102,7 +102,7 @@
 						"component": {
 							"actions": [
 								{
-									"instruction": "generateFermentationDataMain",
+									"instruction": "",
 									"type": "fetchData",
 									"label": "Generieren!",
 									"dependsOn": [
@@ -156,9 +156,9 @@
 										"hard": ""
 									}
 								},
-								"Ph": {
+								"BTM": {
 									"formType": "ValueFormField",
-									"label": "Pondus Hydrogenii",
+									"label": "BTM",
 									"type": "text",
 									"value": "0",
 									"boundaries": {},
@@ -169,7 +169,7 @@
 										"hard": ""
 									}
 								},
-								"Do": {
+								"DO": {
 									"formType": "ValueFormField",
 									"label": "Do",
 									"type": "text",
@@ -189,7 +189,7 @@
 									"type": "string",
 									"description": "Zur Verfügung stehende Parameter",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "Zuluft",
+									"initial": "",
 									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
 									"presets": {
 										"easy": "",
@@ -204,7 +204,7 @@
 									"type": "string",
 									"description": "Zur Verfügung stehende Parameter",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "Zuluft",
+									"initial": "",
 									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
 									"presets": {
 										"easy": "",
@@ -216,7 +216,9 @@
 							"data": {
 								"userDataMatrix": "nodes__0__components__1__component__userData",
 								"varierendeParameter": "nodes__0__components__2__component__jsonData"
-							}
+							},
+							"saveFetchedDataInTemplate_Path" : "/json/tasks/FermentExercise/Exercise.json",
+							"savedData":{}
 						}
 					},
 				"1": {
@@ -482,16 +484,16 @@
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"OptionsFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
-									"OptionsFromJson_Key":"Modell"
+									"OptionsFromJson": "nodes__0__components__0__component__savedData",
+									"OptionsFromJson_Key":"nodeAmount"
 								},
 								"seed": {
 									"formType": "ValueFormField",
 									"label": "Phasenanzahl",
 									"type": "text",
 									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
-									"ValueFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
-									"ValueFromJson_Key":"PhasenAnzahl",
+									"ValueFromJson" : "nodes__0__components__0__component__savedData",
+									"ValueFromJson_Key":"seed",
 									"readOnly": true,
 									"validate": false,
 									"presets": {
@@ -513,7 +515,7 @@
 						"name": "Fermentationsapparat",
 						"component": {
 							"pfad": "/img/tasks/Ferment/FermentALADIN_bild.png",
-							"ValueFromJson_Path":"/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
+							"ValuesFromJson":"nodes__0__components__0__component__savedData",
 							"inputFelder": [
 								{
 									"type": "text",
@@ -543,14 +545,14 @@
 								{
 									"type": "text",
 									"placeholder": "BTM",
-									"ValueFromJson_Key":"Startbiomasse",
+									"ValueFromJson_Key":"BTM",
 									"align": "right",
 									"width": "50px"
 								},
 								{
 									"type": "text",
 									"placeholder": "DO",
-									"ValueFromJson_Key":"Do",
+									"ValueFromJson_Key":"DO",
 									"align": "left",
 									"width": "50px"
 								}
@@ -604,8 +606,8 @@
 								}
 							},
 							"userData": [],
-							"userDataFromJson_Path": "/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json",
-							"userDataFromJson_Key":"Startparameter",
+							"userDataFromJson": "nodes__0__components__0__component__savedData",
+							"userDataFromJson_Key":"userDataMatrix",
 							"checkUserDataValidity": "valid",
 							"columnLabelData": [
 								"Zuluft in NL/min",
@@ -733,7 +735,8 @@
 						"type": "TaskViewer",
 						"component":{
 							"titel" : 	"Fermentationsproblem",
-							"path"	:	"/json/tasks/FermentExercises/FermentALADIN_Aufgaben.json"
+							"path"	:	"nodes__0__components__0__component__savedData",
+							"key"	:	"Aufgabe"
 						}
 					}
 				}
