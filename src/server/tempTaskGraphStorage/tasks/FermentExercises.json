@@ -1,8 +1,8 @@
 {
 	"API": [
 		{
-			"task": "Ferment",
-			"name": "generateFermentationDataMain",
+			"task": "FermentExercises",
+			"name": "generateFermentExercises",
 			"httpMethod": "post",
 			"params": {
 				"parameters": "object"
@@ -10,12 +10,12 @@
 		}
 	],
 	"Worker": {
-		"FermentExercises": {
+		"FermentExercisesTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
-				"generateFermentationDataMain": {
-					"dependencies": ["generateFermentationDataMain"],
-					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
+				"generateFermentExercises": {
+					"dependencies": ["generateFermentExercises"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentExercises(taskDescription)} catch{} return result; }"
 				}
 			}
 		}
@@ -212,7 +212,7 @@
 						"component": {
 							"actions": [
 								{
-									"instruction": "generateFermentationDataMain",
+									"instruction": "generateFermentExercises",
 									"type": "fetchData",
 									"label": "Prüfen!",
 									"dependsOn": [
