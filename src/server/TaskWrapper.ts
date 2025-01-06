@@ -7,6 +7,7 @@ import { ShortestPathTaskGenerator } from "../Legacy/Tasks/shortestPath/MunkeltW
 import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
 import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCallPython";
+import { generateFermentExercises } from "../Tasks/FermentExercises/wrapperFunctionCallPython";
 
 import fs from "fs";
 import path from "path";
@@ -65,6 +66,7 @@ const generators: { [key: string]: any } = {
 	EPKTaskGenerator: EPKTaskGenerator,
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
 	generateFermentationDataMain: generateFermentationDataMain,
+	generateFermentExercises: generateFermentExercises,
 };
 
 export interface IInstructionConfiguration {
