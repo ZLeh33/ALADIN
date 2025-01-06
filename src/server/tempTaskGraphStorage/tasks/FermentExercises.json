@@ -10,7 +10,7 @@
 		}
 	],
 	"Worker": {
-		"FermentExercises": {
+		"FermentTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
 				"generateFermentationDataMain": {
