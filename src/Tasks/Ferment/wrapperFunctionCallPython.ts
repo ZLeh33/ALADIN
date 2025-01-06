@@ -24,7 +24,7 @@ function runPythonScript(scriptPath: string): Promise<string> {
 	}
 }
 
-function parseFrontendEingaben(parameter: any) {
+function parseFrontendInputs(parameter: any) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
 	let frontendEingaben: any;
 	if (parameter === undefined || parameter === null) {
@@ -43,7 +43,7 @@ function parseFrontendEingaben(parameter: any) {
 	}
 	return frontendEingaben;
 }
-function bereinigeUndVerschiebeParameter(frontendEingaben : any) {
+function cleanAndMoveParameters(frontendEingaben : any) {
 	if (frontendEingaben && frontendEingaben.parameters) {
 		// Inhalt von "parameters" ins Hauptobjekt verschieben
 		Object.assign(frontendEingaben, frontendEingaben.parameters);
@@ -74,10 +74,10 @@ function  renameKey (obj: any, oldKey: string, newKey: string) {
 	return obj;
 };
 
-function parameterBearbeitenUndSpeichernForFermentTask(parameter: any, task:string) {
+function editSaveParams(parameter: any, task:string) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
-	let frontendEingaben : any = parseFrontendEingaben(parameter);
-	frontendEingaben = bereinigeUndVerschiebeParameter(frontendEingaben);
+	let frontendEingaben : any = parseFrontendInputs(parameter);
+	frontendEingaben = cleanAndMoveParameters(frontendEingaben);
 
 	frontendEingaben =  renameKey(frontendEingaben, "nodeAmount", "Modell");
 	frontendEingaben = renameKey(frontendEingaben, "seed", "PhasenAnzahl");
@@ -209,7 +209,7 @@ function parameterBearbeitenUndSpeichernForFermentTask(parameter: any, task:stri
 
 export async function generateFermentationDataMain(parameter: any) {
 	let task = parameter.task;
-	let check = parameterBearbeitenUndSpeichernForFermentTask(parameter,task)
+	let check = editSaveParams(parameter,task)
 	if (check) {
 		let result = { foo: "bar" };
 		try {
