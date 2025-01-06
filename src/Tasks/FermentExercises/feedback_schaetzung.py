@@ -2,11 +2,11 @@ import json
 
 def feedback_schatzung():
     # Lade Lösung aus der JSON-Datei
-    with open('src/Tasks/FermentExercises/feed_s1_loesng.json', 'r') as loesung_file:
+    with open('src/Tasks/FermentExercises/feed_s1_loesung.json', 'r') as loesung_file:
         loesung = json.load(loesung_file)
     
     # Lade Schätzung aus der JSON-Datei
-    with open('src/Tasks/FermentExercises/phasen_eingaben.json', 'r') as schatzung_file:
+    with open('src/Tasks/FermentExercises/nutzer_eingaben.json', 'r') as schatzung_file:
         schatzung = json.load(schatzung_file)
     
     # Vergleiche die Schätzungen mit den Lösungen für jede Phase
