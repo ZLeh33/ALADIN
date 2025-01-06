@@ -7,6 +7,14 @@
 			"params": {
 				"parameters": "object"
 			}
+		},
+		{
+			"task": "FermentExercises",
+			"name": "generateFermentationDataMain",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
 		}
 	],
 	"Worker": {
@@ -16,8 +24,13 @@
 				"generateFermentExercises": {
 					"dependencies": ["generateFermentExercises"],
 					"body": "async (taskDescription) => {let result = {};try { result = generateFermentExercises(taskDescription)} catch{} return result; }"
+				},
+				"generateFermentationDataMain": {
+					"dependencies": ["generateFermentationDataMain"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
 				}
 			}
+			
 		}
 	},
 	"UI": {
@@ -465,7 +478,7 @@
 						"component": {
 							"actions": [
 								{
-									"instruction": "generateFermentExercises",
+									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
 									"label": "Prüfen!",
 									"dependsOn": [
@@ -675,59 +688,16 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
-							"datasets": "taskData__data_1__datasets",
-							"options": {
-								"responsive": true,
-								"maintainAspectRatio": false,
-								"elements": {
-									"point": {
-										"radius": 0
-									}
-								},
-								"scales": {
-									"x": {
-										"type": "linear",
-										"ticks": {
-											"stepSize": 5
-										},
-										"title": {
-											"display": true,
-											"text": "Zeit in h"
-										}
-									},
-									"y": {}
-								}
-							}
+							"datasets": "taskData__data_1__datasets"
 						}
 					},
 					"4": {
-						"name": "Fermentatiosverlauf c_{S2}",
+						"name": "Fermentatiosverlauf Cs2",
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_2__labels",
-							"datasets": "taskData__data_2__datasets",
-							"options": {
-								"responsive": true,
-								"maintainAspectRatio": false,
-								"elements": {
-									"point": {
-										"radius": 0
-									}
-								},
-								"scales": {
-									"x": {
-										"type": "linear",
-										"ticks": {
-											"stepSize": 5
-										},
-										"title": {
-											"display": true,
-											"text": "Zeit in h"
-										}
-									},
-									"y": {}
-								}
-							}
+							"datasets": "taskData__data_2__datasets"
+							
 						}
 					},
 					"5": {
