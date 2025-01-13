@@ -9,7 +9,7 @@
 			}
 		},
 		{
-			"task": "Ferment",
+			"task": "FermentExercises",
 			"name": "generateFermentationDataMain",
 			"httpMethod": "post",
 			"params": {
@@ -24,19 +24,13 @@
 				"generateFermentExercises": {
 					"dependencies": ["generateFermentExercises"],
 					"body": "async (taskDescription) => {let result = {};try { result = generateFermentExercises(taskDescription)} catch{} return result; }"
-				}
-				
-			}
-			
-		},
-		"FermentTask": {
-			"minConsumers": 1,
-			"consumerInstructions": {
+				},
 				"generateFermentationDataMain": {
 					"dependencies": ["generateFermentationDataMain"],
 					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
 				}
 			}
+			
 		}
 	},
 	"UI": {
@@ -485,7 +479,6 @@
 							"actions": [
 								{
 									"instruction": "generateFermentationDataMain",
-									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
 									"label": "Prüfen!",
 									"dependsOn": [
@@ -695,7 +688,6 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
-							"datasets": "taskData__data_1__datasets"
 							"datasets": "taskData__data_1__datasets"
 						}
 					},

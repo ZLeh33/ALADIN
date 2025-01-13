@@ -74,7 +74,7 @@ function  renameKey (obj: any, oldKey: string, newKey: string) {
 	return obj;
 };
 
-function editSaveParams(parameter: any, task:string) {
+function editSaveParams(parameter: any) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
 	let frontendEingaben : any = parseFrontendInputs(parameter);
 	frontendEingaben = cleanAndMoveParameters(frontendEingaben);
@@ -162,47 +162,22 @@ function editSaveParams(parameter: any, task:string) {
 	frontendEingaben.Feed = feed;
 	frontendEingaben.BolusN = bolusN;
 
-	let temperatur: number = 0;
-	let dO: number = 0;
-	let startbiomasse: number = 0;
+	//frontendEingaben.temperatur =isNaN(parseFloat(frontendEingaben.userDataInputFelder.T)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.T);
+	//frontendEingaben.do = isNaN(parseFloat(frontendEingaben.userDataInputFelder.DO)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.DO)  ;
+	//frontendEingaben.startbiomasse = isNaN(parseFloat(frontendEingaben.userDataInputFelder.BTM)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.BTM);
+	
+	/*
 	let maxParameter: string = '';
 	let minParameter: string = '';
 	let varierendeParameter :  object =  {};
-	
-	if( task === 'Ferment'){
-		if (frontendEingaben.userDataInputFelder) {
-			temperatur = parseFloat(frontendEingaben.userDataInputFelder.T);
-			dO = parseFloat(frontendEingaben.userDataInputFelder.DO);
-			startbiomasse = parseFloat(frontendEingaben.userDataInputFelder.BTM);
+	maxParameter = frontendEingaben.maxParameter;
+	minParameter  = frontendEingaben.minParameter;
+	varierendeParameter  = frontendEingaben.varierendeParameter;*/
 
-			delete frontendEingaben.userDataInputFelder;
-		}
-	}
-	else{
-		temperatur = parseFloat(frontendEingaben.Temperatur);
-		dO = parseFloat(frontendEingaben.DO);
-		startbiomasse = parseFloat(frontendEingaben.BTM);
-		maxParameter = frontendEingaben.maxParameter.toString();
-		minParameter  = frontendEingaben.minParameter.toString();
-		varierendeParameter  = frontendEingaben.varierendeParameter;
-	}
-	frontendEingaben.temperatur = isNaN(temperatur) ? 0 : temperatur;
-	frontendEingaben.startbiomasse = isNaN(startbiomasse) ? 0 : startbiomasse;
-	frontendEingaben.do = isNaN(dO) ? 0 : dO;
-
+	delete frontendEingaben.userDataInputFelder;
 	delete frontendEingaben.checkUserDataValidity;
 
 
-
-	// Pfad zur JSON-Datei definieren
-	const filePfade2 = path.join(__dirname, "/nutzer_eingaben.json");
-
-	// JSON.stringify mit einer Replacer-Funktion
-	let jsonString2 = JSON.stringify(frontendEingaben.Feed, null, 4);
-
-	// Datei schreiben
-	
-	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
 
 	// Pfad zur JSON-Datei definieren
 	const filePfade = path.join(__dirname, "/interne_daten/FrontendEingaben.json");
@@ -223,8 +198,7 @@ function editSaveParams(parameter: any, task:string) {
 }
 
 export async function generateFermentExercises(parameter: any) {
-	let task = parameter.task;
-	let check = editSaveParams(parameter,task)
+	let check = editSaveParams(parameter)
 	if (check) {
 		let result = { foo: "bar" };
 		try {

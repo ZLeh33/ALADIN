@@ -74,15 +74,21 @@ function  renameKey (obj: any, oldKey: string, newKey: string) {
 	return obj;
 };
 
-function editSaveParams(parameter: any, task:string) {
+function editSaveParams(parameter: any) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
 	let frontendEingaben : any = parseFrontendInputs(parameter);
 	frontendEingaben = cleanAndMoveParameters(frontendEingaben);
 
 	frontendEingaben =  renameKey(frontendEingaben, "nodeAmount", "Modell");
+	
+
+	if (Array.isArray(frontendEingaben.Modell)) {
+		const tmpModell = frontendEingaben.Modell[0]; // Nimmt das erste Element aus dem Array
+		delete frontendEingaben.Modell;              // Entfernt den ursprünglichen Schlüssel
+		frontendEingaben.Modell = tmpModell;         // Setzt den Schlüssel mit dem neuen Wert
+	}
 	frontendEingaben = renameKey(frontendEingaben, "seed", "PhasenAnzahl");
 
-	//Modell-Schlüssel umbennen
 	switch (frontendEingaben.Modell) {
 		case "S.cerevisiae":
 			frontendEingaben.Modell = "Modell-1";
@@ -161,36 +167,36 @@ function editSaveParams(parameter: any, task:string) {
 	frontendEingaben.BolusC = bolusC;
 	frontendEingaben.Feed = feed;
 	frontendEingaben.BolusN = bolusN;
-
-	let temperatur: number = 0;
-	let dO: number = 0;
-	let startbiomasse: number = 0;
-	let maxParameter: string = '';
-	let minParameter: string = '';
-	let varierendeParameter :  object =  {};
 	
-	if( task === 'Ferment'){
-		if (frontendEingaben.userDataInputFelder) {
-			temperatur = parseFloat(frontendEingaben.userDataInputFelder.T);
-			dO = parseFloat(frontendEingaben.userDataInputFelder.DO);
-			startbiomasse = parseFloat(frontendEingaben.userDataInputFelder.BTM);
-
-			delete frontendEingaben.userDataInputFelder;
-		}
+	
+	if (frontendEingaben.userDataInputFelder) {
+		frontendEingaben.temperatur =isNaN(parseFloat(frontendEingaben.userDataInputFelder.T)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.T);
+		frontendEingaben.startbiomasse = isNaN(parseFloat(frontendEingaben.userDataInputFelder.BTM)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.BTM);
+		frontendEingaben.do = isNaN(parseFloat(frontendEingaben.userDataInputFelder.DO)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.DO)  ;
 	}
-	else{
-		temperatur = parseFloat(frontendEingaben.Temperatur);
-		dO = parseFloat(frontendEingaben.DO);
-		startbiomasse = parseFloat(frontendEingaben.BTM);
-		maxParameter = frontendEingaben.maxParameter.toString();
-		minParameter  = frontendEingaben.minParameter.toString();
-		varierendeParameter  = frontendEingaben.varierendeParameter;
-	}
-	frontendEingaben.temperatur = isNaN(temperatur) ? 0 : temperatur;
-	frontendEingaben.startbiomasse = isNaN(startbiomasse) ? 0 : startbiomasse;
-	frontendEingaben.do = isNaN(dO) ? 0 : dO;
+	delete frontendEingaben.userDataInputFelder;
 
 	delete frontendEingaben.checkUserDataValidity;
+
+
+
+	// Pfad zur JSON-Datei definieren
+	const filePfade2 = path.join(__dirname, "/nutzer_eingaben.json");
+	// Objekt initialisieren
+	const data: { [key: string]: number } = {}; // Dynamische Schlüssel mit Werten vom Typ `number`
+
+	frontendEingaben.Feed.forEach((element: number, index: number) => {
+		data[`Phase_${index}`] = element; // Dynamische Schlüssel hinzufügen
+	});
+	// JSON.stringify mit einer Replacer-Funktion
+	let jsonString2 = JSON.stringify(data, null, 4);
+
+	// Datei schreiben
+	
+	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
+
+
+
 
 	// Pfad zur JSON-Datei definieren
 	const filePfade = path.join(__dirname, "/interne_daten/FrontendEingaben.json");
@@ -208,8 +214,7 @@ function editSaveParams(parameter: any, task:string) {
 }
 
 export async function generateFermentationDataMain(parameter: any) {
-	let task = parameter.task;
-	let check = editSaveParams(parameter,task)
+	let check = editSaveParams(parameter);
 	if (check) {
 		let result = { foo: "bar" };
 		try {
