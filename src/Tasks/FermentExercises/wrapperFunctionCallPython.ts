@@ -162,10 +162,23 @@ function editSaveParams(parameter: any) {
 	frontendEingaben.Feed = feed;
 	frontendEingaben.BolusN = bolusN;
 
-	//frontendEingaben.temperatur =isNaN(parseFloat(frontendEingaben.userDataInputFelder.T)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.T);
-	//frontendEingaben.do = isNaN(parseFloat(frontendEingaben.userDataInputFelder.DO)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.DO)  ;
-	//frontendEingaben.startbiomasse = isNaN(parseFloat(frontendEingaben.userDataInputFelder.BTM)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.BTM);
-	
+	frontendEingaben.temperatur =isNaN(parseFloat(frontendEingaben.Temperatur)) ? 0 : parseFloat(frontendEingaben.Temperatur);
+	frontendEingaben.startbiomasse = isNaN(parseFloat(frontendEingaben.BTM)) ? 0 : parseFloat(frontendEingaben.BTM);
+	frontendEingaben.do = isNaN(parseFloat(frontendEingaben.DO)) ? 0 : parseFloat(frontendEingaben.DO)  ;
+	delete frontendEingaben.Temperatur;
+	delete frontendEingaben.BTM;
+	delete frontendEingaben.DO;
+
+	let dataTmp:any = frontendEingaben.maxParameter;
+	delete frontendEingaben.maxParameter;
+	frontendEingaben.maxParameter = dataTmp;
+	dataTmp = frontendEingaben.minParameter;
+	delete frontendEingaben.minParameter;
+	frontendEingaben.minParameter=dataTmp;
+	dataTmp = frontendEingaben.varierendeParameter;
+	delete frontendEingaben.varierendeParameter;
+	frontendEingaben.varierendeParameter=dataTmp;
+
 	/*
 	let maxParameter: string = '';
 	let minParameter: string = '';
