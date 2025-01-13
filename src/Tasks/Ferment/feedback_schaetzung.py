@@ -1,47 +1,77 @@
 import json
 
 def feedback_schatzung():
-    # Lade Lösung aus der JSON-Datei
+    # Lade Loesung aus der JSON-Datei
     with open('src/Tasks/FermentExercises/feed_s1_loesung.json', 'r') as loesung_file:
         loesung = json.load(loesung_file)
     
-    # Lade Schätzung aus der JSON-Datei
+    # Lade Schaetzung aus der JSON-Datei
     with open('src/Tasks/FermentExercises/nutzer_eingaben.json', 'r') as schatzung_file:
         schatzung = json.load(schatzung_file)
     
-    # Vergleiche die Schätzungen mit den Lösungen für jede Phase
+    # Initialisiere ein Dictionary fuer das Feedback
+    feedback = {}
+
+    # Vergleiche die Schaetzungen mit den Loesungen fuer jede Phase
     for phase in loesung:
-        print(f"Vergleich für {phase}:")
+        phase_feedback = {
+            "status": "",
+            "message": ""
+        }
         
-        # Hole die Lösung und Schätzung für diese Phase
+        print(f"Vergleich fuer {phase}:")
+        
+        # Hole die Loesung und Schaetzung fuer diese Phase
         phase_loesung = loesung[phase]
         phase_schatzung = schatzung.get(phase)
         
         if phase_schatzung is None:
-            print(f"Keine Schätzung für {phase} gefunden!")
+            phase_feedback["status"] = "Fehler"
+            phase_feedback["message"] = f"Keine Schaetzung fuer {phase} gefunden!"
+            print(phase_feedback["message"])
+            feedback[phase] = phase_feedback
             continue
         
-        # Besondere Behandlung für den Fall, dass die Lösung 0 ist
+        # Besondere Behandlung fuer den Fall, dass die Loesung 0 ist
         if phase_loesung == 0:
             if phase_schatzung == 0:
-                print(f"Erfolgreich! Deine Schätzung für {phase} ist korrekt (beide sind 0).")
+                phase_feedback["status"] = "Erfolgreich"
+                phase_feedback["message"] = f"Deine Schaetzung fuer {phase} ist korrekt (beide sind 0)."
             else:
-                print(f"Falsch! Deine Schätzung für {phase} ist nicht korrekt. Versuche es noch einmal.")
+                phase_feedback["status"] = "Falsch"
+                phase_feedback["message"] = f"Deine Schaetzung fuer {phase} ist nicht korrekt. Versuche es noch einmal."
+            print(phase_feedback["message"])
+            feedback[phase] = phase_feedback
             continue
         
-        # Berechne die relative Differenz, wenn die Lösung nicht null ist
+        # Berechne die relative Differenz, wenn die Loesung nicht null ist
         differenz = abs(phase_schatzung - phase_loesung)
         relative_differenz = differenz / abs(phase_loesung) * 100
         
-        # Bestimme, wie nah die Schätzung an der Lösung ist
+        # Bestimme, wie nah die Schaetzung an der Loesung ist
         if relative_differenz <= 20:
-            print(f"Erfolgreich! Deine Schätzung von {phase_schatzung} für {phase} ist nahe genug an der Lösung.")
+            phase_feedback["status"] = "Erfolgreich"
+            phase_feedback["message"] = f"Deine Schaetzung von {phase_schatzung} fuer {phase} ist nahe genug an der Loesung."
         elif 20 < relative_differenz <= 50:
-            print(f"Du bist nah dran! Deine Schätzung von {phase_schatzung} für {phase} ist entfernt von der Lösung.")
+            phase_feedback["status"] = "Fast"
+            phase_feedback["message"] = f"Du bist nah dran! Deine Schaetzung von {phase_schatzung} fuer {phase} ist entfernt von der Loesung."
         elif 50 < relative_differenz <= 100:
-            print(f"Versuche es noch einmal! Deine Schätzung von {phase_schatzung} für {phase} ist entfernt von der Lösung.")
+            phase_feedback["status"] = "Entfernt"
+            phase_feedback["message"] = f"Versuche es noch einmal! Deine Schaetzung von {phase_schatzung} fuer {phase} ist entfernt von der Loesung."
         else:
             if phase_schatzung < phase_loesung:
-                print(f"Du musst höher schätzen! Deine Schätzung von {phase_schatzung} für {phase} ist mehr als 100% entfernt.")
+                phase_feedback["status"] = "Zu niedrig"
+                phase_feedback["message"] = f"Du musst höher schätzen! Deine Schaetzung von {phase_schatzung} fuer {phase} ist mehr als 100% entfernt."
             else:
-                print(f"Du musst niedriger schätzen! Deine Schätzung von {phase_schatzung} für {phase} ist mehr als 100% entfernt.")
+                phase_feedback["status"] = "Zu hoch"
+                phase_feedback["message"] = f"Du musst niedriger schätzen! Deine Schaetzung von {phase_schatzung} fuer {phase} ist mehr als 100% entfernt."
+        
+        print(phase_feedback["message"])
+        feedback[phase] = phase_feedback
+    
+    # Speichere das Feedback in einer JSON-Datei
+    with open('src/Tasks/Ferment/feedback.json', 'w') as feedback_file:
+        json.dump(feedback, feedback_file, indent=4, ensure_ascii=False)
+
+# Funktion aufrufen
+feedback_schatzung()
