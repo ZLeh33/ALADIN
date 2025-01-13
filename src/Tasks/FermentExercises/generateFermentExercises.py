@@ -43,7 +43,7 @@ def generateFermentExercises():
     m = modelleOb.get_Value()
 
         # Input aus input.json laden
-    eingabeOb = JsonInput('input.json')
+    eingabeOb = JsonInput('FrontendEingaben.json')
     eingabeOb.ladeJson()
     eingabe = eingabeOb.get_Value()
 
