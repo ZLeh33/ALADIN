@@ -6,7 +6,7 @@ def feedback_schatzung():
         loesung = json.load(loesung_file)
     
     # Lade Schaetzung aus der JSON-Datei
-    with open('src/Tasks/FermentExercises/nutzer_eingaben.json', 'r') as schatzung_file:
+    with open('src/Tasks/Ferment/nutzer_eingaben.json', 'r') as schatzung_file:
         schatzung = json.load(schatzung_file)
     
     # Initialisiere ein Dictionary fuer das Feedback

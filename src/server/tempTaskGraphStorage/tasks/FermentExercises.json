@@ -15,6 +15,14 @@
 			"params": {
 				"parameters": "object"
 			}
+		},
+		{
+			"task": "FermentExercises",
+			"name": "generateFermentationFeedBack",
+			"httpMethod": "post",
+			"params": {
+				"parameters": "object"
+			}
 		}
 	],
 	"Worker": {
@@ -28,6 +36,10 @@
 				"generateFermentationDataMain": {
 					"dependencies": ["generateFermentationDataMain"],
 					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationDataMain(taskDescription)} catch{} return result; }"
+				},
+				"generateFermentationFeedBack": {
+					"dependencies": ["generateFermentationFeedBack"],
+					"body": "async (taskDescription) => {let result = {};try { result = generateFermentationFeedBack(taskDescription)} catch{} return result; }"
 				}
 			}
 			
@@ -480,7 +492,17 @@
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
-									"label": "Prüfen!",
+									"label": "Diagramm!",
+									"dependsOn": [
+										"nodes__1__components__1__component__form__nodeAmount__isValid",
+										"nodes__1__components__1__component__form__seed__isValid",
+										"nodes__1__components__2__isValid"
+									]
+								},
+								{
+									"instruction": "generateFermentationFeedBack",
+									"type": "fetchData",
+									"label": "Feedback!",
 									"dependsOn": [
 										"nodes__1__components__1__component__form__nodeAmount__isValid",
 										"nodes__1__components__1__component__form__seed__isValid",
@@ -679,6 +701,14 @@
 									"name": "Dauer in h",
 									"min": 0,
 									"max": "200"
+								}
+							],
+							"field_status":[
+								{
+									"name":	"Dauer in h",
+									"0":true,
+									"1":false,
+									"2":true
 								}
 							]
 						}
