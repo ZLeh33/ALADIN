@@ -1,0 +1,18 @@
+{
+    "Phase_1": {
+        "status": "Erfolgreich",
+        "message": "Deine Schaetzung von 2 fuer Phase_1 ist nahe genug an der Loesung."
+    },
+    "Phase_2": {
+        "status": "Erfolgreich",
+        "message": "Deine Schaetzung fuer Phase_2 ist korrekt (beide sind 0)."
+    },
+    "Phase_3": {
+        "status": "Falsch",
+        "message": "Deine Schaetzung fuer Phase_3 ist nicht korrekt. Versuche es noch einmal."
+    },
+    "Phase_4": {
+        "status": "Erfolgreich",
+        "message": "Deine Schaetzung fuer Phase_4 ist korrekt (beide sind 0)."
+    }
+}

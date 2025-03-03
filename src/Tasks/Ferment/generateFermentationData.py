@@ -77,6 +77,8 @@ export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 y_combined=y_combined.T
 
 
+
+
 def generateFermentationDataMain():
     data = {
         "data_1":{
@@ -135,6 +137,7 @@ def generateFermentationDataMain():
 
 with open('./src/Tasks/Ferment/data.json', 'w') as output:
     json.dump(generateFermentationDataMain(), output)
+
 
 
 #export_FrontendEingabe

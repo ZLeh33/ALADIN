@@ -215,7 +215,7 @@
 									"description": "Zur Verfügung stehende Parameter",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
 									"initial": "",
-									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
+									"options": ["Cx", "Cs1", "Cs2", "Cp", "C_ox", "C_o2_Out", "C_Co2_Out"],
 									"presets": {
 										"easy": "",
 										"medium": "",
@@ -230,7 +230,7 @@
 									"description": "Zur Verfügung stehende Parameter",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
 									"initial": "",
-									"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
+									"options": ["Cx", "Cs1", "Cs2", "Cp", "C_ox", "C_o2_Out", "C_Co2_Out"],
 									"presets": {
 										"easy": "",
 										"medium": "",
@@ -247,7 +247,7 @@
 						}
 					},
 				"1": {
-					"name": "Direktbedarfsmatrix",
+					"name": "Fermentationsparameter",
 					"type": "Matrix",
 					"isValid": true,
 					"isCorrect": true,
@@ -470,6 +470,14 @@
 							"h": 2,
 							"i": 5,
 							"static": false
+						},
+						{
+							"x": 33,
+							"y": 28,
+							"w": 6,
+							"h": 1,
+							"i": 6,
+							"static": false
 						}
 					]
 				},
@@ -504,9 +512,6 @@
 									"type": "fetchData",
 									"label": "Feedback!",
 									"dependsOn": [
-										"nodes__1__components__1__component__form__nodeAmount__isValid",
-										"nodes__1__components__1__component__form__seed__isValid",
-										"nodes__1__components__2__isValid"
 									]
 								}
 							],
@@ -596,7 +601,7 @@
 						}
 					},
 					"2": {
-						"name": "Direktbedarfsmatrix",
+						"name": "Fermentationsparameter",
 						"type": "Matrix",
 						"isValid": false,
 						"isCorrect": false,
@@ -705,10 +710,11 @@
 							],
 							"field_status":[
 								{
-									"name":	"Dauer in h",
-									"0":true,
-									"1":false,
-									"2":true
+									"name":	"Feed in g/(L*h)",
+									"0":"nodes__1__components__6__component__1",
+									"1":"nodes__1__components__6__component__2",
+									"2":"nodes__1__components__6__component__3",
+									"3":"nodes__1__components__6__component__4"
 								}
 							]
 						}
@@ -737,6 +743,20 @@
 							"titel" : 	"Fermentationsproblem",
 							"path"	:	"nodes__0__components__0__component__savedData",
 							"key"	:	"Aufgabe"
+						}
+					},
+					"6": {
+						"name"	:	"Feedback",
+						"type": "TaskViewer",
+						"component":{
+							"feedback1"	:	"taskData__Phase_1__message",
+							"feedback2"	:	"taskData__Phase_2__message",
+							"feedback3"	:	"taskData__Phase_3__message",
+							"feedback4"	:	"taskData__Phase_4__message",
+							"1":true,
+							"2":true,
+							"3":true,
+							"4":true
 						}
 					}
 				}

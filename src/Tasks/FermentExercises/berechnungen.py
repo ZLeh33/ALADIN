@@ -187,10 +187,12 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl):
             )
 
             tmp_sol = study.best_trial.user_attrs.get("sol", None)
+            indextmp = i + 1
             if tmp_sol is not None and hasattr(tmp_sol, "success") and tmp_sol.success:
                 best_params = study.best_trial.params
-                feed_s1_values[f"Phase_{i}"] = best_params['feed_S1']  # Speichere feed_S1
-                print(f"feed_S1 für Phase {i}: {best_params['feed_S1']}")
+                #indextmp = i + 1
+                feed_s1_values[f"Phase_{indextmp}"] = best_params['feed_S1']  #! Speichere feed_S1
+                print(f"feed_S1 für Phase {indextmp}: {best_params['feed_S1']}")
 
                 ry = tmp_sol.y.T
                 rt = tmp_sol.t
@@ -203,6 +205,7 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl):
                     y_combined = np.vstack((y_combined, ry))
                     t_combined = np.hstack((t_combined, rt))
                     cum_feeding = np.hstack((cum_feeding, t_span * consts[19]))
+            else :	feed_s1_values[f"Phase_{indextmp}"] = 0	#! temp zu fragen
 
     # Ergebnisse speichern
     c_ox_sat = const_array_array[0, 0]

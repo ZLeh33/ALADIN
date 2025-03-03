@@ -249,7 +249,7 @@
 						}
 					},
 					"2": {
-						"name": "Direktbedarfsmatrix",
+						"name": "Fermentationsparameter",
 						"type": "Matrix",
 						"isValid": false,
 						"isCorrect": false,

@@ -186,7 +186,7 @@ function editSaveParams(parameter: any) {
 	const data: { [key: string]: number } = {}; // Dynamische Schlüssel mit Werten vom Typ `number`
 
 	frontendEingaben.Feed.forEach((element: number, index: number) => {
-		data[`Phase_${index}`] = element; // Dynamische Schlüssel hinzufügen
+		data[`Phase_${index + 1}`] = element; // Dynamische Schlüssel hinzufügen
 	});
 	// JSON.stringify mit einer Replacer-Funktion
 	let jsonString2 = JSON.stringify(data, null, 4);
@@ -212,7 +212,27 @@ function editSaveParams(parameter: any) {
 		return false;
 	}
 }
-export async function generateFermentationFeedBack(){}
+
+
+export async function generateFermentationFeedBack() {
+	let result = { foo: "bar" };
+	try {
+		const filePath = path.join(__dirname, "feedback.json");
+
+		// Versuche, die Datei zu lesen
+		if (fs.existsSync(filePath)) {
+			const fileContent = fs.readFileSync(filePath, "utf-8");
+			result = JSON.parse(fileContent);  // Dateiinhalt parsen
+		} else {
+			console.warn("feedback.json existiert nicht, es wird eine neue Datei erstellt.");
+		}
+	} catch (error) {
+		console.error("Fehler beim Verarbeiten der JSON-Datei:", error);
+		return null;
+	}
+	return result;
+}
+
 export async function generateFermentationDataMain(parameter: any) {
 	let check = editSaveParams(parameter);
 	if (check) {
