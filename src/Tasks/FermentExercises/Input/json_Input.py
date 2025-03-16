@@ -59,32 +59,7 @@ class JsonInput(InputBase):
     
 
     def get_Value(self):
-        '''
-        parameter = None
-        parameter = list(self.__data.keys())[0]
-
-        if parameter == None : 
-            print('Error : Fehler beim Einlesen des Parameters.')
         
-        if isinstance(self.__data[parameter][element], dict):
-            element_dict = self.__data[parameter][element]
-            value =  list(element_dict.items())[1]
-            value = value[1]
-            
-        else :
-            value = self.__data[parameter][element]
-        
-
-        
-        if isinstance(value, int):
-            return value
-        elif isinstance(value,str):
-            return value
-        elif isinstance(value,float):
-            return value
-        else : 
-            array = [float(val) for val in value]
-            return array'''
         # JSON-String zu Python-Dictionary konvertieren
         data = self.__data
         
@@ -93,7 +68,8 @@ class JsonInput(InputBase):
         
         for key, value in data.items():
             if isinstance(value, dict):
-                result.extend(list(value.values()))
+                result.append({sub_key: float(sub_value) if isinstance(sub_value, (int, float)) else sub_value 
+                                for sub_key, sub_value in value.items()})
             else:
                 # Wenn der Wert kein Dictionary ist oder kein Array enthält
                 result.append(value)
