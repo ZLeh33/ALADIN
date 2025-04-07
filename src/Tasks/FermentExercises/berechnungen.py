@@ -11,44 +11,6 @@ import json
 
 from array import array
 
-'''
-def daten_aus_excel_einlesen2():
-
-	# Verzeichnis des aktuellen Skripts
-	current_dir = os.path.dirname(os.path.realpath(__file__))
-
-	# Pfad zum übergeordneten Verzeichnis
-	parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-
-	# Vollständiger Pfad zur Excel-Datei
-	excel_path = os.path.join(parent_dir, "Bioreaktor_model.xlsm")
-
-	if os.path.exists(excel_path):
-		print("Die Excel-Datei existiert.")
-	else:
-		print("Die Excel-Datei wurde nicht gefunden.")
-
-	# Name der Tabelle, aus der die Daten gelesen werden sollen
-	table_name = "Octave"
-
-	# Daten aus Excel-Datei einlesen
-	t_ranges_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	param_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	const_array_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	
-	#Daten filltern
-	t_ranges_df2		= t_ranges_df.iloc[10:14,9:11]
-	param_df2		= param_df.iloc[10:14,2:9]
-	const_array_df2		= const_array_df.iloc[1:5,1:]  # Ignoriere die erste Spalte und erste zwei Zeilen
-
-	# Umwandlung der Zeilen in ein Array
-	t_ranges_array		= t_ranges_df2.to_numpy()
-	param_array		= param_df2.to_numpy()
-	const_array_array	= const_array_df2.to_numpy()
-	
-	# Rückgabe der Arrays
-	return(t_ranges_array,param_array,const_array_array)
-'''
 
 
 def berechnung_der_Tabelle1(parameter_werte,modull,data,zuluft,feed,phasen_anzahl):
@@ -56,12 +18,12 @@ def berechnung_der_Tabelle1(parameter_werte,modull,data,zuluft,feed,phasen_anzah
 	const_array= [array('d', [0] * 20) for _ in range(phasen_anzahl)]
 
 	for i in range(phasen_anzahl):
-		const_array[i][0]=parameter_werte[i][0]
-		const_array[i][1]=parameter_werte[i][1]
+		const_array[i][0]=parameter_werte[i][0] #!Sauersto. in g/l
+		const_array[i][1]=parameter_werte[i][1] #!kla_werte[i][17]
 		const_array[i][3]=float(zuluft[i]) #0.2 #Modell H7-k7
-		const_array[i][4]=0.2095
-		const_array[i][5]=0.0004147
-		const_array[i][14]=parameter_werte[i][2]
+		const_array[i][4]=0.2095 #! Anteil Sauerstoff in der Luft [0-1]
+		const_array[i][5]=0.0004147 #!Anteil Co2 in der Luft [0-1]
+		const_array[i][14]=parameter_werte[i][2] #! Wachstumsrate
 		const_array[i][19]=float(feed[i]) #0.1 #Modell H10-K10
 		if i == 0:  #Phase 1
 
@@ -121,7 +83,7 @@ def berechnung_der_Tabelle2(dauer,phasen_anzahl):
 
 def berechnung_der_Tabelle3(const_array,startbiomasse,bolus_c,bolus_n,do,phasen_anzahl):
     param_array= [array('d', [0] * 7) for _ in range(phasen_anzahl)]
-    print('hallo')
+    
     for i in range(phasen_anzahl):
         if i == 0: #Phase 1
             param_array[i][0]=startbiomasse
@@ -140,7 +102,8 @@ def berechnung_der_Tabelle3(const_array,startbiomasse,bolus_c,bolus_n,do,phasen_
 
 
 
-def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl):
+
+def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl, maxParameter, minParameter, varierendeParameter,frontendeingabe):
     data_rate = 10  # Anzahl der Datenpunkte pro Stunde
 
     t_ranges_array = np.array(t_ranges_array)
@@ -151,11 +114,19 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl):
     y_combined = np.array([])
     cum_feeding = np.array([])
     feed_s1_values = {}  # Dictionary zur Speicherung der Feed-Werte
-
+    
+	
+    bestParam = {}
+    for param in varierendeParameter:
+        bestParam[param] = {}
+        for i in range(phasen_anzahl):
+            bestParam[param][f"Phase_{i+1}"] = 'Nan'
+    
     for i in range(phasen_anzahl):
         if i == 0:
             y0 = param_array[i, :]  # Erste Zeile aus Dim. Array als Vektor
         else:
+			
             mx_0 = ry[-1, 0]  # Biotrockenmasse in g/L
             cs1_0 = ry[-1, 1] + param_array[i, 1]  # Konz. Substrat 1 in g/L
             cs2_0 = ry[-1, 2] + param_array[i, 2]  # Konz. Substrat 1 in g/L
@@ -174,48 +145,78 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl):
             t_span = np.linspace(t_start, t_end, num=num1)  # Zeitvektor bauen
             consts = const_array_array[i, :]
 
-            search_space = {
-                "feed_S1": [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5]
-            }
+            if maxParameter or minParameter:
+                #sampler = optuna.samplers.GridSampler()
+                study = optuna.create_study()
 
-            sampler = optuna.samplers.GridSampler(search_space)
-            study = optuna.create_study(sampler=sampler)
+                study.optimize(
+                    lambda trial: objective(trial, t_start, t_end, y0, consts, t_span, varierendeParameter, maxParameter, minParameter),
+                    n_trials=30)
+            
+                tmp_sol = study.best_trial.user_attrs.get("sol", None)
+                
+                if tmp_sol is not None and hasattr(tmp_sol, "success") and tmp_sol.success:
+                    best_params = study.best_trial.params
+                    for param in varierendeParameter:
+                        if param.lower() in best_params:
+                            bestParam[param][f"Phase_{i+1}"]	=	best_params[param.lower()]
+                    
+            else :
+                tmp_sol =solve_ivp(ODE_Bioreactor_Monod, [t_start, t_end], y0, args=(consts,), t_eval=t_span)
+            
+            ry = tmp_sol.y.T
+            rt = tmp_sol.t
 
-            study.optimize(
-                lambda trial: objective(trial, t_start, t_end, y0, consts, t_span, search_space["feed_S1"]),
-                n_trials=len(search_space["feed_S1"]),
-            )
-
-            tmp_sol = study.best_trial.user_attrs.get("sol", None)
-            indextmp = i + 1
-            if tmp_sol is not None and hasattr(tmp_sol, "success") and tmp_sol.success:
-                best_params = study.best_trial.params
-                #indextmp = i + 1
-                feed_s1_values[f"Phase_{indextmp}"] = best_params['feed_S1']  #! Speichere feed_S1
-                print(f"feed_S1 für Phase {indextmp}: {best_params['feed_S1']}")
-
-                ry = tmp_sol.y.T
-                rt = tmp_sol.t
-
-                if i == 0:
-                    y_combined = ry
-                    t_combined = rt
-                    cum_feeding = t_span * consts[19]
-                else:
-                    y_combined = np.vstack((y_combined, ry))
-                    t_combined = np.hstack((t_combined, rt))
-                    cum_feeding = np.hstack((cum_feeding, t_span * consts[19]))
-            else :	feed_s1_values[f"Phase_{indextmp}"] = 0	#! temp zu fragen
+            if i == 0:
+                y_combined = ry
+                t_combined = rt
+                cum_feeding = t_span * consts[19]
+            else:
+                y_combined = np.vstack((y_combined, ry))
+                t_combined = np.hstack((t_combined, rt))
+                cum_feeding = np.hstack((cum_feeding, t_span * consts[19]))
+        #else :	feed_s1_values[f"Phase_{indextmp}"] = 0	#! temp zu fragen
 
     # Ergebnisse speichern
     c_ox_sat = const_array_array[0, 0]
     cum_feeding = cum_feeding.T
-
+    
+    '''
     # Speichern der Feed-Werte in JSON-Datei
     with open("src/Tasks/FermentExercises/feed_s1_loesung.json", "w") as json_file:
         json.dump(feed_s1_values, json_file, indent=4)
-
     print("Feed-S1-Werte erfolgreich in feed_s1_loesung.json gespeichert.")
+	'''
+    
+    frontendeingabe['T'] = frontendeingabe.pop('temperatur')
+    frontendeingabe['BTM'] = frontendeingabe.pop('startbiomasse')
+
+    for param in bestParam:
+        for phasen in bestParam[param]:
+            if bestParam[param][phasen]		==	'Nan':
+                bestParam[param][phasen]	=	0
+            else:
+                bestParam[param][phasen]	=	round(bestParam[param][phasen],1)
+    
+    for param in frontendeingabe:
+        if param not in bestParam:
+            if isinstance(frontendeingabe[param], list):  # Prüft, ob es eine Liste ist
+                bestParam[param] = {}  # Muss ein Dictionary sein, um Phasen als Schlüssel zu setzen
+                for i, value in enumerate(frontendeingabe[param]):  
+                    bestParam[param][f"Phase_{i+1}"] = value  # Phasen beginnen bei 1
+            else:
+                bestParam[param] = frontendeingabe[param]  # Einzelwerte direkt übernehmen
+    
+
+    for param in {"Modell", "PhasenAnzahl", "maxParameter", "minParameter", "varierendeParameter"}:
+        bestParam.pop(param, None)  # Entfernt den Key, falls vorhanden, sonst passiert nichts
+    
+    
+
+    with open("src/Tasks/FermentExercises/parameter_loesung.json", "w") as json_file:
+        json.dump(bestParam, json_file, indent=4)
+    
+    
     return c_ox_sat, y_combined, t_combined, cum_feeding
 
 
