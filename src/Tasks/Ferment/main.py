@@ -66,5 +66,5 @@ if __name__ == "__main__":
 
 
     #Darstellung ausgeben
-    plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
+    #plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
     
