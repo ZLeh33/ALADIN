@@ -77,7 +77,7 @@
 						"x": 31,
 						"y": 31.5,
 						"w": 8,
-						"h": 2,
+						"h": 2.5,
 						"i": 1,
 						"minW": 8,
 						"minH": "2",
@@ -122,7 +122,7 @@
 			"components": {
 				"0": {
 						"type": "BackendFormular",
-						"name": "Diagramm generieren",
+						"name": "Aufgaben Parameter",
 						"isValid": true,
 						"component": {
 							"actions": [
@@ -358,7 +358,7 @@
 				},
 				"2":{
 						"type": "CheckboxGroup",
-						"name": "Zu variierende Parameter",
+						"name": "Modell Parameter",
 						"isValid": true,
 						"component":{
 							"options": ["Zuluft", "BolusC", "Feed", "BolusN", "Drehzahl", "Druck", "Dauer"],
@@ -443,7 +443,7 @@
 							"x": 33,
 							"y": 31,
 							"w": 6,
-							"h": 2,
+							"h": 2.5,
 							"i": 2,
 							"static": false
 						},
@@ -493,14 +493,14 @@
 				"components": {
 					"0": {
 						"type": "BackendFormular",
-						"name": "Diagramm generieren",
+						"name": "Modell Parameter",
 						"isValid": false,
 						"component": {
 							"actions": [
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
-									"label": "Diagramm!",
+									"label": "Generieren!",
 									"dependsOn": [
 										"nodes__1__components__1__component__form__nodeAmount__isValid",
 										"nodes__1__components__1__component__form__seed__isValid",
@@ -510,7 +510,7 @@
 								{
 									"instruction": "generateFermentationFeedBack",
 									"type": "fetchData",
-									"label": "Feedback!",
+									"label": "Abgeben!",
 									"dependsOn": [
 									]
 								}
@@ -597,7 +597,8 @@
 									"width": "50px"
 								}
 							],
-							"inputFelderValues": {}
+							"inputFelderValues": {},
+							"fields_readOnly":"nodes__1__components__6__component__feedback"
 						}
 					},
 					"2": {
@@ -708,15 +709,7 @@
 									"max": "200"
 								}
 							],
-							"field_status":[
-								{
-									"name":	"Feed in g/(L*h)",
-									"0":"nodes__1__components__6__component__1",
-									"1":"nodes__1__components__6__component__2",
-									"2":"nodes__1__components__6__component__3",
-									"3":"nodes__1__components__6__component__4"
-								}
-							]
+							"field_status":"nodes__1__components__6__component__feedback"
 						}
 					},
 					"3": {
@@ -749,14 +742,7 @@
 						"name"	:	"Feedback",
 						"type": "TaskViewer",
 						"component":{
-							"feedback1"	:	"taskData__Phase_1__message",
-							"feedback2"	:	"taskData__Phase_2__message",
-							"feedback3"	:	"taskData__Phase_3__message",
-							"feedback4"	:	"taskData__Phase_4__message",
-							"1":true,
-							"2":true,
-							"3":true,
-							"4":true
+							"feedback"	:	"taskData__Feedback"
 						}
 					}
 				}
