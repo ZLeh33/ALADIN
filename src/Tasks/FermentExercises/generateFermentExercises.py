@@ -53,16 +53,16 @@ def generateFermentExercises():
     parameter_werte = parameter(Sauerstoffoeslichkeit_array, kla_werte, modelle, eingabe[1], eingabe[0])
     const_array = berechnung_der_Tabelle1(parameter_werte, eingabe[0], modelle, eingabe[5], eingabe[7], eingabe[1])
     t_ranges_array = berechnung_der_Tabelle2(eingabe[2], eingabe[1])
-    param_array = berechnung_der_Tabelle3(const_array, eingabe[10], eingabe[6], eingabe[8], eingabe[11], eingabe[1])
+    param_array = berechnung_der_Tabelle3(const_array, eingabe[10], eingabe[6], eingabe[8], eingabe[11], eingabe[1]) #!eingabe[6] => BolusC ; param_array[i][1]=float(bolus_c[i]) param_array[i][2]=float(bolus_n[i])
 
     # Berechnung ausführen
-    ergebnis = berechnung(t_ranges_array, param_array, const_array, eingabe[1])
+    ergebnis = berechnung(t_ranges_array, param_array, const_array, eingabe[1],eingabe[12], eingabe[13], eingabe[14], eingabeOb.get_data())
     c_ox_sat, y_combined, t_combined, cum_feeding = ergebnis
-
+    
 
     #Export Resultat in Excel-Datei
     #export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
-    # plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
+    #plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
     
     
 if __name__ == "__main__":
