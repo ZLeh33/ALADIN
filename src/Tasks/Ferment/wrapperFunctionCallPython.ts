@@ -182,6 +182,7 @@ function editSaveParams(parameter: any) {
 
 	// Pfad zur JSON-Datei definieren
 	const filePfade2 = path.join(__dirname, "/nutzer_eingaben.json");
+	/*
 	// Objekt initialisieren
 	const data: { [key: string]: number } = {}; // Dynamische Schlüssel mit Werten vom Typ `number`
 
@@ -190,9 +191,41 @@ function editSaveParams(parameter: any) {
 	});
 	// JSON.stringify mit einer Replacer-Funktion
 	let jsonString2 = JSON.stringify(data, null, 4);
-
-	// Datei schreiben
 	
+	// Datei schreiben
+	fs.writeFileSync(filePfade2, frontendEingaben, "utf-8");*/
+	/*
+	let jsonString2 = JSON.stringify(frontendEingaben, null, 4);
+	// Schreibe den JSON-String in die Datei
+	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
+	*/
+
+	// Umbenennen der Schlüssel
+	frontendEingaben['T'] = frontendEingaben['temperatur'];
+	delete frontendEingaben['temperatur'];
+
+	frontendEingaben['BTM'] = frontendEingaben['startbiomasse'];
+	delete frontendEingaben['startbiomasse'];
+
+	let param: { [key: string]: any } = {};
+	Object.keys(frontendEingaben).forEach(key => {
+	// Überprüfe, ob der Wert von `frontendEingaben[key]` ein Array ist
+	if (Array.isArray(frontendEingaben[key]) && frontendEingaben[key] !== null) {
+		param[key] = {}; // Initialisiere das Objekt für diesen Schlüssel
+		Object.values(frontendEingaben[key]).forEach((value, index) => {
+			param[key][`Phase_${index+1}`] = value; // Setze den Wert für den entsprechenden Phase-Schlüssel
+		});
+	}
+	else{
+		if(frontendEingaben[key] !== null){
+			param[key]	=	frontendEingaben[key];
+		}
+		
+	}
+	});
+
+	let jsonString2 = JSON.stringify(param, null, 4);
+	// Schreibe den JSON-String in die Datei
 	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
 
 
