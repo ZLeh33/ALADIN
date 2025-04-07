@@ -116,7 +116,7 @@
 							"x": 33,
 							"y": 31,
 							"w": 8,
-							"h": 2,
+							"h": 2.5,
 							"i": 2,
 							"static": false
 						},
@@ -142,7 +142,11 @@
 					"active": false,
 					"current": 0,
 					"descriptions": [
-						"Wählen Sie zuerst den Organismus aus.<br> Dann Ziehen Sie den Schieberegler nach rechts oder links um die Anzahl der Phasen zu bestimmen. <br> Dann geben sie die Werte für die zwei stehende Tabellen ein.",
+						"Mit FermentALADIN können Sie Fermentationen auf Basis vordefinierter Modelle simulieren. Dazu wählen Sie im Fenster „Modell“ ",
+						"den Organismus im Drop-Down Menu und wählen die Anzahl der Phasen mit unterschiedlichen Prozessbedingungen aus. ",
+						"Nach Eintragung der Startparameter im Fenster „Fermentation – Startparameter“ sowie der Eintragung der phasenspezifischen Prozessparameter",
+						"im Fenster „Prozessparameter je Phase“ erhalten Sie das Ergebnis der Simulation nach Klick auf „Berechnen“. ",
+						"Die Daten können über den Button „Herunterladen“ Diagrammweise exportiert werden. Die Arbeitsfläche können Sie mit der Maus verschieben und durch Strg+ Mausrad hinein bzw. herauszoomen. ",
 						"Viel Erfolg! <br><br> <img width=\"100px;\" height=\"100px\"; src=\"https://images.emojiterra.com/twitter/512px/1f340.png\" />"
 					]
 				},
@@ -150,14 +154,14 @@
 				"components": {
 					"0": {
 						"type": "BackendFormular",
-						"name": "Diagramm generieren",
+						"name": "Modell Parameter",
 						"isValid": false,
 						"component": {
 							"actions": [
 								{
 									"instruction": "generateFermentationDataMain",
 									"type": "fetchData",
-									"label": "Berechnen!",
+									"label": "Generieren!",
 									"dependsOn": [
 										"nodes__0__components__0__component__form__nodeAmount__isValid",
 										"nodes__0__components__0__component__form__seed__isValid",
@@ -186,7 +190,7 @@
 									"label": "Phasenanzahl",
 									"type": "text",
 									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
-									"value": "3",
+									"value": "2",
 									"readOnly": false,
 									"validate": false,
 									"presets": {
