@@ -207,47 +207,95 @@
 						}
 					},
 					"1": {
-						"type": "Bild",
+						"type": "absolutInputsOnImage",
 						"name": "Fermentationsapparat",
 						"component": {
-							"pfad": "/img/tasks/Ferment/FermentALADIN_bild.png",
-							"inputFelder": [
-								{
-									"type": "text",
-									"placeholder": "V Gesamt",
-									"align": "left",
-									"width": "50px"
-								},
-								{
-									"type": "text",
+							"bildPath": "/img/tasks/Ferment/Ferment.png",
+							"inputFelds": [
+								{	
+									"id": "1",
+									"type": "number",
 									"placeholder": "V Start",
-									"align": "left",
-									"width": "50px"
+									"value"	: "10",
+									"min": 1,
+									"max": 900,
+									"width": "44px",
+									"height":	"20px",
+									"position": {
+										"left": "0%",
+										"top": "22%"
+									}
 								},
 								{
-									"type": "text",
+									"id": "2",
+									"type": "number",
 									"placeholder": "T",
-									"align": "right",
-									"width": "50px"
+									"value"	: 30,
+									"min": 10,
+									"max": 99,
+									"width": "45px",
+									"height": "20px",
+									"position": {
+										"left": "66%",
+										"top": "41.5%"
+									}
 								},
-								{
-									"type": "text",
+								{	
+									"id": "3",
+									"type": "number",
 									"placeholder": "PH",
-									"align": "left",
-									"width": "50px"
+									"value"	: 7,
+									"min": 2,
+									"max": 10,
+									"width": "40px",
+									"height": "20px",
+									"position": {
+										"left": "26%",
+										"top": "-6.5%"
+									}
 								},
 								{
-									"type": "text",
+									"id": "4",
+									"type": "number",
 									"placeholder": "BTM",
-									"align": "right",
-									"width": "50px"
+									"value"	: 0.05,
+									"min": 0.01,
+									"max": 5,
+									"width": "45px",
+									"height": "20px",
+									"position": {
+										"left": "0%",
+										"top": "77.5%"
+									}
 								},
 								{
-									"type": "text",
+									"id": "5",
+									"type": "number",
 									"placeholder": "DO",
-									"align": "left",
-									"width": "50px"
-								}
+									"value"	: 100,
+									"min": 0,
+									"max": 500,
+									"width": "43px",
+									"height": "20px",
+									"position": {
+										"left": "42%",
+										"top": "-6.5%"
+									}
+								},
+								{
+									"id": "6",
+									"type": "number",
+									"placeholder": "Fluss Out",
+									"value"	: 0,
+									"min": 0,
+									"max": 500,
+									"width": "45px",
+									"height": "20px",
+									"position": {
+										"left": "66%",
+										"top": "60%"
+									}
+								}						
 							],
 							"inputFelderValues": {}
 						}
@@ -332,7 +380,7 @@
 								{
 									"name": "BolusC in g/L",
 									"min": 0,
-									"max": 50
+									"max": 200
 								},
 								{
 									"name": "Feed in g/(L*h)",
@@ -361,118 +409,6 @@
 								}
 							]
 						}
-					},
-					"methods": {
-						"fillZeros": {
-							"description": "Ergänze Nullen",
-							"impact": 0.5
-						},
-						"showSolution": {
-							"description": "Zeige Lösung",
-							"impact": 0
-						},
-						"copyToClipboard": {
-							"description": "Kopieren",
-							"impact": 1
-						}
-					},
-					"contextMenu": {
-						"isOpen": false,
-						"usedMethods": []
-					},
-					"component": {
-						"initialize": {
-							"solution": {
-								"operations": [],
-								"paths": ["taskData__adjacencyMatrix"]
-							},
-							"validation": {
-								"operations": [
-									{
-										"name": "getValueInitializedMatrix",
-										"args": [
-											{
-												"isValid": false,
-												"isCorrect": false
-											}
-										]
-									}
-								],
-								"paths": ["taskData__adjacencyMatrix"]
-							},
-							"user": {
-								"operations": [
-									{
-										"name": "getMatrix",
-										"args": []
-									}
-								],
-								"paths": ["taskData__adjacencyMatrix"]
-							}
-						},
-						"standardZeile": [[1, 1, 1, 1, 100, 1, 10]],
-						"userData": [],
-						"checkDiasabledValidity": false,
-						"columnLabelData": [
-							"Zuluft in NL/min",
-							"BolusC in g/L",
-							"Feed in g/(L*h)",
-							"BolusN in g/L",
-							"Drehzahl in rpm",
-							"Druck in barg",
-							"Dauer in h"
-						],
-						"rowLabelData": ["Phase"],
-						"validationData": null,
-						"solutionData": null,
-						"readOnly": false,
-						"rowLabel": "nodes__0__components__2__component__rowLabelData",
-						"columnLabel": "nodes__0__components__2__component__columnLabelData",
-						"inputType": "number",
-						"rowAnzahl": "nodes__0__components__0__component__form__seed__value",
-						"spaltenMaxSumme": [
-							{
-								"spaltenName": "Dauer in h",
-								"maxSumme": 200
-							}
-						],
-						"columnRange": [
-							{
-								"name": "Zuluft in NL/min",
-								"min": 0,
-								"max": 2
-							},
-							{
-								"name": "BolusC in g/L",
-								"min": 0,
-								"max": 50
-							},
-							{
-								"name": "Feed in g/(L*h)",
-								"min": 0,
-								"max": 10
-							},
-							{
-								"name": "BolusN in g/L",
-								"min": 0,
-								"max": 10
-							},
-							{
-								"name": "Drehzahl in rpm",
-								"min": 100,
-								"max": 2000
-							},
-							{
-								"name": "Druck in barg",
-								"min": 0,
-								"max": 3
-							},
-							{
-								"name": "Dauer in h",
-								"min": 0,
-								"max": "200"
-							}
-						]
 					},
 					"3": {
 						"name": "Fermentationsverlauf",
