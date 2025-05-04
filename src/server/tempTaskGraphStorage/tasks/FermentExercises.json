@@ -186,7 +186,7 @@
 									"label": "BTM",
 									"type": "number",
 									"value": 0,
-									"boundaries": {},
+									"boundaries": { "min": 0, "max": 20 },
 									"validate": false,
 									"presets": {
 										"easy": "",
