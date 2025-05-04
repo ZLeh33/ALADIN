@@ -87,7 +87,7 @@ function editSaveParams(parameter: any) {
 		delete frontendEingaben.Modell;              // Entfernt den ursprünglichen Schlüssel
 		frontendEingaben.Modell = tmpModell;         // Setzt den Schlüssel mit dem neuen Wert
 	}
-	frontendEingaben = renameKey(frontendEingaben, "seed", "PhasenAnzahl");
+	frontendEingaben = renameKey(frontendEingaben, "seed", "Modell2");
 
 	switch (frontendEingaben.Modell) {
 		case "S.cerevisiae":
@@ -182,23 +182,7 @@ function editSaveParams(parameter: any) {
 
 	// Pfad zur JSON-Datei definieren
 	const filePfade2 = path.join(__dirname, "/nutzer_eingaben.json");
-	/*
-	// Objekt initialisieren
-	const data: { [key: string]: number } = {}; // Dynamische Schlüssel mit Werten vom Typ `number`
-
-	frontendEingaben.Feed.forEach((element: number, index: number) => {
-		data[`Phase_${index + 1}`] = element; // Dynamische Schlüssel hinzufügen
-	});
-	// JSON.stringify mit einer Replacer-Funktion
-	let jsonString2 = JSON.stringify(data, null, 4);
 	
-	// Datei schreiben
-	fs.writeFileSync(filePfade2, frontendEingaben, "utf-8");*/
-	/*
-	let jsonString2 = JSON.stringify(frontendEingaben, null, 4);
-	// Schreibe den JSON-String in die Datei
-	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
-	*/
 
 	// Umbenennen der Schlüssel
 	frontendEingaben['T'] = frontendEingaben['temperatur'];
@@ -223,16 +207,8 @@ function editSaveParams(parameter: any) {
 		
 	}
 	});
-
-	let jsonString2 = JSON.stringify(param, null, 4);
-	// Schreibe den JSON-String in die Datei
-	fs.writeFileSync(filePfade2, jsonString2, "utf-8");
-
-
-
-
 	// Pfad zur JSON-Datei definieren
-	const filePfade = path.join(__dirname, "/interne_daten/FrontendEingaben.json");
+	const filePfade = path.join(__dirname, "/interneDaten/FrontendEingaben.json");
 
 	// JSON.stringify mit einer Replacer-Funktion
 	let jsonString = JSON.stringify(frontendEingaben, null, 4);
@@ -247,7 +223,7 @@ function editSaveParams(parameter: any) {
 }
 
 export async function generateReactionData(parameter: any) {
-	
+	editSaveParams(parameter);
 	if (true) {
 		let result = { foo: "bar" };
 		try {
@@ -255,8 +231,8 @@ export async function generateReactionData(parameter: any) {
 			pythonScriptPath = path.join(__dirname, pythonScriptPath);
 			(await runPythonScript(pythonScriptPath)) as any;
 
-			result = JSON.parse(fs.readFileSync(path.join(__dirname, "Reakdata.json"), "utf-8"));
-			const filePath = path.join(__dirname, "Reakdata.json");
+			result = JSON.parse(fs.readFileSync(path.join(__dirname, "Reaktdata.json"), "utf-8"));
+			const filePath = path.join(__dirname, "Reaktdata.json");
 			fs.writeFileSync(filePath, JSON.stringify(result, null, 2), "utf-8");
 			
 			//console.log(result);
