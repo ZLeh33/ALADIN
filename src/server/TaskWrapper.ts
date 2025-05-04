@@ -8,7 +8,8 @@ import { EPKTaskGenerator } from "../Legacy/Tasks/EPK/EPKTask";
 import { SchedulingTaskGenerator } from "../Legacy/Tasks/scheduling/Task";
 import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCallPython";
 import { generateFermentExercises } from "../Tasks/FermentExercises/wrapperFunctionCallPython";
-import { generateFermentationFeedBack } from "../Tasks/Ferment/wrapperFunctionCallPython"
+import { generateFermentationFeedBack } from "../Tasks/Ferment/wrapperFunctionCallPython";
+import { generateReactionData } from "../Tasks/Reakt/wrapperFunctionCallPython";
 
 import fs from "fs";
 import path from "path";
@@ -68,7 +69,8 @@ const generators: { [key: string]: any } = {
 	SchedulingTaskGenerator: SchedulingTaskGenerator,
 	generateFermentationDataMain: generateFermentationDataMain,
 	generateFermentExercises: generateFermentExercises,
-	generateFermentationFeedBack: generateFermentationFeedBack
+	generateFermentationFeedBack: generateFermentationFeedBack,
+	generateReactionData: generateReactionData,
 };
 
 export interface IInstructionConfiguration {
