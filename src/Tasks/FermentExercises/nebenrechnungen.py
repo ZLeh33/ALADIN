@@ -47,7 +47,7 @@ def parameter(Sauerstoffoeslichkeit_array,kla_werte,data,phasen_anzahl,modell):
 def Berechnung_der_Sauerstoffloeslichkeit(phasen_anzahl,temperatur,druck):
 
 
-    Sauerstoffoeslichkeit_array = [array('d', [0] * 6) for _ in range(phasen_anzahl)]
+    Sauerstoffoeslichkeit_array = [array('d', [0] * 6) for _ in range(int(phasen_anzahl))]
 
 
 
