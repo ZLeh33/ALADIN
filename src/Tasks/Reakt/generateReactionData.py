@@ -3,6 +3,14 @@ from scipy.integrate import solve_ivp
 import pandas as pd
 import json
 
+from Input.json_Input import JsonInput
+# === Frontend-Eingaben einlesen ===
+eingabeObject = JsonInput('FrontendEingaben.json')
+eingabeObject.ladeJson()
+frontendEingabe = eingabeObject.get_data()
+#print(frontendEingabe)
+
+
 # === Nutzereingaben ===
 VH2O2_AS = 5.0       # Liter – Volumen H2O2 Zugabe in Reaktor
 cH2O2_AS = 12.0      # mol/L – Konzentration H2O2 Zugabe
@@ -107,13 +115,13 @@ def generateReactionData():
     }
 
 # === JSON speichern ===
-with open('./src/Tasks/Reakt/Reakdata.json', 'w') as output:
+with open('./src/Tasks/Reakt/Reaktdata.json', 'w') as output:
     json.dump(generateReactionData(), output, indent=2)
 
-print("✅ JSON-Datei erfolgreich erstellt: ./src/Tasks/Reakt/Reakdata.json")
+print(" JSON-Datei erfolgreich erstellt: ./src/Tasks/Reakt/Reaktdata.json")
 
 # === Status ===
 if sol.status == 1:
-    print(f"✅ Abbruch bei t = {sol.t_events[0][0]:.2f} h – Umsatz 95 % erreicht.")
+    print(f" Abbruch bei t = {sol.t_events[0][0]:.2f} h - Umsatz 95 % erreicht.")
 else:
-    print("⚠️ Simulation lief bis zur maximalen Zeit.")
+    print("Simulation lief bis zur maximalen Zeit.")

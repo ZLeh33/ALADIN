@@ -135,6 +135,14 @@
 							"h": 2.5,
 							"i": 4,
 							"static": false
+						},
+						{
+							"x": 37,
+							"y": 31.5,
+							"w": 8,
+							"h": 2.5,
+							"i": 5,
+							"static": true
 						}
 					]
 				},
@@ -159,8 +167,7 @@
 									"label": "Generieren!",
 									"dependsOn": [
 										"nodes__0__components__0__component__form__nodeAmount__isValid",
-										"nodes__0__components__0__component__form__seed__isValid",
-										"nodes__0__components__2__isValid"
+										"nodes__0__components__0__component__form__seed__isValid"
 									]
 								}
 							],
@@ -181,23 +188,23 @@
 									}
 								},
 								"seed": {
-									"formType": "ValueFormField",
-									"label": "Phasenanzahl",
-									"type": "text",
-									"description": "Setze einen beliebigen Wert für die Phasenanzahl",
-									"value": "2",
-									"readOnly": false,
-									"validate": false,
+									"isValid": false,
+									"formType": "DropdownFormField",
+									"label": "Organismus2",
+									"type": "string",
+									"description": "Zur Verfügung stehende Organismus",
+									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
+									"initial": "S.cerevisiae",
+									"options": ["S.cerevisiae", "E.coli", "Testorganismus"],
 									"presets": {
-										"easy": "",
-										"medium": "",
-										"hard": ""
+										"easy": "S.cerevisiae",
+										"medium": "E.coli",
+										"hard": "Testorganismus"
 									}
 								}
 							},
 							"data": {
-								"userDataMatrix": "nodes__0__components__2__component__userData",
-								"userDataInputFelder": "nodes__0__components__1__component__inputFelderValues"
+								"userDataMatrix": "nodes__0__components__5__component__userData"
 							}
 						}
 					},
@@ -205,46 +212,7 @@
 						"type": "Bild",
 						"name": "Reaktionsapparat",
 						"component": {
-							"pfad": "/img/tasks/Ferment/Reakt_bild.webp",
-							"inputFelder": [
-								{
-									"type": "text",
-									"placeholder": "V Gesamt",
-									"align": "left",
-									"width": "50px"
-								},
-								{
-									"type": "text",
-									"placeholder": "V Start",
-									"align": "left",
-									"width": "50px"
-								},
-								{
-									"type": "text",
-									"placeholder": "T",
-									"align": "right",
-									"width": "50px"
-								},
-								{
-									"type": "text",
-									"placeholder": "PH",
-									"align": "left",
-									"width": "50px"
-								},
-								{
-									"type": "text",
-									"placeholder": "BTM",
-									"align": "right",
-									"width": "50px"
-								},
-								{
-									"type": "text",
-									"placeholder": "DO",
-									"align": "left",
-									"width": "50px"
-								}
-							],
-							"inputFelderValues": {}
+							"pfad": "/img/tasks/Reakt/Reakt_bild.webp"
 						}
 					},
 					"2": {
@@ -271,6 +239,93 @@
 							"labels": "taskData__data_2__labels",
 							"datasets": "taskData__data_2__datasets"
 							
+						}
+					},
+					"5" : {
+						"name": "Fermentationsparameter",
+						"type": "Matrix",
+						"isValid": false,
+						"isCorrect": false,
+						"dependencies": {
+							"Matrix": {
+								"data": "nodes__0__components__5__component__userData"
+							}
+						},
+						"methods": {},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"initialize": {
+								"solution": {
+									"operations": [],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"validation": {
+									"operations": [
+										{
+											"name": "getValueInitializedMatrix",
+											"args": [
+												{
+													"isValid": false,
+													"isCorrect": false
+												}
+											]
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								},
+								"user": {
+									"operations": [
+										{
+											"name": "getMatrix",
+											"args": []
+										}
+									],
+									"paths": ["taskData__adjacencyMatrix"]
+								}
+							},
+							"standardZeile": [5, 12, 100, 25],
+							"userData": [],
+							"checkUserDataValidity": "valid",
+							"columnLabelData": [
+								"Volumen H2O2 in L",
+								"Konzentration H2O2 in mol/L",
+								"Wasser-Startvolumen in L",
+								"Starttemperatur in °C"
+							],
+							"rowLabelData": ["Phase"],
+							"validationData": null,
+							"solutionData": null,
+							"readOnly": false,
+							"rowLabel": "nodes__0__components__5__component__rowLabelData",
+							"columnLabel": "nodes__0__components__5__component__columnLabelData",
+							"inputType": "number",
+							"rowAnzahl": 2,
+							"spaltenMaxSumme": [],
+							"columnRange": [
+								{
+									"name": "Volumen H2O2 in L",
+									"min": 0,
+									"max": 2
+								},
+								{
+									"name": "Konzentration H2O2 in mol/L",
+									"min": 0,
+									"max": 200
+								},
+								{
+									"name": "Wasser-Startvolumen in L",
+									"min": 0,
+									"max": 10
+								},
+								{
+									"name": "Starttemperatur in °C",
+									"min": 0,
+									"max": 10
+								}
+							]
 						}
 					}
 				}
