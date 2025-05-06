@@ -216,28 +216,28 @@
 						}
 					},
 					"2": {
-						"name": "Fermentatiosverlauf Cs2",
-						"type": "Chart",
-						"component": {
-							"labels": "taskData__data_2__labels",
-							"datasets": "taskData__data_2__datasets"
-							
-						}
-					},
-					"3": {
-						"name": "Fermentationsverlauf",
+						"name": "Reaktionsverlauf",
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
 							"datasets": "taskData__data_1__datasets"
+							
 						}
 					},
-					"4": {
-						"name": "Fermentatiosverlauf Cs2",
+					"3": {
+						"name": "Temperatur",
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_2__labels",
 							"datasets": "taskData__data_2__datasets"
+						}
+					},
+					"4": {
+						"name": "Umsatz H2O2",
+						"type": "Chart",
+						"component": {
+							"labels": "taskData__data_3__labels",
+							"datasets": "taskData__data_3__datasets"
 							
 						}
 					},

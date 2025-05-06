@@ -71,8 +71,8 @@ T = T_Start + dTad * UH2O2
 
 # === JSON für Diagramm erstellen ===
 def generateReactionData():
-    return {
-        "reaction_data": {
+    data = {
+        "data_1": {
             "labels": time.tolist(),
             "datasets": [
                 {
@@ -95,15 +95,26 @@ def generateReactionData():
                     "borderColor": "#8da0cb",
                     "backgroundColor": "#8da0cb",
                     "tension": 0.1
-                },
+                }
+            ]
+        },
+        "data_2": {
+            "labels": time.tolist(),
+            "datasets": [
                 {
                     "label": "Temperatur [°C]",
                     "data": T.tolist(),
                     "borderColor": "#e78ac3",
                     "backgroundColor": "#e78ac3",
                     "tension": 0.1
-                },
-                {
+                }
+               
+            ]
+        },
+        "data_3": {
+            "labels": time.tolist(),
+            "datasets": [
+                 {
                     "label": "Umsatz H2O2",
                     "data": UH2O2.tolist(),
                     "borderColor": "#FFD700",
@@ -113,7 +124,7 @@ def generateReactionData():
             ]
         }
     }
-
+    return data
 # === JSON speichern ===
 with open('./src/Tasks/Reakt/Reaktdata.json', 'w') as output:
     json.dump(generateReactionData(), output, indent=2)
