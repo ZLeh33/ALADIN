@@ -97,7 +97,7 @@
 					],
 					"lg": [
 						{
-							"x": 31,
+							"x": 30,
 							"y": 29,
 							"w": 2,
 							"h": 2.5,
@@ -105,40 +105,40 @@
 							"static": false
 						},
 						{
-							"x": 31,
-							"y": 31,
+							"x": 40,
+							"y": 29,
 							"w": 2,
-							"h": 2,
+							"h": 2.5,
 							"i": 1,
 							"static": false
 						},
 						{
-							"x": 33,
-							"y": 29,
+							"x": 30,
+							"y": 31,
 							"w": 4,
 							"h": 2.5,
 							"i": 2,
 							"static": false
 						},
 						{
-							"x": 33,
-							"y": 29,
+							"x": 34,
+							"y": 31,
 							"w": 4,
 							"h": 2.5,
 							"i": 3,
 							"static": false
 						},
 						{
-							"x": 37,
-							"y": 29,
+							"x": 38,
+							"y": 31,
 							"w": 4,
 							"h": 2.5,
 							"i": 4,
 							"static": false
 						},
 						{
-							"x": 37,
-							"y": 31.5,
+							"x": 32,
+							"y": 29,
 							"w": 8,
 							"h": 2.5,
 							"i": 5,
@@ -157,7 +157,7 @@
 				"components": {
 					"0": {
 						"type": "BackendFormular",
-						"name": "Modell Parameter",
+						"name": "Reaktionsauswahl",
 						"isValid": false,
 						"component": {
 							"actions": [
@@ -175,14 +175,14 @@
 								"nodeAmount": {
 									"isValid": false,
 									"formType": "DropdownFormField",
-									"label": "Organismus",
+									"label": "Prozessauswahl",
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "S.cerevisiae",
-									"options": ["S.cerevisiae", "E.coli", "Testorganismus"],
+									"initial": "TEST!",
+									"options": ["TEST!", "E.coli", "Testorganismus"],
 									"presets": {
-										"easy": "S.cerevisiae",
+										"easy": "TEST!",
 										"medium": "E.coli",
 										"hard": "Testorganismus"
 									}
@@ -190,14 +190,14 @@
 								"seed": {
 									"isValid": false,
 									"formType": "DropdownFormField",
-									"label": "Organismus2",
+									"label": "Thermische Parameter",
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "S.cerevisiae",
-									"options": ["S.cerevisiae", "E.coli", "Testorganismus"],
+									"initial": "TEST2",
+									"options": ["TEST2", "E.coli", "Testorganismus"],
 									"presets": {
-										"easy": "S.cerevisiae",
+										"easy": "TEST2",
 										"medium": "E.coli",
 										"hard": "Testorganismus"
 									}
@@ -216,7 +216,7 @@
 						}
 					},
 					"2": {
-						"name": "Reaktionsverlauf",
+						"name": "Stoffmengen",
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
@@ -242,7 +242,7 @@
 						}
 					},
 					"5" : {
-						"name": "Fermentationsparameter",
+						"name": "Nutzereingaben",
 						"type": "Matrix",
 						"isValid": false,
 						"isCorrect": false,
