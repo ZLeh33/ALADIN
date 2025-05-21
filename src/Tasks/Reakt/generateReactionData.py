@@ -4,30 +4,7 @@ import pandas as pd
 import json
 
 from Input.json_Input import JsonInput
-# === Frontend-Eingaben einlesen ===
-eingabeObject = JsonInput('FrontendEingaben.json')
-eingabeObject.ladeJson()
-frontendEingabe = eingabeObject.get_data()
-#print(frontendEingabe)
 
-
-# === Nutzereingaben ===
-VH2O2_AS = 5.0       # Liter – Volumen H2O2 Zugabe in Reaktor
-cH2O2_AS = 12.0      # mol/L – Konzentration H2O2 Zugabe
-V_Start = 100        # Liter – Wasser-Startvolumen
-T_Start = 25.0       # °C – Starttemperatur
-
-# === Berechnungen ===
-nH2O2_AS = cH2O2_AS * VH2O2_AS
-cH2O2_Start = nH2O2_AS / V_Start
-dTad = (cH2O2_Start * 98.2) / (4.19 * 2 * 1)
-
-# === Startbedingungen ===
-cH2O2_0 = cH2O2_Start
-cH2O_0 = 0.0
-cO2_0 = 0.0
-v = V_Start
-nH2O2_0 = cH2O2_0 * v
 
 # === Reaktionssystem ===
 def reaktionssystem(t, y):
@@ -45,6 +22,48 @@ def abbruch_bedingung(t, y):
     nH2O2 = cH2O2 * v
     UH2O2 = (nH2O2_0 - nH2O2) / nH2O2_0
     return 0.95 - UH2O2
+
+
+
+
+# read user inputs
+userInputObject =   JsonInput('FrontendEingaben.json')
+userInputObject.ladeJson()
+userInputs      =   userInputObject.get_data()
+
+phaseNumber     =   userInputs['phaseNumber']
+process         =   userInputs['process']
+matrixDataObj   =   userInputs['matrixData']
+
+
+
+VH2O2_AS        =   matrixDataObj['VH2O2_AS'][0]       # Liter – Volumen H2O2 Zugabe in Reaktor
+cH2O2_AS        =   matrixDataObj['CH2O2_AS'][0]      # mol/L – Konzentration H2O2 Zugabe
+V_Start         =   matrixDataObj['V_Start'][0]        # Liter – Wasser-Startvolumen
+T_Start         =   matrixDataObj['T_Start'][0]       # °C – Starttemperatur
+
+
+'''
+# === Nutzereingaben ===
+VH2O2_AS = 5.0       # Liter – Volumen H2O2 Zugabe in Reaktor
+cH2O2_AS = 12.0      # mol/L – Konzentration H2O2 Zugabe
+V_Start = 100        # Liter – Wasser-Startvolumen
+T_Start = 25.0       # °C – Starttemperatur
+'''
+
+# === Berechnungen ===
+nH2O2_AS = cH2O2_AS * VH2O2_AS
+cH2O2_Start = nH2O2_AS / V_Start
+dTad = (cH2O2_Start * 98.2) / (4.19 * 2 * 1)
+
+# === Startbedingungen ===
+cH2O2_0 = cH2O2_Start
+cH2O_0 = 0.0
+cO2_0 = 0.0
+v = V_Start
+nH2O2_0 = cH2O2_0 * v
+
+
 
 abbruch_bedingung.terminal = True
 abbruch_bedingung.direction = -1

@@ -172,39 +172,36 @@
 								}
 							],
 							"form": {
-								"nodeAmount": {
+								"process": {
 									"isValid": false,
 									"formType": "DropdownFormField",
 									"label": "Prozessauswahl",
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "TEST!",
-									"options": ["TEST!", "E.coli", "Testorganismus"],
+									"initial": "Zersetzung von H2O2",
+									"options": ["Zersetzung von H2O2"],
 									"presets": {
-										"easy": "TEST!",
-										"medium": "E.coli",
-										"hard": "Testorganismus"
+										"easy": "Zersetzung von H2O2"
 									}
 								},
-								"seed": {
+								"thermische_Parameter": {
 									"isValid": false,
 									"formType": "DropdownFormField",
 									"label": "Thermische Parameter",
 									"type": "string",
 									"description": "Zur Verfügung stehende Organismus",
 									"action": { "instruction": "fetchTaskData", "type": "fetchData", "key": "schema" },
-									"initial": "TEST2",
-									"options": ["TEST2", "E.coli", "Testorganismus"],
+									"initial": "Adiabat",
+									"options": ["Adiabat"],
 									"presets": {
-										"easy": "TEST2",
-										"medium": "E.coli",
-										"hard": "Testorganismus"
+										"easy": "Adiabat"
 									}
 								}
 							},
 							"data": {
-								"userDataMatrix": "nodes__0__components__5__component__userData"
+								"matrixData": "nodes__0__components__5__component__userData",
+								"phaseNumber" : "nodes__0__components__5__component__rowAnzahl"
 							}
 						}
 					},
@@ -286,7 +283,7 @@
 									"paths": ["taskData__adjacencyMatrix"]
 								}
 							},
-							"standardZeile": [5, 12, 100, 25],
+							"standardZeile": [1, 1, 50, 20],
 							"userData": [],
 							"checkUserDataValidity": "valid",
 							"columnLabelData": [
@@ -307,23 +304,23 @@
 							"columnRange": [
 								{
 									"name": "Volumen H2O2 in L",
-									"min": 0,
-									"max": 2
+									"min": 1,
+									"max": 40
 								},
 								{
 									"name": "Konzentration H2O2 in mol/L",
-									"min": 0,
-									"max": 200
+									"min": 1,
+									"max": 12
 								},
 								{
 									"name": "Wasser-Startvolumen in L",
-									"min": 0,
-									"max": 10
+									"min": 50,
+									"max": 200
 								},
 								{
 									"name": "Starttemperatur in °C",
 									"min": 0,
-									"max": 10
+									"max": 30
 								}
 							]
 						}

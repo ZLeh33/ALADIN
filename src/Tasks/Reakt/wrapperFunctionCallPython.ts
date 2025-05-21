@@ -26,192 +26,78 @@ function runPythonScript(scriptPath: string): Promise<string> {
 
 function parseFrontendInputs(parameter: any) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
-	let frontendEingaben: any;
+	let frontendData: any;
 	if (parameter === undefined || parameter === null) {
 		throw new Error("Parameter ist undefined oder null.");
 	}
 	if (typeof parameter === "string") {
 		try {
-			frontendEingaben = JSON.parse(parameter);
+			frontendData = JSON.parse(parameter);
 		} catch (error) {
 			throw new Error("Fehler beim Parsen des JSON-Strings: " + error.message);
 		}
 	} else if (typeof parameter === "object") {
-		frontendEingaben = parameter;
+		frontendData = parameter;
 	} else {
 		throw new Error("Ungültiges Eingabeformat für parameter.");
 	}
-	return frontendEingaben;
+	return frontendData;
 }
-function cleanAndMoveParameters(frontendEingaben : any) {
-	if (frontendEingaben && frontendEingaben.parameters) {
+function cleanAndMoveParameters(frontendData : any) {
+	if (frontendData && frontendData.parameters) {
 		// Inhalt von "parameters" ins Hauptobjekt verschieben
-		Object.assign(frontendEingaben, frontendEingaben.parameters);
+		Object.assign(frontendData, frontendData.parameters);
 
 		// Entfernen der spezifizierten Schlüssel
-		delete frontendEingaben.parameters;
-		delete frontendEingaben.type;
-		delete frontendEingaben.task;
-		delete frontendEingaben.Paramter; 
-		delete frontendEingaben.instruction;
-		delete frontendEingaben.language;
+		delete frontendData.parameters;
+		delete frontendData.type;
+		delete frontendData.task;
+		delete frontendData.Paramter; 
+		delete frontendData.instruction;
+		delete frontendData.language;
 	}
 
-	return frontendEingaben;
+	return frontendData;
 }
 
-// Schlüsselnamen im Objekt ändern
-function  renameKey (obj: any, oldKey: string, newKey: string) {
-	if (obj.hasOwnProperty(oldKey)) {
-		obj[newKey] = obj[oldKey];
-		delete obj[oldKey];
-	}
-	for (const key in obj) {
-		if (obj.hasOwnProperty(key) && typeof obj[key] === "object" && obj[key] !== null) {
-			renameKey(obj[key], oldKey, newKey);
-		}
-	}
-	return obj;
-};
+function setColumnLabels(frontendData : any){
+	let matrixData	=	frontendData['matrixData'];
+	
 
-function editSaveParams(parameter: any) {
+	let vH2O2_AS_tmpArray	=	[];
+	let cH2O2_AS_tmpArray	=	[];
+	let v_Start_tmpArray	=	[];
+	let t_Start_tmpArray	=	[];
+
+	for( let i=0 ; i < matrixData.length ; i++){
+		vH2O2_AS_tmpArray[i]	=	matrixData[i][0];
+		cH2O2_AS_tmpArray[i]	=	matrixData[i][1];
+		v_Start_tmpArray[i]		=	matrixData[i][2];
+		t_Start_tmpArray[i]		=	matrixData[i][3];
+	}
+	
+	let tmpArray : Object	=	{
+		'VH2O2_AS' 	:	vH2O2_AS_tmpArray,
+		'CH2O2_AS'	:	cH2O2_AS_tmpArray,
+		'V_Start'	:	v_Start_tmpArray,
+		'T_Start'	:	t_Start_tmpArray
+	};
+	
+
+	frontendData['matrixData'] = tmpArray;
+	return frontendData;
+}
+
+function SaveUserInputs(parameter: any) {
 	//Überprüfen, ob parameter ein String ist und wenn ja, ihn parsen
-	let frontendEingaben : any = parseFrontendInputs(parameter);
-	frontendEingaben = cleanAndMoveParameters(frontendEingaben);
-
-	frontendEingaben =  renameKey(frontendEingaben, "nodeAmount", "Modell");
-	
-
-	if (Array.isArray(frontendEingaben.Modell)) {
-		const tmpModell = frontendEingaben.Modell[0]; // Nimmt das erste Element aus dem Array
-		delete frontendEingaben.Modell;              // Entfernt den ursprünglichen Schlüssel
-		frontendEingaben.Modell = tmpModell;         // Setzt den Schlüssel mit dem neuen Wert
-	}
-	frontendEingaben = renameKey(frontendEingaben, "seed", "Modell2");
-
-	switch (frontendEingaben.Modell) {
-		case "S.cerevisiae":
-			frontendEingaben.Modell = "Modell-1";
-			break;
-		case "E.coli":
-			frontendEingaben.Modell = "Modell-2";
-			break;
-		case "Testorganismus":
-			frontendEingaben.Modell = "Modell-3";
-			break;
-	}
-	let phasenanzahl = parseInt(frontendEingaben.PhasenAnzahl);
-	frontendEingaben.PhasenAnzahl = phasenanzahl;
-	
-	let zuluft = [];
-	let feed = [];
-	let drehzahl = [];
-	let druck = [];
-	let dauer = [];
-	let bolusC = [];
-	let bolusN = [];
-	for (let i = 0; i < phasenanzahl; i++) {
-		if (Array.isArray(frontendEingaben.userDataMatrix[i][0])) {
-			zuluft[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][0][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][0][0]);
-			feed[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][2][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][2][0]);
-			drehzahl[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][4][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][4][0]);
-			druck[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][5][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][5][0]);
-			dauer[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][6][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][6][0]);
-			bolusC[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][1][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][1][0]);
-			bolusN[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][3][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][3][0]);
-		} else {
-			zuluft[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][0]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][0]);
-			feed[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][2]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][2]);
-			drehzahl[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][4]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][4]);
-			druck[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][5]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][5]);
-			dauer[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][6]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][6]);
-			bolusC[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][1]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][1]);
-			bolusN[i] = isNaN(parseFloat(frontendEingaben.userDataMatrix[i][3]))
-				? 0
-				: parseFloat(frontendEingaben.userDataMatrix[i][3]);
-		}
-	}
-
-	delete frontendEingaben.userDataMatrix;
-
-	frontendEingaben.Dauer = dauer;
-	frontendEingaben.Druck = druck;
-	frontendEingaben.Drehzahl = drehzahl;
-	frontendEingaben.Zuluft = zuluft;
-	frontendEingaben.BolusC = bolusC;
-	frontendEingaben.Feed = feed;
-	frontendEingaben.BolusN = bolusN;
-	
-	
-	if (frontendEingaben.userDataInputFelder) {
-		frontendEingaben.temperatur =isNaN(parseFloat(frontendEingaben.userDataInputFelder.T)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.T);
-		frontendEingaben.startbiomasse = isNaN(parseFloat(frontendEingaben.userDataInputFelder.BTM)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.BTM);
-		frontendEingaben.do = isNaN(parseFloat(frontendEingaben.userDataInputFelder.DO)) ? 0 : parseFloat(frontendEingaben.userDataInputFelder.DO)  ;
-	}
-	delete frontendEingaben.userDataInputFelder;
-
-	delete frontendEingaben.checkUserDataValidity;
-
-
-
-	// Pfad zur JSON-Datei definieren
-	const filePfade2 = path.join(__dirname, "/nutzer_eingaben.json");
-	
-
-	// Umbenennen der Schlüssel
-	frontendEingaben['T'] = frontendEingaben['temperatur'];
-	delete frontendEingaben['temperatur'];
-
-	frontendEingaben['BTM'] = frontendEingaben['startbiomasse'];
-	delete frontendEingaben['startbiomasse'];
-
-	let param: { [key: string]: any } = {};
-	Object.keys(frontendEingaben).forEach(key => {
-	// Überprüfe, ob der Wert von `frontendEingaben[key]` ein Array ist
-	if (Array.isArray(frontendEingaben[key]) && frontendEingaben[key] !== null) {
-		param[key] = {}; // Initialisiere das Objekt für diesen Schlüssel
-		Object.values(frontendEingaben[key]).forEach((value, index) => {
-			param[key][`Phase_${index+1}`] = value; // Setze den Wert für den entsprechenden Phase-Schlüssel
-		});
-	}
-	else{
-		if(frontendEingaben[key] !== null){
-			param[key]	=	frontendEingaben[key];
-		}
-		
-	}
-	});
+	let frontendData : any = parseFrontendInputs(parameter);
+	frontendData = cleanAndMoveParameters(frontendData);
+	frontendData = setColumnLabels(frontendData);
 	// Pfad zur JSON-Datei definieren
 	const filePfade = path.join(__dirname, "/interneDaten/FrontendEingaben.json");
 
 	// JSON.stringify mit einer Replacer-Funktion
-	let jsonString = JSON.stringify(frontendEingaben, null, 4);
+	let jsonString = JSON.stringify(frontendData, null, 4);
 
 	// Datei schreiben
 	try {
@@ -223,7 +109,7 @@ function editSaveParams(parameter: any) {
 }
 
 export async function generateReactionData(parameter: any) {
-	editSaveParams(parameter);
+	SaveUserInputs(parameter);
 	if (true) {
 		let result = { foo: "bar" };
 		try {
