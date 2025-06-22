@@ -14,11 +14,9 @@ from berechnungen import berechnung_der_Tabelle3
 from berechnungen import berechnung
 
 from view import plot_visualisieren
-
 from interne_daten.data_importieren import data_importieren_von_json
-
 from Input.json_Input import JsonInput
-
+import base64
 # Example data for the variables
 #c_ox_sat = 0.21  # Example value for oxygen saturation concentration
 #t_combined = np.linspace(0, 10, 100)  # Example time data
@@ -72,14 +70,17 @@ c_ox_sat, y_combined, t_combined, cum_feeding = ergebnis
 
 
 #Export Resultat in Excel-Datei
-export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+excel_bytes =   export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 # plot_visualisieren(c_ox_sat, y_combined, t_combined, cum_feeding)
 y_combined=y_combined.T
 
 
 
-
 def generateFermentationDataMain():
+
+    # Base64-kodieren
+    encoded_excel = base64.b64encode(excel_bytes.read()).decode('utf-8')
+    #print(encoded_excel)
     data = {
         "data_1":{
             "labels":  t_combined.tolist(),
@@ -131,6 +132,9 @@ def generateFermentationDataMain():
                     "backgroundColor": "#8da0cb",
                     "tension": 0.1
                 }]
+        },
+        "data_3":{
+            "excelData": encoded_excel
         }
     }
     return data
@@ -149,7 +153,7 @@ json_file_path = 'src\Tasks\Ferment\data.json'  # Path to the JSON file
 json_to_excel(json_file_path, 'ChartData.xlsx')
 
 y_combined=y_combined.T
-export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
+#export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
 feedback_schatzung()
 
 # Beispiel für die Verwendung der Funktion
