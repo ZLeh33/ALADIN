@@ -415,7 +415,8 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
-							"datasets": "taskData__data_1__datasets"
+							"datasets": "taskData__data_1__datasets",
+							"excelData"	: "taskData__data_3__excelData"
 						}
 					},
 					"4": {
@@ -423,8 +424,8 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_2__labels",
-							"datasets": "taskData__data_2__datasets"
-							
+							"datasets": "taskData__data_2__datasets",
+							"excelData"	: "taskData__data_3__excelData"
 						}
 					}
 				}
