@@ -1,6 +1,7 @@
 from openpyxl import Workbook
 import os
 from pathlib import Path
+from io import BytesIO
 
 def export_to_excel(filename, t_combined, y_combined, cum_feeding):
     y_combined = y_combined.T
@@ -40,4 +41,12 @@ def export_to_excel(filename, t_combined, y_combined, cum_feeding):
     # Save the file in the correct Downloads folder
     wb.save(file_path)
 
-    print(f"File saved to: {file_path}")
+    #print(f"File saved to: {file_path}")
+
+
+    file_obj = BytesIO()
+    wb.save(file_obj)
+    file_obj.seek(0)
+    
+    return file_obj
+

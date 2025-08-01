@@ -162,7 +162,7 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl, ma
                             bestParam[param][f"Phase_{i+1}"]	=	best_params[param.lower()]
                     
             else :
-                tmp_sol =solve_ivp(ODE_Bioreactor_Monod, [t_start, t_end], y0, args=(consts,), t_eval=t_span)
+                tmp_sol =solve_ivp(ODE_Bioreactor_Monod, [t_start, t_end], y0, args=(consts,), t_eval=t_span, atol=1e-9, rtol=1e-9)
             
             ry = tmp_sol.y.T
             rt = tmp_sol.t

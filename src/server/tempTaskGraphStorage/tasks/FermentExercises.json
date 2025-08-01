@@ -432,12 +432,12 @@
 							"static": false
 						},
 						{
-							"x": 31,
+							"x": 30,
 							"y": 31,
-							"w": 2,
-							"h": 2,
+							"w": 3,
+							"h": 3,
 							"i": 1,
-							"static": false
+							"static": true
 						},
 						{
 							"x": 33,
@@ -564,11 +564,11 @@
 									"value"	: "10",
 									"min": 1,
 									"max": 900,
-									"width": "44px",
-									"height":	"20px",
+									"width": "50.5px",
+									"height":	"25px",
 									"position": {
-										"left": "0%",
-										"top": "22%"
+										"left": "3%",
+										"top": "26.5%"
 									}
 								},
 								{
@@ -578,11 +578,11 @@
 									"ValueFromJson_Key"	: "Temperatur",
 									"min": 10,
 									"max": 99,
-									"width": "45px",
-									"height": "20px",
+									"width": "50.5px",
+									"height": "25px",
 									"position": {
-										"left": "66%",
-										"top": "41.5%"
+										"left": "70.5%",
+										"top": "45.5%"
 									}
 								},
 								{	
@@ -592,11 +592,11 @@
 									"value"	: 7,
 									"min": 2,
 									"max": 10,
-									"width": "40px",
-									"height": "20px",
+									"width": "50.5px",
+									"height": "25px",
 									"position": {
-										"left": "26%",
-										"top": "-6.5%"
+										"left": "29%",
+										"top": "-2%"
 									}
 								},
 								{
@@ -606,11 +606,11 @@
 									"ValueFromJson_Key"	: "BTM",
 									"min": 0.01,
 									"max": 5,
-									"width": "45px",
-									"height": "20px",
+									"width": "50.5px",
+									"height": "25px",
 									"position": {
-										"left": "0%",
-										"top": "77.5%"
+										"left": "3%",
+										"top": "82.5%"
 									}
 								},
 								{
@@ -620,11 +620,11 @@
 									"ValueFromJson_Key"	: "DO",
 									"min": 0,
 									"max": 500,
-									"width": "43px",
-									"height": "20px",
+									"width": "50.5px",
+									"height": "25px",
 									"position": {
-										"left": "42%",
-										"top": "-6.5%"
+										"left": "45%",
+										"top": "-2%"
 									}
 								},
 								{
@@ -634,11 +634,11 @@
 									"value"	: 0,
 									"min": 0,
 									"max": 500,
-									"width": "45px",
-									"height": "20px",
+									"width": "50.5px",
+									"height": "25px",
 									"position": {
-										"left": "66%",
-										"top": "60%"
+										"left": "70.5%",
+										"top": "65%"
 									}
 								}						
 							],
@@ -762,7 +762,9 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_1__labels",
-							"datasets": "taskData__data_1__datasets"
+							"datasets": "taskData__data_1__datasets",
+							"excelData"	: "taskData__data_3__excelData"
+							
 						}
 					},
 					"4": {
@@ -770,8 +772,8 @@
 						"type": "Chart",
 						"component": {
 							"labels": "taskData__data_2__labels",
-							"datasets": "taskData__data_2__datasets"
-							
+							"datasets": "taskData__data_2__datasets",
+							"excelData"	: "taskData__data_3__excelData"
 						}
 					},
 					"5": {
