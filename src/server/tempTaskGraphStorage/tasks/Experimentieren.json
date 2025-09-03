@@ -1,0 +1,53 @@
+{
+	"API": [
+		{
+			"task": "experimentieren",
+			"name": "generateGeo",
+			"httpMethod": "post",
+			"params": { "parameters": "object" }
+		}
+	],
+	"Worker": {
+		"experimentierenTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+				"generateGeo": {
+					"dependencies": ["InterpolationTaskGenerator"],
+					"body": "async (taskDescription) => { let result = {}; try { const g = new InterpolationTaskGenerator(taskDescription.parameters); result = g.generateInterpolationTask(); } catch (error) { console.error(error); result = error; } return result; }"
+				}
+			}
+		}
+	},
+	"UI": {
+		"taskData": {},
+		"rootNode": 0,
+		"topology": [[0, null, null]],
+		"edges": {
+			"0": [1],
+			"1": []
+		},
+		"currentNode": 0,
+		"taskMode": "practice",
+		"nodes": {
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
+					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
+					"lg": [
+						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 0, "static": false }
+					]
+				},
+				"components": {
+						"0" : {
+							"type" : "LatexFormula",
+							"name" : "LatexExperimentieren",
+							"component" : {
+								
+							}
+						}
+					}
+			}
+		}
+	}
+}
