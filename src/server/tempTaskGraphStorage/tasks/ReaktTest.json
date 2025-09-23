@@ -31,7 +31,7 @@
 					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
 					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
 					"lg": [
-						{ "x": 32, "y": 29, "w": 8, "h": 2, "i": 0, "static": false },
+						
 						{ "x": 32, "y": 30, "w": 3, "h": 2, "i": 1, "static": false }					]
 				},
 				"hints": {
@@ -109,7 +109,7 @@
 						}
 					},
 					"1": {
-						"type": "TexDisplay",
+						"type": "LatexFormula",
 						"name": "IDW",
 						"isValid": true,
 						"dependencies": {
