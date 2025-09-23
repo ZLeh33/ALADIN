@@ -13,7 +13,6 @@ from berechnungen import berechnung_der_Tabelle2
 from berechnungen import berechnung_der_Tabelle3
 from berechnungen import berechnung
 
-from view import plot_visualisieren
 from interne_daten.data_importieren import data_importieren_von_json
 from Input.json_Input import JsonInput
 import base64
@@ -35,7 +34,7 @@ modelleOb.ladeJson()
 modelle  = modelleOb.get_data()
     
  #Zum Test im Meeting
-m = modelleOb.get_Value()
+#m = modelleOb.get_Value()
 #print(m)
 #modelle = data_importieren_von_json('Modelle.json')
     
