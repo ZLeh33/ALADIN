@@ -109,7 +109,7 @@
 						}
 					},
 					"1": {
-						"type": "LatexFormula",
+						"type": "LatexFormular2",
 						"name": "IDW",
 						"isValid": true,
 						"dependencies": {
