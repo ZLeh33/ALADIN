@@ -43,6 +43,7 @@
 							"type" : "LatexFormula",
 							"name" : "LatexExperimentieren",
 							"component" : {
+								"ast": "output"
 								
 							}
 						}
