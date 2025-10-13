@@ -2,7 +2,7 @@
 	"API": [
 		{
 			"task": "experimentieren",
-			"name": "generateGeo",
+			"name": "generateExperimientierenDatMain",
 			"httpMethod": "post",
 			"params": { "parameters": "object" }
 		}
@@ -11,9 +11,9 @@
 		"experimentierenTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
-				"generateGeo": {
-					"dependencies": ["InterpolationTaskGenerator"],
-					"body": "async (taskDescription) => { let result = {}; try { const g = new InterpolationTaskGenerator(taskDescription.parameters); result = g.generateInterpolationTask(); } catch (error) { console.error(error); result = error; } return result; }"
+				"generateExperimientierenDatMain": {
+					"dependencies": ["generateExperimientierenDatMain"],
+					"body": "async (taskDescription) => { let result = {}; try { result = g.generateExperimientierenDatMain(); } catch (error) { console.error(error); result = error; } return result; }"
 				}
 			}
 		}
@@ -35,18 +35,38 @@
 					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
 					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
 					"lg": [
-						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 0, "static": false }
+						{ "x": 34, "y": 29, "w": 6, "h": 3, "i": 0, "static": false },
+						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false }
 					]
 				},
 				"components": {
-						"0" : {
-							"type" : "LatexFormula",
-							"name" : "LatexExperimentieren",
-							"component" : {
-								
+					"0" : {
+						"type" : "LatexFormula",
+						"name" : "LatexExperimentieren",
+						"component" : {
+							"generateBtnDisabled" : true,
+							"userData" : ""
+						}
+					},
+					"1" : {
+						"type" : "BackendFormular",
+						"name" : "Ergebnis anzeigen",
+						"isValid" : false,
+						"component" : {
+							"actions" : [
+								{
+									"instruction" : "generateExperimientierenDatMain",
+									"type": "fetchData",
+									"label" : "Generieren!",
+									"disabled" : "nodes__0__components__0__component__generateBtnDisabled"
+								}
+							],
+							"data" : {
+								"latexData" : "nodes__0__components__0__component__userData" 
 							}
 						}
 					}
+				}
 			}
 		}
 	}

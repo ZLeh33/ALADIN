@@ -10,7 +10,7 @@ import { generateFermentationDataMain } from "../Tasks/Ferment/wrapperFunctionCa
 import { generateFermentExercises } from "../Tasks/FermentExercises/wrapperFunctionCallPython";
 import { generateFermentationFeedBack } from "../Tasks/Ferment/wrapperFunctionCallPython";
 import { generateReactionData } from "../Tasks/Reakt/wrapperFunctionCallPython";
-
+import { generateExperimientierenDatMain } from "../Tasks/Experimientieren/wrapperFunctionCallPython";
 import fs from "fs";
 import path from "path";
 
@@ -71,6 +71,7 @@ const generators: { [key: string]: any } = {
 	generateFermentExercises: generateFermentExercises,
 	generateFermentationFeedBack: generateFermentationFeedBack,
 	generateReactionData: generateReactionData,
+	generateExperimientierenDatMain: generateExperimientierenDatMain
 };
 
 export interface IInstructionConfiguration {
