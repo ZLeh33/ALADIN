@@ -13,8 +13,6 @@ from berechnungen import berechnung_der_Tabelle2
 from berechnungen import berechnung_der_Tabelle3
 from berechnungen import berechnung
 
-from view import plot_visualisieren
-
 from interne_daten.data_importieren import data_importieren_von_json
 
 from Input.json_Input import JsonInput

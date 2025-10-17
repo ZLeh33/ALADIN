@@ -181,12 +181,6 @@ def berechnung(t_ranges_array, param_array, const_array_array, phasen_anzahl, ma
     c_ox_sat = const_array_array[0, 0]
     cum_feeding = cum_feeding.T
     
-    '''
-    # Speichern der Feed-Werte in JSON-Datei
-    with open("src/Tasks/FermentExercises/feed_s1_loesung.json", "w") as json_file:
-        json.dump(feed_s1_values, json_file, indent=4)
-    print("Feed-S1-Werte erfolgreich in feed_s1_loesung.json gespeichert.")
-	'''
     
     frontendeingabe['T'] = frontendeingabe.pop('temperatur')
     frontendeingabe['BTM'] = frontendeingabe.pop('startbiomasse')

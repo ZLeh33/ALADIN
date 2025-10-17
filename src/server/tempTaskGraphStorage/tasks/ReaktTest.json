@@ -1,0 +1,125 @@
+{
+	"API": [
+		{
+			"task": "ReaktTest",
+			"name": "",
+			"httpMethod": "post",
+			"params": {  }
+		}
+	],
+	"Worker": {
+		"ReaktTestTask": {
+			"minConsumers": 1,
+			"consumerInstructions": {
+			}
+		}
+	},
+	"UI": {
+		"taskData": {},
+		"rootNode": 0,
+		"topology": [[0, null, null]],
+		"edges": {
+			"0": [1],
+			"1": []
+		},
+		"currentNode": 0,
+		"taskMode": "practice",
+		"nodes": { 
+			"0": {
+				"zoomScale": 1,
+				"layouts": {
+					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
+					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
+					"lg": [
+						
+						{ "x": 32, "y": 30, "w": 3, "h": 2, "i": 1, "static": false }					]
+				},
+				"hints": {
+					"active": false,
+					"current": 0,
+					"descriptions": [
+						"Löse die dargestellte Interpolationsgleichung indem du die Messpunkte in die Formelfelder überträgst und ausrechnest."
+					]
+				},
+				"interjections": [
+					{
+						"method": "formulaGenerator",
+						"dependencies": {
+							"variables": "nodes__0__components__0__component__Equation__variables",
+							"formula": "nodes__0__components__0__component__formula",
+							"texFormula": "nodes__0__components__0__component__texFormula",
+							"decimals": "nodes__0__components__0__component__decimals"
+						},
+						"applied": false,
+						"component_id": 0
+					}
+				],
+				"modals": [
+					{
+						"trigger": {
+							"type": "success"
+						},
+						"content": {
+							"header": "Herzlichen Glückwunsch!",
+							"body": "Sie haben die Aufgabe erfolgreich gelöst!",
+							"footer": {}
+						},
+						"active": false
+					}
+				],
+				"components": {
+					"0": {
+						"type": "Equation",
+						"name": "IDW",
+						"isValid": false,
+						"dependencies": {
+							"Equation": { "aladinAST": "nodes__0__components__0__component__aladinAST" }
+						},
+						"methods": {
+							"fillConstants": { "description": "Ergänze Konstanten", "impact": 0.5 },
+							"showSolution": { "description": "Zeige Lösung", "impact": 0 }
+						},
+						"contextMenu": {
+							"isOpen": false,
+							"usedMethods": []
+						},
+						"component": {
+							"decimals": 2,
+							"formula": "r = product(v_i / w_i^2, i, 0, n)",
+							"texFormula": "r = product(v_i / w_i^2, i, 0, n)", 
+							"tex": "",
+							"Equation": {
+								"variables": {
+									"w": "nodes__0__components__0__component__testData__distances",
+									"p": "nodes__0__components__0__component__testData__p",
+									"v": "nodes__0__components__0__component__testData__values",
+									"n": "nodes__0__components__0__component__testData__n",
+									"r": "nodes__0__components__0__component__testData__result"
+								}
+							},
+							"aladinAST": {},
+							"AST": "",
+							"testData" : {
+								"distances" : [2, 4, 3, 1, 5, 2, 3, 4, 6],
+								"p"	:	0,
+								"values"	:	[8, 6, 9, 3, 10, 4, 6, 5, 12],
+								"n"	:	9,
+								"r"	:	0.0625
+							}
+						}
+					},
+					"1": {
+						"type": "LatexFormular2",
+						"name": "IDW",
+						"isValid": true,
+						"dependencies": {
+							"TexDisplay": {
+								"renderedTex": "nodes__0__components__0__component__tex"
+							}
+						}
+					}
+				}
+			}
+		}
+    }
+}

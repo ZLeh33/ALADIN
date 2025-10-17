@@ -6,14 +6,13 @@ from json_to_excel import json_to_excel
 from nebenrechnungen import Berechnung_der_Sauerstoffloeslichkeit
 from nebenrechnungen import Berechnung_des_kla_Wertes
 from nebenrechnungen import parameter
-from feedback_schaetzung import feedback_schatzung
+#from feedback_schaetzung import feedback_schatzung
 
 from berechnungen import berechnung_der_Tabelle1
 from berechnungen import berechnung_der_Tabelle2
 from berechnungen import berechnung_der_Tabelle3
 from berechnungen import berechnung
 
-from view import plot_visualisieren
 from interne_daten.data_importieren import data_importieren_von_json
 from Input.json_Input import JsonInput
 import base64
@@ -35,7 +34,7 @@ modelleOb.ladeJson()
 modelle  = modelleOb.get_data()
     
  #Zum Test im Meeting
-m = modelleOb.get_Value()
+#m = modelleOb.get_Value()
 #print(m)
 #modelle = data_importieren_von_json('Modelle.json')
     
@@ -155,7 +154,7 @@ json_to_excel(json_file_path, 'ChartData.xlsx')
 
 y_combined=y_combined.T
 #export_to_excel("model_result.xlsx", t_combined, y_combined, cum_feeding)
-feedback_schatzung()
+#feedback_schatzung()
 
 # Beispiel für die Verwendung der Funktion
 #fermentationData = generateFermentationDataMain()

@@ -10,44 +10,6 @@ from differentialgleichung import ODE_Bioreactor_Monod
 
 from array import array
 
-'''
-def daten_aus_excel_einlesen2():
-
-	# Verzeichnis des aktuellen Skripts
-	current_dir = os.path.dirname(os.path.realpath(__file__))
-
-	# Pfad zum übergeordneten Verzeichnis
-	parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
-
-	# Vollständiger Pfad zur Excel-Datei
-	excel_path = os.path.join(parent_dir, "Bioreaktor_model.xlsm")
-
-	if os.path.exists(excel_path):
-		print("Die Excel-Datei existiert.")
-	else:
-		print("Die Excel-Datei wurde nicht gefunden.")
-
-	# Name der Tabelle, aus der die Daten gelesen werden sollen
-	table_name = "Octave"
-
-	# Daten aus Excel-Datei einlesen
-	t_ranges_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	param_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	const_array_df	= pd.read_excel(excel_path, sheet_name=table_name)
-	
-	#Daten filltern
-	t_ranges_df2		= t_ranges_df.iloc[10:14,9:11]
-	param_df2		= param_df.iloc[10:14,2:9]
-	const_array_df2		= const_array_df.iloc[1:5,1:]  # Ignoriere die erste Spalte und erste zwei Zeilen
-
-	# Umwandlung der Zeilen in ein Array
-	t_ranges_array		= t_ranges_df2.to_numpy()
-	param_array		= param_df2.to_numpy()
-	const_array_array	= const_array_df2.to_numpy()
-	
-	# Rückgabe der Arrays
-	return(t_ranges_array,param_array,const_array_array)
-'''
 
 
 def berechnung_der_Tabelle1(parameter_werte,modull,data,zuluft,feed,phasen_anzahl):
