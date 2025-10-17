@@ -1,33 +1,35 @@
 {
 	"API": [
 		{
-			"task": "experimentieren",
-			"name": "generateExperimientierenDatMain",
+			"task": "Experimentieren",
+			"name": "generateExperimentierenDataMain",
 			"httpMethod": "post",
 			"params": { "parameters": "object" }
 		}
 	],
 	"Worker": {
-		"experimentierenTask": {
+		"ExperimentierenTask": {
 			"minConsumers": 1,
 			"consumerInstructions": {
-				"generateExperimientierenDatMain": {
-					"dependencies": ["generateExperimientierenDatMain"],
-					"body": "async (taskDescription) => { let result = {}; try { result = g.generateExperimientierenDatMain(); } catch (error) { console.error(error); result = error; } return result; }"
+				"generateExperimentierenDataMain": {
+					"dependencies": ["generateExperimentierenDataMain"],
+					"body": "async (taskDescription) => { let result = {}; try { result = generateExperimentierenDataMain(); } catch (error) { console.error(error); result = error; } return result; }"
 				}
 			}
 		}
 	},
 	"UI": {
+		"currentTask": "Experimentieren",
+		"taskMode": "strictPractice",
 		"taskData": {},
 		"rootNode": 0,
+		"previousNode": 0,
 		"topology": [[0, null, null]],
 		"edges": {
 			"0": [1],
 			"1": []
 		},
 		"currentNode": 0,
-		"taskMode": "practice",
 		"nodes": {
 			"0": {
 				"zoomScale": 1,
@@ -55,7 +57,7 @@
 						"component" : {
 							"actions" : [
 								{
-									"instruction" : "generateExperimientierenDatMain",
+									"instruction" : "generateExperimentierenDataMain",
 									"type": "fetchData",
 									"label" : "Generieren!",
 									"disabled" : "nodes__0__components__0__component__generateBtnDisabled"
