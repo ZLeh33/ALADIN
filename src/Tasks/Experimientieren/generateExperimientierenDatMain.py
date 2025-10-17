@@ -1,7 +1,0 @@
-
-
-
-
-
-def generateExperimientierenDatMain():
-    return True
