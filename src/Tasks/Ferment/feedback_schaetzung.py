@@ -136,5 +136,5 @@ def feedback_schatzung():
         json.dump(feedback, feedback_file, indent=4, ensure_ascii=False)
 
 # Funktion aufrufen
-#feedback_schatzung()
+feedback_schatzung()
 
