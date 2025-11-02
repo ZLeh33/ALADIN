@@ -1,12 +1,10 @@
 import fs from "fs";
 const path = require("path");
 
-export function generateExperimentierenDataMain(parameter: any) {
-    console.log('hier : ', parameter);
-    const filePath = path.join(__dirname, "/internData/frontendUserData.json");
+function saveFrontendUserData(userDataObject: Record<string, any>) : boolean{
+	const filePath = path.join(__dirname, "/internData/frontendUserData.json");
     
-	let jsonString = JSON.stringify(parameter, null, 4);
-
+	let jsonString = JSON.stringify(userDataObject, null, 4);
 	
 	try {
 		fs.writeFileSync(filePath, jsonString, "utf-8");
@@ -14,5 +12,10 @@ export function generateExperimentierenDataMain(parameter: any) {
 	} catch (error) {
 		return false;
 	}
-    return true;
+}
+
+
+export function generateExperimentierenDataMain(userDataObject: any) {
+    const check = saveFrontendUserData(userDataObject);
+    return check;
 }
