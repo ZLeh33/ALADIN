@@ -1,0 +1,43 @@
+{
+    "parameters": {
+        "latexData": {
+            "a": {
+                "inputType": "text",
+                "value": "\\sum_0^8x_{i}\\cdot y_{i}",
+                "selectedOption": "LaTex-Formel"
+            },
+            "x_i": {
+                "inputType": "text",
+                "value": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                ],
+                "selectedOption": "Vom Pfad initialisieren"
+            },
+            "y_i": {
+                "inputType": "text",
+                "value": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                ],
+                "selectedOption": "Vom Pfad initialisieren"
+            }
+        }
+    },
+    "type": "Experimentieren",
+    "task": "Experimentieren",
+    "instruction": "generateExperimentierenDataMain",
+    "language": "de"
+}
