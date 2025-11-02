@@ -30,7 +30,7 @@ class JsonInput(InputBase):
 
 
     def find_pfad(self):
-        root_directory = os.path.abspath('src\Tasks\FermentExercises')  # Den absoluten Pfad des Projektnamens ermitteln
+        root_directory = os.path.abspath('src/Tasks/FermentExercises')  # Den absoluten Pfad des Projektnamens ermitteln
 
         for root, dirs, files in os.walk(root_directory):
             for file in files:
