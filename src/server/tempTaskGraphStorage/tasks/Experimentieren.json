@@ -13,7 +13,7 @@
 			"consumerInstructions": {
 				"generateExperimentierenDataMain": {
 					"dependencies": ["generateExperimentierenDataMain"],
-					"body": "async (taskDescription) => { let result = {}; try { result = generateExperimentierenDataMain(); } catch (error) { console.error(error); result = error; } return result; }"
+					"body": "async (taskDescription) => { let result = {}; try { result = generateExperimentierenDataMain(taskDescription); } catch (error) { console.error(error); result = error; } return result; }"
 				}
 			}
 		}
