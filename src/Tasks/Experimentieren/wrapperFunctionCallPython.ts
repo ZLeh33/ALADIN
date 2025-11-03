@@ -1,13 +1,15 @@
 
 import { record } from "fp-ts";
 import { lastIndexOf } from "lodash";
+import path from 'path';
+
 import { 
 	saveObjectAsJsonFile, 
 	getValueByPathFromJson,
 	callFunction
 } from "./Utils";
 
-import path from 'path';
+
 
 interface ILatexDataItem {
 	inputType		?: string;
@@ -17,6 +19,11 @@ interface ILatexDataItem {
 
 type LatexData = Record<string,ILatexDataItem>;
 
+const selectValueOptions = {
+    callFunction : 'funktion aufruf',
+    initFromPath : 'vom pfad initialisieren'
+} as const;
+type selectValueOptions = (typeof selectValueOptions)[keyof typeof selectValueOptions];
 
 function resolveInputValue(latexData: LatexData): LatexData | boolean {
     if (Object.keys(latexData).length === 0) return false;
@@ -30,7 +37,7 @@ function resolveInputValue(latexData: LatexData): LatexData | boolean {
         if (!option || option.length === 0) continue;
 
         switch (option) {
-            case 'vom pfad initialisieren': {
+            case selectValueOptions.initFromPath: {
                 const [fileName, pathKey] = elementData.value.split(':');
 
                 const filePath = path.join(__dirname, 'internData', `${fileName}.json`);
@@ -40,7 +47,7 @@ function resolveInputValue(latexData: LatexData): LatexData | boolean {
                 break;
             }
 
-            case 'funktion aufruf': {
+            case selectValueOptions.callFunction : {
                 const newValue : string = callFunction(elementData.value);
                 elementData.value = newValue;
                 break;
