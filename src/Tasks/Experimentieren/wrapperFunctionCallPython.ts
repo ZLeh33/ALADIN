@@ -6,7 +6,7 @@ import path from 'path';
 import { 
 	saveObjectAsJsonFile, 
 	getValueByPathFromJson,
-	callFunction
+    extractFunctionData
 } from "./Utils";
 
 
@@ -14,7 +14,9 @@ import {
 interface ILatexDataItem {
 	inputType		?: string;
 	value 			?: string;
-	selectedOption 	?: string; 
+	selectedOption 	?: string;
+    functionName    ?: string;
+    parameters      ?: Array<any>
 }
 
 type LatexData = Record<string,ILatexDataItem>;
@@ -25,7 +27,7 @@ const selectValueOptions = {
 } as const;
 type selectValueOptions = (typeof selectValueOptions)[keyof typeof selectValueOptions];
 
-function resolveInputValue(latexData: LatexData): LatexData | boolean {
+async function resolveInputValue(latexData: LatexData): Promise<LatexData | boolean> {
     if (Object.keys(latexData).length === 0) return false;
 
     for (const key of Object.keys(latexData)) {
@@ -48,25 +50,34 @@ function resolveInputValue(latexData: LatexData): LatexData | boolean {
             }
 
             case selectValueOptions.callFunction : {
-                const newValue : string = callFunction(elementData.value);
-                elementData.value = newValue;
+                
+                const functionData = extractFunctionData(elementData.value);
+                latexData[key] = {
+                    ...elementData,
+                    ...functionData
+                }
+                const functionName = latexData[key].functionName;
+                const parameters : any = latexData[key].parameters;
+                
+                const utils = await import('./Utils');
+                latexData[key].value = (utils as any)[functionName](...parameters as any[]);
+                
                 break;
             }
-
             default:
                 break;
         }
     }
-
+    
     return latexData;
 }
 
-export function generateExperimentierenDataMain(userDataObject: any) {
-    let latexData = resolveInputValue(userDataObject?.parameters?.latexData as LatexData);
+export async function generateExperimentierenDataMain(userDataObject: any) {
+    let latexData = await resolveInputValue(userDataObject?.parameters?.latexData as LatexData);
 	
 	if(!latexData) return null;
 	userDataObject.parameters.latexData = latexData;
-	
+
 	const check = saveObjectAsJsonFile(userDataObject,`${__dirname}/internData/frontendUserData.json`);
     return check;
 }
