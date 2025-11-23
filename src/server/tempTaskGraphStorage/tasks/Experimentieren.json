@@ -37,7 +37,7 @@
 					"sm": [{ "x": 12, "y": 5, "w": 2, "h": 5, "i": 1, "static": false }],
 					"md": [{ "x": 0, "y": 10, "w": 2, "h": 5, "i": 1, "static": false }],
 					"lg": [
-						{ "x": 34, "y": 29, "w": 6, "h": 3, "i": 0, "static": false },
+						{ "x": 34, "y": 29, "w": 8, "h": 3, "i": 0, "static": false },
 						{ "x": 32, "y": 29, "w": 2, "h": 2, "i": 1, "static": false }
 					]
 				},
