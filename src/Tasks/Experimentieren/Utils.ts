@@ -45,7 +45,20 @@ export function getValueByPathFromJson(filePath: string, pathKey: string): any |
     }
 }
 
-export function callFunction(functionName :  string) : string{
-    return '';
+export function extractFunctionData (str : string) : object{
+    const functionName = str.substring(0,str.indexOf('('));
+    let parametersAsString = str.substring(str.indexOf('(')+1, str.lastIndexOf(')')).split(';');
+
+    return {
+        functionName : functionName,
+        parameters : parametersAsString.map(param => JSON.parse(param))
+    }
+}
+
+export function callFunction(arg1:any, arg2:any, arg3: any ): any{
+    console.log(arg1);
+    console.log(arg2);
+    console.log(arg3);
+    return 200;
 }
 
